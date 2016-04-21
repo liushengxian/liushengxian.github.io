@@ -15,14 +15,12 @@ categories: jekyll update
 如下两条命令轻松解决问题：
 
 1、回退到之前的某个版本
-`
-git reset --hard <要rollback到的commit>
-`
+
+`git reset --hard <要rollback到的commit>`
 
 2、强制推送你当前的版本到远程仓库：
-`
-git push <remote>  HEAD --force
-`
+
+`git push <remote>  HEAD --force`
 
 
 年轻人还是要好好学习文化知识，不要老想搞个大新闻。还是要老老实实学习Git命令的。
@@ -34,4 +32,3 @@ git push <remote>  HEAD --force
 
 
 [ref-20160415-01]: http://www.oschina.net/question/590228_102985
-
