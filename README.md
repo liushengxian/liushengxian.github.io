@@ -1,6 +1,6 @@
 # jekyll-theme-EasyBook
 
-My Blog Using Jekyll Blog Theme "[Emerald][https://github.com/KingFelix/emerald]"
+My Blog Using Jekyll Blog Theme "[Emerald](https://github.com/KingFelix/emerald)"
 
 Start blogging with a simple but powerful theme.
 
