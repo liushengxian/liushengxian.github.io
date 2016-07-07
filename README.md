@@ -1,4 +1,4 @@
-# jekyll-theme-EasyBook
+# jekyll-theme-Misanya-Emerald
 
 My Blog Using Jekyll Blog Theme "[Emerald](https://github.com/KingFelix/emerald)"
 

@@ -18,6 +18,7 @@ $text-color:       #111;
 $background-color: #fdfdfd;
 $brand-color:      #2a7ae2;
 
+
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
@@ -44,6 +45,7 @@ $on-laptop:        800px;
 }
 
 
+@import 'bourbon/bourbon';
 
 // Import partials from `sass_dir` (defaults to `_sass`)
-@import "base", "mixin", "typography", "layout", "syntax.scss", "custom.scss";
+@import "base", "mixin", "typography", "layout", "syntax.scss", "custom.scss","tag";

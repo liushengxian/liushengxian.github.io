@@ -2,7 +2,8 @@
 layout: post
 title:  "GitHub rollback"
 date:   2016-04-15 11:56:32 +0800
-categories: jekyll update
+categories: General
+tags: Github Jekyll
 ---
 在拿出一点零碎时间中想把自己的blog搞一下，下载了一个easybook的主题然而没耐心去看配置。草草上传到GitHub之后发现把网站弄的丑陋不堪。很烦的问题是我这边没有安装成功Jekyll，（尝试了两个gems的镜像都没有成功），所以想想还是回退到之前的Blog了。先开始写。
 

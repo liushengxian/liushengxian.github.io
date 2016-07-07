@@ -2,7 +2,9 @@
 layout: post
 title:  "Hello Jekyll!"
 date:   2016-03-23 22:11:32 +0800
-categories: jekyll update
+categories: General
+tags: Test
+permalink: first-blog
 ---
 这是我的第一篇Jekyll博客。
 

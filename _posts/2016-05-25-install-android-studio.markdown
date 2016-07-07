@@ -2,7 +2,8 @@
 layout: post
 title:  "Install android studio"
 date:   2016-05-25 23:00:16 +0800
-categories: jekyll update
+categories: Installation
+tags: Android
 ---
 
 客户紧逼老板，老板又反过来将压力施加到我这边。步步紧逼，要在周末之前完成项目的优化。
