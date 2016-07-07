@@ -30,7 +30,7 @@ defaults:
 version: "1.2.0"
 
 # Where are tags and categories displayed
-tag_page: '/blog/tags/'
+tag_page: '/blog/tags'
 category_page: '/blog/categories/'
 
 # Options
