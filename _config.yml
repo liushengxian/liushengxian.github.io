@@ -1,39 +1,37 @@
-# Site settings
+---
 title: Misanya Liu's Blog
-description: "A minimal blog Using Emerald."
-url: "http://misanya.com"
-author:
-  name: "Misanya Liu"
-  email: "liushengxian1230@163.com"
-  url: "http://misanya.com"
-
-# Build settings
-baseurl: / # Change this to your relative path (ex: /blog/), or leave just a /
-markdown: kramdown
-source: .
-destination: ./_site
-permalink: /blog/:title
-gems: [jekyll-paginate]
-paginate: 5
-paginate_path: /page:num/
-
-# Default values
+timezone: UTC
+collections:
+  posts:
+    title: Posts
+    output: true
+  uploads:
+    title: Uploads
+    output: true
 defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-
-# Custom variables
-version: "1.2.0"
-
-# Where are tags and categories displayed
-tag_page: '/blog/tags'
-category_page: '/blog/categories/'
-
-# Options
+- scope:
+    path: ''
+    type: posts
+  values:
+    layout: post
+description: A minimal blog Using Emerald.
+url: http://misanya.com
+author:
+  name: Misanya Liu
+  email: liushengxian1230@163.com
+  url: http://misanya.com
+baseurl: "/"
+markdown: kramdown
+source: "."
+destination: "./_site"
+permalink: "/blog/:title"
+gems:
+- jekyll-paginate
+paginate: 5
+paginate_path: "/page:num/"
+version: 1.2.0
+tag_page: "/blog/tags"
+category_page: "/blog/categories/"
 custom_header: false
 custom_nav_footer: false
 reverse: false

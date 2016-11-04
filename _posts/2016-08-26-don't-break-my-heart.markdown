@@ -1,10 +1,13 @@
 ---
+title: Don't break my heart
+date: 2016-08-26 15:25:42 Z
+categories:
+- Essay
+tags:
+- Essay
 layout: post
-title:  "Don't break my heart"
-date:   2016-08-26 23:25:42 +0800
-categories: Essay
-tags: Essay
 ---
+
 网易云音乐里推荐的每日歌曲。也许很多意境，状况都已经在很早的词曲里写过了，所以现在的歌曲都讲究写个乱七八糟让人看不懂吧（误O(∩_∩)O）。今天看到这个，仿佛又是专门给自己情况写的歌曲呢。
 
 

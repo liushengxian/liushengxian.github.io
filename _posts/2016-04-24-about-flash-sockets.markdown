@@ -1,10 +1,16 @@
 ---
+title: About Flash Sockets
+date: 2016-04-24 17:13:34 Z
+categories:
+- Dev
+tags:
+- Arduino
+- Flash
+- Python
+- Socket
 layout: post
-title:  "About Flash Sockets"
-date:   2016-04-25 01:13:34 +0800
-categories: Dev
-tags: Arduino Flash Python Socket
 ---
+
 今天花了好久做一个Arduino跟Flash之间使用Socket通信的应用。但是期间总是对于Flash端Socket里接收的数据可靠性表示很怀疑，最后也没解决这个问题，很是尴尬。
 回来趁一股热乎劲赶紧花两个小时看了一下，做了一个python的server来模拟Arduino的行为，总算是有些理解了。
 
