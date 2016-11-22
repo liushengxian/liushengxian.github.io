@@ -1,9 +1,6 @@
 # hugo-theme-Misanya-Casper
 
-My blog is built with [hugo] engine & [casper] theme
-
-[hugo](https://gohuogo.io)
-[casper](http://themes.gohugo.io/casper/)
+My blog is built with [hugo](https://gohugo.io) engine & [casper](http://themes.gohugo.io/casper/) theme
 
 ## License
 ```
