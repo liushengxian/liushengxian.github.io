@@ -1,8 +1,6 @@
-# jekyll-theme-Misanya-Emerald
+# hugo-theme-Misanya-Casper
 
-My Blog Using Jekyll Blog Theme "[Emerald](https://github.com/KingFelix/emerald)"
-
-Start blogging with a simple but powerful theme.
+My blog is built with [hugo](https://gohugo.io) engine & [casper](http://themes.gohugo.io/casper/) theme
 
 ## License
 ```
