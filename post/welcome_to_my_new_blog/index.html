@@ -257,21 +257,18 @@ qnmd,这不就是jekyll的默认主题吗。在这里面有很多是jekyll主题
 
 
 
-    
-
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-  var disqus_shortname = 'YOUR_SHORT_NAME_HERE';
-  var disqus_url = 'http:\/\/misanya.com\/post\/welcome_to_my_new_blog\/';
-  (function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: document.location.href,
+  productKey: "2015718302214afbb11329c111af5703",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
 
 
   </footer>
