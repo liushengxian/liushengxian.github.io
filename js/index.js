@@ -19,7 +19,10 @@
             e.preventDefault();
             $("body").toggleClass("nav-opened nav-closed");
         });
-
+        
+        $('.post-excerpt>p').css('height','300px');
+        $('.post-excerpt>p').dotdotdot();
+        console.info("Test ok!");
     });
 
     // Arctic Scroll by Paul Adam Davis
