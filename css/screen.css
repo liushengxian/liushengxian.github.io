@@ -969,6 +969,8 @@ body:not(.post-template) .post-title {
     margin: 0;
     font-size: 0.9em;
     line-height: 1.7em;
+    height: 8.5em;
+    overflow: hidden;
 }
 
 .read-more {
