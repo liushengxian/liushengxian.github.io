@@ -2,8 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://misanya.com/</loc>
-    <lastmod>2017-01-02T16:18:42+08:00</lastmod>
+    <loc>http://misanya.com/post/minimalist-lifestyle/</loc>
+    <lastmod>2017-01-10T12:03:20+08:00</lastmod>
   </url>
   
   <url>
@@ -29,6 +29,18 @@
   <url>
     <loc>http://misanya.com/about/</loc>
     <lastmod>2016-11-06T09:34:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://misanya.com/</loc>
+    <lastmod>2017-01-10T12:03:20+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://misanya.com/post/</loc>
+    <lastmod>2017-01-10T12:03:20+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>
