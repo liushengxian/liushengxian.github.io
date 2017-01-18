@@ -1,9 +1,12 @@
 let mySnake = (function(){
 
-	let _snakeBody = [{x:20,y:20}];
+	let _snakeBody = [{x:20,y:30}];
 	let _snakeColor = 'green';
 
 	let _direction = 'ArrowRight';
+
+	//蛇的身体大小
+	const _snakeBodySize = 10;
 
 
 	let _drawSnake = function(){
@@ -17,25 +20,44 @@ let mySnake = (function(){
 		switch(_direction){
 			case 'ArrowRight':
 			{				
-				snakeHead.x += 10;
+				snakeHead.x += _snakeBodySize;
 				break;
 			}
 			case 'ArrowUp':
 			{
-				snakeHead.y -= 10;
+				snakeHead.y -= _snakeBodySize;
 				break;
 			}
 			case 'ArrowLeft':
 			{
-				snakeHead.x -= 10;
+				snakeHead.x -= _snakeBodySize;
 				break;
 			}
 			case 'ArrowDown':
 			{
-				snakeHead.y += 10;
+				snakeHead.y += _snakeBodySize;
 				break;
 			}
 		}
+
+		//judge if snake is out of border.
+		if(snakeHead.x < 0 ||snakeHead.x >= 600||snakeHead.y < 0 ||snakeHead.y >= 400){
+			console.info('snake go out of border!');
+			return false;
+		}
+		//judge if snakeHead is on body.
+		let snakeDead = _snakeBody.some((item,index)=>{
+			if(item.x == snakeHead.x&&item.y == snakeHead.y){
+				//snake eat itself!
+				return true;
+			}
+			return false;
+		});
+
+		if(snakeDead){
+			return false;
+		}
+
 		//add to front
 		_snakeBody.unshift(snakeHead);
 		if(foodManager.hasFood(snakeHead)){
@@ -46,6 +68,8 @@ let mySnake = (function(){
 			//remove the last block of body if no food was eatten.
 			_snakeBody.pop();
 		}
+
+		return true;
 	};
 
 	let _isOpposite = function(direction){

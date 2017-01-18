@@ -16,7 +16,6 @@ let addScore = (add_score)=>{
 	score.innerHTML = parseInt(score.innerHTML) + add_score;
 }
 
-
 // ctx.fillStyle = 'rgba(0,0,200,0.5)';
 // ctx.fillRect(30,30,55,50);
 
@@ -44,7 +43,7 @@ let getRandomPos = ()=>{
 
 //game timer.
 let timeCount = 0;
-let timeInterval = 500;
+let timeInterval = 300;
 let gameStart = function() {
 	// console.info('hello misanya!'+(timeCount++));
 	timeCount++;
@@ -61,7 +60,10 @@ let gameStart = function() {
 		//draw food
 		foodManager.drawFood();
 
-		mySnake.move(foodManager.getFoodList());
+		if(!mySnake.move(foodManager.getFoodList())){
+			//game over
+			startFlag = false;
+		}
 		mySnake.drawSnake();
 	}
 	else{
@@ -85,11 +87,3 @@ canvas.onclick = function(){
 	gameStart();
 	addKeyBoardSupport();
 };
-
-
-
-
-
-
-
-

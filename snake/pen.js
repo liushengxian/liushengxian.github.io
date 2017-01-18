@@ -30,7 +30,3 @@ let _drawBody = function(color,pos){
 	};
 
 })();
-
-
-
-
