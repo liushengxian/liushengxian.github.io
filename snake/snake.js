@@ -77,13 +77,24 @@ let mySnake = (function(){
 		return ((directions.has('ArrowDown')&&directions.has('ArrowUp'))||(directions.has('ArrowLeft')&&directions.has('ArrowRight')));
 	}
 
+	let arrowSet = new Set(['ArrowRight','ArrowLeft','ArrowUp','ArrowDown']);
+	let _isLegal = function(direction){
+		return arrowSet.has(direction);
+	}
+
 	//设定蛇头移动方向
 	let _setDirection = function(direction){
 		console.info(direction.key);
+		//屏蔽除了方向键之外的其他按键
+		if(!_isLegal(direction.key)){
+			return;
+		}
+
 		if((direction.key == _direction)||_isOpposite(direction.key)){
 			return;
 		}
 		else{
+
 			_direction = direction.key;
 		}
 	};
