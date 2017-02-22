@@ -15,6 +15,8 @@ $('.circle-img').on('hover',function(){
 
 function resetStatus(){
 	$('#lyric').text('==============Present By Misanya=============');
+	angel = 0;
+	$('.circle-img').css('transform','rotate('+angel+'deg)');
 }
 
 
@@ -31,7 +33,11 @@ function rotateCircle(){
 	$('.circle-img').css('transform','rotate('+angel+'deg)');
 }
 
+
+//TODO when loop, check this word.
 music.onended = function(){
+	console.info('music ended!');
+	window.clearInterval(play_interval);
 	resetStatus();
 	lyc_parser.reset();
 };
