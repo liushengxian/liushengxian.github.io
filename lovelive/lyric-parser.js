@@ -1,6 +1,6 @@
 // console.info('go parser!');
 	
-var lyc_parser = (function(){
+var lycParser = function(){
 
 	function _replacer(match,d1,d2,d3,d4,offset,string){
 		return [parseInt(d1)*60+parseInt(d2),d3].join('.');
@@ -67,4 +67,4 @@ var lyc_parser = (function(){
 		reset: _reset
 
 	}
-})();
+};

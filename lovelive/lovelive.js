@@ -7,7 +7,12 @@ var timeInterval = 40;
 var music = document.getElementById('music-treasure');
 
 // lyc_parser.testFunc();
+
+var lyc_parser = lycParser();
+var lyc_parser2 = lycParser();
+
 lyc_parser.load('lovelive.lrc');
+lyc_parser2.load('ch-live.lrc');
 
 $('.circle-img').on('hover',function(){
 	$(this).css('box-shadow','2px solid #ff0033');
@@ -15,6 +20,7 @@ $('.circle-img').on('hover',function(){
 
 function resetStatus(){
 	$('#lyric').text('==============Present By Misanya=============');
+	$('#ch-lyric').text('==========Lyric from Netease Cloud Music==========');
 	angel = 0;
 	$('.circle-img').css('transform','rotate('+angel+'deg)');
 }
@@ -22,8 +28,12 @@ function resetStatus(){
 
 function playMusic(){
 	var word = lyc_parser.check(music.currentTime);
+	var ch_word = lyc_parser2.check(music.currentTime);
 	if(word){
 		$('#lyric').text(word);	
+	}
+	if(ch_word){
+		$('#ch-lyric').text(ch_word);
 	}
 	rotateCircle();
 }
@@ -40,6 +50,7 @@ music.onended = function(){
 	window.clearInterval(play_interval);
 	resetStatus();
 	lyc_parser.reset();
+	lyc_parser2.reset();
 };
 
 resetStatus();
