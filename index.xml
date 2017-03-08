@@ -7,8 +7,68 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Tue, 21 Feb 2017 20:30:28 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 08 Mar 2017 10:37:45 +0800</lastBuildDate>
     <atom:link href="http://misanya.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>记录一个jQuery的问题</title>
+      <link>http://misanya.com/post/record_a_jquery_bug/</link>
+      <pubDate>Wed, 08 Mar 2017 10:37:45 +0800</pubDate>
+      
+      <guid>http://misanya.com/post/record_a_jquery_bug/</guid>
+      <description>
+
+&lt;h3 id=&#34;记录一个jquery的bug的查找过程&#34;&gt;记录一个jQuery的bug的查找过程&lt;/h3&gt;
+
+&lt;p&gt;想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。&lt;/p&gt;
+
+&lt;h4 id=&#34;发现问题&#34;&gt;发现问题&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://misanya.com/post/imgs/bug-01.png&#34; alt=&#34;问题截图&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://misanya.com/post/imgs/bug-03.png&#34; alt=&#34;有问题的DOM结构&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;很明显，不知道是谁给添加了一个line-height:3px的限制。&lt;/p&gt;
+
+&lt;h4 id=&#34;定位问题&#34;&gt;定位问题&lt;/h4&gt;
+
+&lt;p&gt;在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;contentToggle: function () {
+let $dom = $(&#39;#js_comment_list .txt p&#39;);
+$dom.each(function (index) {
+    let $domHeight = parseInt($(this).css(&#39;height&#39;));
+    let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;));
+    //console.info(&#39;line height is &#39;+$domLineHeight+&#39;,index is:&#39;+index);
+    let $domMaxHeight = $domLineHeight * 3;
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;找到问题&#34;&gt;找到问题&lt;/h4&gt;
+
+&lt;p&gt;看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://misanya.com/post/imgs/bug-02.png&#34; alt=&#34;IE9的控制台输出&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://misanya.com/post/imgs/bug-04.png&#34; alt=&#34;Chrome的控制台输出&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://bugs.jquery.com/ticket/13472&#34;&gt;JQuery Bug Report&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;解决问题&#34;&gt;解决问题&lt;/h4&gt;
+
+&lt;p&gt;我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？&lt;/p&gt;
+
+&lt;p&gt;但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。&lt;/p&gt;
+
+&lt;h4 id=&#34;总结问题&#34;&gt;总结问题&lt;/h4&gt;
+
+&lt;p&gt;总结个毛啊 有啥好总结的。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>勿忘初心&amp;永远幸福的科学</title>

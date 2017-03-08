@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+
+
+    
+        
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="http://misanya.com/http://misanya-1252867445.cossh.myqcloud.com/sky.jpg"/>
+    
+
+
+
+<meta name="twitter:title" content="记录一个jQuery的问题"/>
+<meta name="twitter:description" content="记录一个jQuery的bug的查找过程 想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。
+发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
+很明显，不知道是谁给添加了一个line-height:3px的限制。
+定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
+contentToggle: function () { let $dom = $(&#39;#js_comment_list .txt p&#39;); $dom.each(function (index) { let $domHeight = parseInt($(this).css(&#39;height&#39;)); let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;)); //console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index); let $domMaxHeight = $domLineHeight * 3; ...  找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
+JQuery Bug Report
+解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
+但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。
+总结问题 总结个毛啊 有啥好总结的。"/>
+
+    <meta name="twitter:site" content="@your_twitter"/>
+
+
+
+  	<meta property="og:title" content=" 记录一个jQuery的问题 &middot;  Misanya&#39;s Blog" />
+  	<meta property="og:site_name" content="Misanya&#39;s Blog" />
+  	<meta property="og:url" content="http://misanya.com/post/record_a_jquery_bug/" />
+
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2017-03-08T10:37:45&#43;08:00" />
+
+    
+    
+
+    <title>
+       记录一个jQuery的问题 &middot;  Misanya&#39;s Blog
+    </title>
+
+    <meta name="description" content="Somebody has to win，so why not，why not be me ." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://misanya.com/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://misanya.com/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://misanya.com/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://misanya.com/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+        <link href="http://feeds.feedburner.com/..." rel="alternate" type="application/rss+xml" title="Misanya&#39;s Blog" />
+    
+    <meta name="generator" content="Hugo 0.18.1" />
+
+    <link rel="canonical" href="http://misanya.com/post/record_a_jquery_bug/" />
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-86921642-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://misanya.com/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://misanya.com/about">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://feeds.feedburner.com/...">Subscribe</a> </div>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+  
+  <header class="main-header post-head" style="background-image: url(http://misanya-1252867445.cossh.myqcloud.com/sky.jpg)">
+  
+  <nav class="main-nav overlay clearfix">
+
+
+  
+      <a class="blog-logo" href="http://misanya.com/"><img src="http://misanya.com/images/home.png" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">记录一个jQuery的问题</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2017-03-08T10:37:45&#43;08:00">
+            Mar 8, 2017
+          </time>
+        
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<h3 id="记录一个jquery的bug的查找过程">记录一个jQuery的bug的查找过程</h3>
+
+<p>想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。</p>
+
+<h4 id="发现问题">发现问题</h4>
+
+<p><img src="http://misanya.com/post/imgs/bug-01.png" alt="问题截图" /></p>
+
+<p>这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：</p>
+
+<p><img src="http://misanya.com/post/imgs/bug-03.png" alt="有问题的DOM结构" /></p>
+
+<p>很明显，不知道是谁给添加了一个line-height:3px的限制。</p>
+
+<h4 id="定位问题">定位问题</h4>
+
+<p>在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：</p>
+
+<pre><code>contentToggle: function () {
+let $dom = $('#js_comment_list .txt p');
+$dom.each(function (index) {
+    let $domHeight = parseInt($(this).css('height'));
+    let $domLineHeight = parseInt($(this).css('lineHeight'));
+    //console.info('line height is '+$domLineHeight+',index is:'+index);
+    let $domMaxHeight = $domLineHeight * 3;
+    ...
+</code></pre>
+
+<h4 id="找到问题">找到问题</h4>
+
+<p>看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：</p>
+
+<p><img src="http://misanya.com/post/imgs/bug-02.png" alt="IE9的控制台输出" /></p>
+
+<p><img src="http://misanya.com/post/imgs/bug-04.png" alt="Chrome的控制台输出" /></p>
+
+<p>果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。</p>
+
+<p><a href="https://bugs.jquery.com/ticket/13472">JQuery Bug Report</a></p>
+
+<h4 id="解决问题">解决问题</h4>
+
+<p>我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？</p>
+
+<p>但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。</p>
+
+<h4 id="总结问题">总结问题</h4>
+
+<p>总结个毛啊 有啥好总结的。</p>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="http://misanya.com/" style="background-image: url(http://misanya.com/images/avatar.jpg)"><span class="hidden">Misanya Liu's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://misanya.com/">Misanya Liu</a></h4>
+  
+  <p>Go forward.</p>
+  
+  <div class="author-meta">
+    <span class="author-location icon-location">Shanghai, China</span>
+    <span class="author-link icon-link"><a href="http://misanya.com">http://misanya.com</a></span>
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=%e8%ae%b0%e5%bd%95%e4%b8%80%e4%b8%aajQuery%e7%9a%84%e9%97%ae%e9%a2%98&nbsp;-&nbsp;Misanya%27s%20Blog&amp;url=http%3a%2f%2fmisanya.com%2fpost%2frecord_a_jquery_bug%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fmisanya.com%2fpost%2frecord_a_jquery_bug%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fmisanya.com%2fpost%2frecord_a_jquery_bug%2f&amp;description=%e8%ae%b0%e5%bd%95%e4%b8%80%e4%b8%aajQuery%e7%9a%84%e9%97%ae%e9%a2%98"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2fmisanya.com%2fpost%2frecord_a_jquery_bug%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'Misanya';
+  var disqus_url = 'http:\/\/misanya.com\/post\/record_a_jquery_bug\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Misanya&#39;s Blog</a> All rights reserved - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://misanya.com/js/jquery.js"></script>
+    <script type="text/javascript" src="http://misanya.com/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://misanya.com/js/index.js"></script>
+    <script type="text/javascript" src="http://misanya.com/js/jquery.dotdotdot.min.js"></script>
+    
+</body>
+</html>
+
