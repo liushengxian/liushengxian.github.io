@@ -7,8 +7,51 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Wed, 08 Mar 2017 10:37:45 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 07 Apr 2017 11:20:24 +0800</lastBuildDate>
     <atom:link href="http://misanya.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>一些简单的命令收集</title>
+      <link>http://misanya.com/post/basic_commands_for_my_linux/</link>
+      <pubDate>Fri, 07 Apr 2017 11:20:24 +0800</pubDate>
+      
+      <guid>http://misanya.com/post/basic_commands_for_my_linux/</guid>
+      <description>
+
+&lt;h3 id=&#34;screen常用的初级命令&#34;&gt;screen常用的初级命令&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Command&lt;/th&gt;
+&lt;th&gt;Effects&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;screen -S [screen-name]&lt;/td&gt;
+&lt;td&gt;新建指定名称的screen并进入&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;screen -list&lt;/td&gt;
+&lt;td&gt;列出现存的screen&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;screen -r [screen-name]&lt;/td&gt;
+&lt;td&gt;连接到指定名称的screen&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;screen -X -S [screen-name] quit&lt;/td&gt;
+&lt;td&gt;退出指定名称的screen&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
     
     <item>
       <title>记录一个jQuery的问题</title>

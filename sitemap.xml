@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://misanya.com/post/basic_commands_for_my_linux/</loc>
+    <lastmod>2017-04-07T11:20:24+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://misanya.com/post/record_a_jquery_bug/</loc>
     <lastmod>2017-03-08T10:37:45+08:00</lastmod>
   </url>
@@ -43,13 +48,13 @@
   
   <url>
     <loc>http://misanya.com/</loc>
-    <lastmod>2017-03-08T10:37:45+08:00</lastmod>
+    <lastmod>2017-04-07T11:20:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://misanya.com/post/</loc>
-    <lastmod>2017-03-08T10:37:45+08:00</lastmod>
+    <lastmod>2017-04-07T11:20:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
