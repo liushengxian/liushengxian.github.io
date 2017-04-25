@@ -1,0 +1,38 @@
+1.download netease music for linux;
+2.download hardware from startup panel;
+3.sudo apt-get update/sudo apt-get upgrade
+[upgrade is breaking here.]
+4.download chrome for linux;
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo gdebi google-chrome-stable_current_amd64.deb
+
+5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!)
+
+6.install git.
+
+7.generate my ssh-key for github.
+
+8.download shadowsocks-qt5.
+https://github.com/shadowsocks/shadowsocks-qt5/wiki
+(sudo add-apt-repository ppa:hzwhuang/ss-qt5
+sudo apt-get update
+sudo apt-get install shadowsocks-qt5)
+
+9.Set up a shadowsocks Server On my linode.
+
+10. Chinese input method;
+重启电脑了
+
+11.Switchy Sharp ==> Switchy Omega.
+
+12. Install Hugo
+
+
+
+
+
+
+
+
+
+reference: http://blog.csdn.net/albertjone/article/details/54633747
