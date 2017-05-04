@@ -278,9 +278,7 @@ sudo apt-get install mysql-workbench.
 
 <p>果断关掉这个插件，然后访问站点。根据小王子说的那个error.log，获得了以下出错信息：</p>
 
-<ol>
-<li>install composer!</li>
-</ol>
+<p>1.install composer!</p>
 
 <p>error log：</p>
 
@@ -290,8 +288,7 @@ PHP message: PHP Fatal error:  require(): Failed opening required &lsquo;/home/m
 <p>我按照这个目录过去发现这个vendor文件夹里面是空的。。想起来了。好吧 去按照指示安装composer。然后composer install一下。
 然后他就给我下载了各种东西。。最后自动生成autoload.php。</p>
 
-<ol>
-<li>还是不行
+<p>2.还是不行
 这次的报错如下：
 ‘’‘
 2017/05/04 23:26:44 [error] 6203#6203: *1 FastCGI sent in stderr: &ldquo;PHP message: PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file &ldquo;/home/misanya/workspace/======/storage/logs/laravel-fpm-fcgi-2017-05-04.log&rdquo; could not be opened: failed to open stream: Permission denied in /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:97
@@ -310,8 +307,7 @@ Stack trace:
 ’‘’
 好吧。
 sudo chmod -R 777 ./storage
-给文件夹 要加上-R这个选项！</li>
-</ol>
+给文件夹 要加上-R这个选项！</p>
 
 <p>4.PHP 错误了
 No supported encrypter found. The cipher and / or key length are invalid.</p>
