@@ -17,16 +17,7 @@
 
 
 <meta name="twitter:title" content="记录一个jQuery的问题"/>
-<meta name="twitter:description" content="记录一个jQuery的bug的查找过程 想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。
-发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
-很明显，不知道是谁给添加了一个line-height:3px的限制。
-定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
-contentToggle: function () { let $dom = $(&#39;#js_comment_list .txt p&#39;); $dom.each(function (index) { let $domHeight = parseInt($(this).css(&#39;height&#39;)); let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;)); //console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index); let $domMaxHeight = $domLineHeight * 3; ...  找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
-果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
-JQuery Bug Report
-解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
-但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。
-总结问题 总结个毛啊 有啥好总结的。"/>
+<meta name="twitter:description" content="记录一个jQuery的bug的查找过程 想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。 发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style： 很明显，不知道是谁给添加了一个line-height:3px的限制。 定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法： contentToggle: function () { let $dom = $(&#39;#js_comment_list .txt p&#39;); $dom.each(function (index) { let $domHeight = parseInt($(this).css(&#39;height&#39;)); let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;)); //console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index); let $domMaxHeight = $domLineHeight * 3; ... 找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果： 果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。 JQuery Bug Report 解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？ 但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。 总结问题 总结个毛啊 有啥好总结的。"/>
 
     <meta name="twitter:site" content="@your_twitter"/>
 
@@ -64,7 +55,7 @@ JQuery Bug Report
     
         <link href="http://feeds.feedburner.com/..." rel="alternate" type="application/rss+xml" title="Misanya&#39;s Blog" />
     
-    <meta name="generator" content="Hugo 0.18.1" />
+    <meta name="generator" content="Hugo 0.16-DEV" />
 
     <link rel="canonical" href="http://misanya.com/post/record_a_jquery_bug/" />
 
@@ -159,11 +150,11 @@ JQuery Bug Report
     <section class="post-content">
       
 
-<h3 id="记录一个jquery的bug的查找过程">记录一个jQuery的bug的查找过程</h3>
+<h3 id="记录一个jquery的bug的查找过程:bd1784536fb452ec4c59aa586c936ca6">记录一个jQuery的bug的查找过程</h3>
 
 <p>想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。</p>
 
-<h4 id="发现问题">发现问题</h4>
+<h4 id="发现问题:bd1784536fb452ec4c59aa586c936ca6">发现问题</h4>
 
 <p><img src="http://misanya.com/post/imgs/bug-01.png" alt="问题截图" /></p>
 
@@ -173,7 +164,7 @@ JQuery Bug Report
 
 <p>很明显，不知道是谁给添加了一个line-height:3px的限制。</p>
 
-<h4 id="定位问题">定位问题</h4>
+<h4 id="定位问题:bd1784536fb452ec4c59aa586c936ca6">定位问题</h4>
 
 <p>在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：</p>
 
@@ -187,7 +178,7 @@ $dom.each(function (index) {
     ...
 </code></pre>
 
-<h4 id="找到问题">找到问题</h4>
+<h4 id="找到问题:bd1784536fb452ec4c59aa586c936ca6">找到问题</h4>
 
 <p>看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：</p>
 
@@ -199,13 +190,13 @@ $dom.each(function (index) {
 
 <p><a href="https://bugs.jquery.com/ticket/13472">JQuery Bug Report</a></p>
 
-<h4 id="解决问题">解决问题</h4>
+<h4 id="解决问题:bd1784536fb452ec4c59aa586c936ca6">解决问题</h4>
 
 <p>我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？</p>
 
 <p>但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。</p>
 
-<h4 id="总结问题">总结问题</h4>
+<h4 id="总结问题:bd1784536fb452ec4c59aa586c936ca6">总结问题</h4>
 
 <p>总结个毛啊 有啥好总结的。</p>
 

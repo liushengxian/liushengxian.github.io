@@ -2,8 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://misanya.com/post/basic_commands_for_my_linux/</loc>
-    <lastmod>2017-04-07T11:20:24+08:00</lastmod>
+    <loc>http://misanya.com/</loc>
+    <lastmod>2017-05-04T23:49:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://misanya.com/post/my_way_to_config_work_project/</loc>
+    <lastmod>2017-05-04T23:49:00+08:00</lastmod>
   </url>
   
   <url>
@@ -44,18 +50,6 @@
   <url>
     <loc>http://misanya.com/about/</loc>
     <lastmod>2016-11-06T09:34:47+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://misanya.com/</loc>
-    <lastmod>2017-04-07T11:20:24+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://misanya.com/post/</loc>
-    <lastmod>2017-04-07T11:20:24+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>
