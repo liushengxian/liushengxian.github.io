@@ -1,3 +1,5 @@
+reference: http://blog.csdn.net/albertjone/article/details/54633747
+
 1.download netease music for linux;
 2.download hardware from startup panel;
 3.sudo apt-get update/sudo apt-get upgrade
@@ -27,12 +29,28 @@ sudo apt-get install shadowsocks-qt5)
 
 12. Install Hugo
 
+////////////////////////////////
+
+13. Install phpStorm & Register.
+
+14. download xjf project from 139.196.230.158:10080
+(&&&Checkout to branch dev.)
+
+/////15. sudo apt-get install npm.///////non-sense.
+
+15. Install Nvm/(Then nodejs)
+(https://github.com/creationix/nvm)
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+(Close or set alias for nvm)
+(nvm install v7.9.0)
+
+16. Install gulp globally.
+/////npm install cnpm -g
+===>
+17. cnpm install.=====> now you can gulp beatit!
+////
 
 
+18. Let's sleep for a while! Good bye!
 
 
-
-
-
-
-reference: http://blog.csdn.net/albertjone/article/details/54633747

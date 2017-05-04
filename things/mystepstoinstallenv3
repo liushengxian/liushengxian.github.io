@@ -1,0 +1,43 @@
+1. install composer!
+
+2017/05/04 22:56:20 [error] 3739#3739: *31 FastCGI sent in stderr: "PHP message: PHP Warning:  require(/home/misanya/workspace/xijinfa/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/misanya/workspace/xijinfa/bootstrap/autoload.php on line 17
+PHP message: PHP Fatal error:  require(): Failed opening required '/home/misanya/workspace/xijinfa/bootstrap/../vendor/autoload.php' (include_path='.:/usr/share/php') in /home/misanya/workspace/xijinfa/bootstrap/autoload.php on line 17" while reading response header from upstream, client: 127.0.0.1, server: api.local.xijinfa.com, request: "GET / HTTP/1.1", upstream: "fastcgi://unix:/var/run/php/php7.0-fpm.sock:", host: "www.local.xijinfa.com"
+
+<===== error log 
+
+aliyun.
+
+然后他就给我下载阿里云的什么东西去了...各种东西好吗。。
+
+2. 还是不行
+
+2017/05/04 23:26:44 [error] 6203#6203: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/home/misanya/workspace/xijinfa/storage/logs/laravel-fpm-fcgi-2017-05-04.log" could not be opened: failed to open stream: Permission denied in /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:97
+Stack trace:
+#0 /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php(88): Monolog\Handler\StreamHandler->write(Array)
+#1 /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(37): Monolog\Handler\RotatingFileHandler->write(Array)
+#2 /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Logger.php(336): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#3 /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Logger.php(615): Monolog\Logger->addRecord(400, 'GET http://www....', Array)
+#4 /home/misanya/workspace/xijinfa/vendor/laravel/framework/src/Illuminate/Lo...
+PHP message: PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/home/misanya/workspace/xijinfa/storage/logs/laravel-fpm-fcgi-2017-05-04.log" could not be opened: failed to open stream: Permission denied in /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:97
+Stack trace:
+#0 /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php(88): Monolog\Handler\StreamHandler->write(Array)
+#1 /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(37): Monolog\Handler\RotatingFileHandler->write(Array)
+#2 /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Logger.php(336): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#3 /home/misanya/workspace/xijinfa/vendor/monolog/monolog/src/Monolog/Logger.php(615): Monolog\Logger->addRecord(400, 'GET http://www....', Array)
+#4 /home/misa
+
+sudo chmod -R 777 ./storage
+给文件夹 要加上-R这个选项！
+
+4.PHP 错误了
+
+No supported encrypter found. The cipher and / or key length are invalid.
+
+php artisan key:generate 
+
+This worked for me！ :) 
+
+参考资料：https://laravel.io/forum/06-09-2015-no-supported-encrypter-found-the-cipher-and-or-key-length-are-invalid
+
+OK！
+

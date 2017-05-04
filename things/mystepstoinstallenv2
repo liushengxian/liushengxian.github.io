@@ -1,0 +1,37 @@
+1.sudo apt-get install zsh   //强大之处在于何处呢？
+2.download mysql workbench for linux //Error: Dependency is not satisfiable. libglibmm-2.4-1v5(>= 2.48.0)
+
+sudo apt-get install mysql-workbench.
+/////////sudo apt-get update!!!!!!
+
+参考链接: https://askubuntu.com/questions/420054/trouble-installing-mysql-workbench
+
+
+//another day. May 3.
+3.sudo apt-get remove zsh. //enheng
+
+4.add alias to my .bashrc files.// gst xjf and so-on.
+
+cmd: xdg-open file
+参考链接: https://askubuntu.com/questions/31069/how-to-open-a-file-manager-of-the-current-directory-in-the-terminal
+
+5. nginx log file location: /var/log/nginx
+
+6. sudo ln -s /etc/nginx/sites-available/nginx.conf
+创建链接到available的快捷方式
+
+参考链接: https://www.pocketdigi.com/20120504/822.html
+
+7.restart nginx.
+
+参考链接: https://serverfault.com/questions/213185/how-to-restart-nginx
+
+8.install redis
+
+参考链接: https://redis.io/topics/quickstart
+
+9.重新安装linux环境配置里写的那些php依赖.
+
+Nginx的default删了 挂了。改回来 又好了 。但是总是搞不懂 哪里到底是问题所在。
+
+
