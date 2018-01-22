@@ -17,7 +17,17 @@
 
 
 <meta name="twitter:title" content="配置我的工作项目"/>
-<meta name="twitter:description" content="配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。 Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考这里。 1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】 2.download hardware from startup panel; 因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。 3.sudo apt-get update/sudo apt-get upgrade [upgrade is breaking here.] 按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。 4.download chrome for linux; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb sudo gdebi google-chrome-stable_current_amd64.deb 下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。 5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!) 还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】 6.install git. 安装Git。 7.generate my ssh-key for github. 生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。 8.download shadowsocks-qt5. 装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。 https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa:hzwhuang/ss-qt5 sudo apt-get update sudo apt-get install shadowsocks-qt5) 9.Set up a shadowsocks Server On my linode."/>
+<meta name="twitter:description" content="配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
+Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考这里。
+1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
+2.download hardware from startup panel; 因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
+3.sudo apt-get update/sudo apt-get upgrade [upgrade is breaking here.] 按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
+4.download chrome for linux; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb sudo gdebi google-chrome-stable_current_amd64.deb 下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。
+5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!) 还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】
+6.install git. 安装Git。
+7.generate my ssh-key for github. 生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。
+8.download shadowsocks-qt5. 装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。
+https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa:hzwhuang/ss-qt5 sudo apt-get update sudo apt-get install shadowsocks-qt5)"/>
 
     <meta name="twitter:site" content="@your_twitter"/>
 
@@ -55,7 +65,7 @@
     
         <link href="http://feeds.feedburner.com/..." rel="alternate" type="application/rss+xml" title="Misanya&#39;s Blog" />
     
-    <meta name="generator" content="Hugo 0.16-DEV" />
+    <meta name="generator" content="Hugo 0.31.1" />
 
     <link rel="canonical" href="http://misanya.com/post/my_way_to_config_work_project/" />
 
@@ -155,11 +165,11 @@
     <section class="post-content">
       
 
-<h3 id="配置工作项目的过程:095ecd346977ea92c78b96dae0d3af9b">配置工作项目的过程</h3>
+<h3 id="配置工作项目的过程">配置工作项目的过程</h3>
 
 <p>鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。</p>
 
-<h4 id="day-1:095ecd346977ea92c78b96dae0d3af9b">Day 1</h4>
+<h4 id="day-1">Day 1</h4>
 
 <p>0.安装Mint。用公司的那个安装盘安装的。然后参考<a href="http://blog.csdn.net/albertjone/article/details/54633747">这里</a>。</p>
 
@@ -233,7 +243,7 @@ wget -qO- <a href="https://raw.githubusercontent.com/creationix/nvm/v0.33.1/inst
 
 <p>18.Let&rsquo;s sleep for a while! Good bye!</p>
 
-<h4 id="day-2:095ecd346977ea92c78b96dae0d3af9b">Day 2</h4>
+<h4 id="day-2">Day 2</h4>
 
 <p>1.sudo apt-get install zsh   //强大之处在于何处呢？ 后来我又把它卸载了。暂时没时间看这个。</p>
 
@@ -245,7 +255,7 @@ sudo apt-get install mysql-workbench.
 
 <p>想要安装workbench但是有依赖库不对。倒腾半天之后发现需要update！</p>
 
-<h4 id="day-2-5:095ecd346977ea92c78b96dae0d3af9b">Day 2.5</h4>
+<h4 id="day-2-5">Day 2.5</h4>
 
 <p>//another day. May 3.
 3.sudo apt-get remove zsh. //好像还没用到合适的高级功能。</p>
@@ -277,7 +287,7 @@ sudo apt-get install mysql-workbench.
 
 <p>Nginx里的default文件删了 然后站点挂了。改回来 又好了 。但是总是搞不懂，哪里到底是问题所在。</p>
 
-<h4 id="day-3:095ecd346977ea92c78b96dae0d3af9b">Day 3</h4>
+<h4 id="day-3">Day 3</h4>
 
 <p>早上跟江江江讨论。他说default文件是在没有conf成功的时候才会去匹配的。说明我的conf文件还是有问题的。回来修改了下里面的路径，还是没有成功。后来我偶然间发现在切换SwitchOmega插件的状态的时候，localhost上的网页也会发生变化（不能加载与加载成功）。居然是因为自己的SwitchOmega这个插件给我自动跳转到了在线的那个项目！其实前一天我也尝试过关闭远程服务器，但是当时可能忘记清理缓存了，所以导致好像关闭远程也没有影响当前localhost（或者操作失误了？）。</p>
 

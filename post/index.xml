@@ -7,8 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Thu, 04 May 2017 23:49:00 +0800</lastBuildDate>
-    <atom:link href="http://misanya.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Dec 2017 23:47:07 +0800</lastBuildDate>
+    
+	<atom:link href="http://misanya.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>再见我的2017年</title>
+      <link>http://misanya.com/post/saygoodbye_2017/</link>
+      <pubDate>Wed, 27 Dec 2017 23:47:07 +0800</pubDate>
+      
+      <guid>http://misanya.com/post/saygoodbye_2017/</guid>
+      <description>通常来说，都认为人在本命年会过得比较坎坷一些。(至少某人是这么认为的吧。)
+再见我的2017 甚至有些平淡地不够真实。
+我想我的问题还是在于有的时候没有去考虑，不自觉地在逃避某些东西。
+有些东西，其实自己知道应该要做什么。但是当有时间的时候，却麻木————或者，我也找不到太好的词————不太想做事情。
+每个人都有自己的苦恼。
+恐惧 仔细思考下，觉得自己仿佛一直都只是在原地徘徊。从大二下挂科开始，之后虽然自己再也没有挂科，可是却再也没有进入状态。那种巅峰体验，退潮了。我已经很久没有体验过了。其实在玩游戏的时候偶尔有体验过。
+有时候很害怕，因为自己的未来。假使自己是努力，尽力还是不能达到某种程度。那好像。。好像也是另一种伤心。但是，目前对我来说，比现在给我带来的这种体验，也许会好一些吧？
+做得好 细数自己做的好的方面，好像都没有什么。就拿游戏方面来说，我好像玩的蛮多的，但是都没有那么好。LOL，也就黄金守门员的水平。DNF，早就弃坑了。炉石传说，冲冲钱在20级虐虐小朋友，传说，不存在的，竞技场更是经常2-3胜出局。王者荣耀倒是，玩了快400把终于上了个钻石。这个游戏钻石水分很大就不用说了。射击类游戏，玩的蛮多的，就不用多说了，玩不了。那些氪或者肝的，对不起，玩不起。什么崩坏2，舰N。LoveLive的，也就刷刷hard难度的，当一条咸鱼了。
+完 这边文章写的时候心里有点潮湿，但是写着写着也觉得释然了。文章没有写完，但是到现在，已经没有要继续这个话题写下去的想法了。说完了。
+关于生病 最近我养的猴子生病了。已经歇了三天。</description>
+    </item>
     
     <item>
       <title>配置我的工作项目</title>
@@ -16,177 +36,17 @@
       <pubDate>Thu, 04 May 2017 23:49:00 +0800</pubDate>
       
       <guid>http://misanya.com/post/my_way_to_config_work_project/</guid>
-      <description>
-
-&lt;h3 id=&#34;配置工作项目的过程:095ecd346977ea92c78b96dae0d3af9b&#34;&gt;配置工作项目的过程&lt;/h3&gt;
-
-&lt;p&gt;鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。&lt;/p&gt;
-
-&lt;h4 id=&#34;day-1:095ecd346977ea92c78b96dae0d3af9b&#34;&gt;Day 1&lt;/h4&gt;
-
-&lt;p&gt;0.安装Mint。用公司的那个安装盘安装的。然后参考&lt;a href=&#34;http://blog.csdn.net/albertjone/article/details/54633747&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;1.download netease music for linux;
-下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】&lt;/p&gt;
-
-&lt;p&gt;2.download hardware from startup panel;
-因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。&lt;/p&gt;
-
-&lt;p&gt;3.sudo apt-get update/sudo apt-get upgrade
-[upgrade is breaking here.]
-按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。&lt;/p&gt;
-
-&lt;p&gt;4.download chrome for linux;
-wget &lt;a href=&#34;https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb&#34;&gt;https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb&lt;/a&gt;
-sudo gdebi google-chrome-stable_current_amd64.deb
-下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。&lt;/p&gt;
-
-&lt;p&gt;5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!)
-还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】&lt;/p&gt;
-
-&lt;p&gt;6.install git.
-安装Git。&lt;/p&gt;
-
-&lt;p&gt;7.generate my ssh-key for github.
-生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。&lt;/p&gt;
-
-&lt;p&gt;8.download shadowsocks-qt5.
-装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/shadowsocks/shadowsocks-qt5/wiki&#34;&gt;https://github.com/shadowsocks/shadowsocks-qt5/wiki&lt;/a&gt;
-(sudo add-apt-repository ppa:hzwhuang/ss-qt5
-sudo apt-get update
-sudo apt-get install shadowsocks-qt5)&lt;/p&gt;
-
-&lt;p&gt;9.Set up a shadowsocks Server On my linode.
-没想到这么简单。shaodowsocks都做的这么简便了。&lt;/p&gt;
-
-&lt;p&gt;10.Chinese input method
-安装中文输入法。当时在公司折腾中文输入法搞了半天好像因为没重启一直没生效。所以这里就重启了电脑。&lt;/p&gt;
-
-&lt;p&gt;//////Restart My Computer&lt;/p&gt;
-
-&lt;p&gt;11.Switchy Sharp ==&amp;gt; Switchy Omega.
-修改系统代理带来的问题是我的网易云音乐加载歌曲也加载不动了。其实我需要的只是浏览器翻墙。所以去google商店找了这个插件来翻墙。
-只需要配置这里的proxy server指向本地的shadowsocks代理就好了。
-然后启动shadowsocks qt5.&lt;/p&gt;
-
-&lt;p&gt;12.Install Hugo
-安装Hugo。这一步与工作项目无关 = =&lt;/p&gt;
-
-&lt;p&gt;13.Install phpStorm &amp;amp; Register.
-安装phpStorm。其实也是相当独立的一步。无所谓。&lt;/p&gt;
-
-&lt;p&gt;14.download xjf project from Our Company&amp;rsquo;s Git Server。
-(&amp;amp;&amp;amp;&amp;amp;Checkout to branch dev.)&lt;/p&gt;
-
-&lt;p&gt;/////15. sudo apt-get install npm.///////non-sense.&lt;/p&gt;
-
-&lt;p&gt;15.Install Nvm/(Then nodejs)
-(&lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;https://github.com/creationix/nvm&lt;/a&gt;)
-wget -qO- &lt;a href=&#34;https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh&#34;&gt;https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh&lt;/a&gt; | bash
-(Close or set alias for nvm)
-(nvm install v7.9.0)&lt;/p&gt;
-
-&lt;p&gt;16.Install gulp globally.
-/////npm install cnpm -g
-===&amp;gt;
-17.cnpm install.=====&amp;gt; now you can gulp beatit!
-////&lt;/p&gt;
-
-&lt;p&gt;18.Let&amp;rsquo;s sleep for a while! Good bye!&lt;/p&gt;
-
-&lt;h4 id=&#34;day-2:095ecd346977ea92c78b96dae0d3af9b&#34;&gt;Day 2&lt;/h4&gt;
-
-&lt;p&gt;1.sudo apt-get install zsh   //强大之处在于何处呢？ 后来我又把它卸载了。暂时没时间看这个。&lt;/p&gt;
-
-&lt;p&gt;2.download mysql workbench for linux //Error: Dependency is not satisfiable. libglibmm-2.4-1v5(&amp;gt;= 2.48.0)
-sudo apt-get install mysql-workbench.
-/////////sudo apt-get update!!!!!!&lt;/p&gt;
-
-&lt;p&gt;参考链接: &lt;a href=&#34;https://askubuntu.com/questions/420054/trouble-installing-mysql-workbench&#34;&gt;https://askubuntu.com/questions/420054/trouble-installing-mysql-workbench&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;想要安装workbench但是有依赖库不对。倒腾半天之后发现需要update！&lt;/p&gt;
-
-&lt;h4 id=&#34;day-2-5:095ecd346977ea92c78b96dae0d3af9b&#34;&gt;Day 2.5&lt;/h4&gt;
-
-&lt;p&gt;//another day. May 3.
-3.sudo apt-get remove zsh. //好像还没用到合适的高级功能。&lt;/p&gt;
-
-&lt;p&gt;4.add alias to my .bashrc files.// gst xjf and so-on.&lt;/p&gt;
-
-&lt;p&gt;cmd: xdg-open file
-参考链接: &lt;a href=&#34;https://askubuntu.com/questions/31069/how-to-open-a-file-manager-of-the-current-directory-in-the-terminal&#34;&gt;https://askubuntu.com/questions/31069/how-to-open-a-file-manager-of-the-current-directory-in-the-terminal&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;5.nginx log file location: /var/log/nginx
-注意修改nginx.conf里面的路径。&lt;/p&gt;
-
-&lt;p&gt;6.sudo ln -s /etc/nginx/sites-available/nginx.conf
-创建链接到available的快捷方式&lt;/p&gt;
-
-&lt;p&gt;参考链接: &lt;a href=&#34;https://www.pocketdigi.com/20120504/822.html&#34;&gt;https://www.pocketdigi.com/20120504/822.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;7.restart nginx.&lt;/p&gt;
-
-&lt;p&gt;参考链接: &lt;a href=&#34;https://serverfault.com/questions/213185/how-to-restart-nginx&#34;&gt;https://serverfault.com/questions/213185/how-to-restart-nginx&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;8.install redis&lt;/p&gt;
-
-&lt;p&gt;参考链接: &lt;a href=&#34;https://redis.io/topics/quickstart&#34;&gt;https://redis.io/topics/quickstart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;9.重新安装linux环境配置里写的那些php依赖.&lt;/p&gt;
-
-&lt;p&gt;到这里。我发现自己访问在hosts文件里写的本地网站，总是给我跳转到我的远程服务器上。我自己在本地找了半天也没找到我下过这个项目。因为是新配置的机器，所以我知道自己根本没有下载过这个项目。怎么就在本地欢快地跑起来了。&lt;/p&gt;
-
-&lt;p&gt;Nginx里的default文件删了 然后站点挂了。改回来 又好了 。但是总是搞不懂，哪里到底是问题所在。&lt;/p&gt;
-
-&lt;h4 id=&#34;day-3:095ecd346977ea92c78b96dae0d3af9b&#34;&gt;Day 3&lt;/h4&gt;
-
-&lt;p&gt;早上跟江江江讨论。他说default文件是在没有conf成功的时候才会去匹配的。说明我的conf文件还是有问题的。回来修改了下里面的路径，还是没有成功。后来我偶然间发现在切换SwitchOmega插件的状态的时候，localhost上的网页也会发生变化（不能加载与加载成功）。居然是因为自己的SwitchOmega这个插件给我自动跳转到了在线的那个项目！其实前一天我也尝试过关闭远程服务器，但是当时可能忘记清理缓存了，所以导致好像关闭远程也没有影响当前localhost（或者操作失误了？）。&lt;/p&gt;
-
-&lt;p&gt;果断关掉这个插件，然后访问站点。根据小王子说的那个error.log，获得了以下出错信息：&lt;/p&gt;
-
-&lt;p&gt;1.install composer!&lt;/p&gt;
-
-&lt;p&gt;error log：&lt;/p&gt;
-
-&lt;p&gt;2017/05/04 22:56:20 [error] 3739#3739: *31 FastCGI sent in stderr: &amp;ldquo;PHP message: PHP Warning:  require(/home/misanya/workspace/=====/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/misanya/workspace/=====/bootstrap/autoload.php on line 17
-PHP message: PHP Fatal error:  require(): Failed opening required &amp;lsquo;/home/misanya/workspace/=====/bootstrap/../vendor/autoload.php&amp;rsquo; (include_path=&amp;lsquo;.:/usr/share/php&amp;rsquo;) in /home/misanya/workspace/=====/bootstrap/autoload.php on line 17&amp;rdquo; while reading response header from upstream, client: 127.0.0.1, server: api.local.=====.com, request: &amp;ldquo;GET / HTTP/1.1&amp;rdquo;, upstream: &amp;ldquo;fastcgi://unix:/var/run/php/php7.0-fpm.sock:&amp;ldquo;, host: &amp;ldquo;www.local.=====.com&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;我按照这个目录过去发现这个vendor文件夹里面是空的。。想起来了。好吧 去按照指示安装composer。然后composer install一下。
-然后他就给我下载了各种东西。。最后自动生成autoload.php。&lt;/p&gt;
-
-&lt;p&gt;2.还是不行
-这次的报错如下：
-‘’‘
-2017/05/04 23:26:44 [error] 6203#6203: *1 FastCGI sent in stderr: &amp;ldquo;PHP message: PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file &amp;ldquo;/home/misanya/workspace/======/storage/logs/laravel-fpm-fcgi-2017-05-04.log&amp;rdquo; could not be opened: failed to open stream: Permission denied in /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:97
-Stack trace:
-#0 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php(88): Monolog\Handler\StreamHandler-&amp;gt;write(Array)
-#1 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(37): Monolog\Handler\RotatingFileHandler-&amp;gt;write(Array)
-#2 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Logger.php(336): Monolog\Handler\AbstractProcessingHandler-&amp;gt;handle(Array)
-#3 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Logger.php(615): Monolog\Logger-&amp;gt;addRecord(400, &amp;lsquo;GET &lt;a href=&#34;http://www....&#39;&#34;&gt;http://www....&#39;&lt;/a&gt;, Array)
-#4 /home/misanya/workspace/======/vendor/laravel/framework/src/Illuminate/Lo&amp;hellip;
-PHP message: PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file &amp;ldquo;/home/misanya/workspace/======/storage/logs/laravel-fpm-fcgi-2017-05-04.log&amp;rdquo; could not be opened: failed to open stream: Permission denied in /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:97
-Stack trace:
-#0 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php(88): Monolog\Handler\StreamHandler-&amp;gt;write(Array)
-#1 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(37): Monolog\Handler\RotatingFileHandler-&amp;gt;write(Array)
-#2 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Logger.php(336): Monolog\Handler\AbstractProcessingHandler-&amp;gt;handle(Array)
-#3 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Logger.php(615): Monolog\Logger-&amp;gt;addRecord(400, &amp;lsquo;GET &lt;a href=&#34;http://www....&#39;&#34;&gt;http://www....&#39;&lt;/a&gt;, Array)
-’‘’
-好吧。
-sudo chmod -R 777 ./storage
-给文件夹 要加上-R这个选项！&lt;/p&gt;
-
-&lt;p&gt;4.PHP 错误了
-No supported encrypter found. The cipher and / or key length are invalid.&lt;/p&gt;
-
-&lt;p&gt;php artisan key:generate
-This worked for me！ :)&lt;/p&gt;
-
-&lt;p&gt;参考资料：&lt;a href=&#34;https://laravel.io/forum/06-09-2015-no-supported-encrypter-found-the-cipher-and-or-key-length-are-invalid&#34;&gt;https://laravel.io/forum/06-09-2015-no-supported-encrypter-found-the-cipher-and-or-key-length-are-invalid&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;OK！终于配置好了！&lt;/p&gt;
-</description>
+      <description>配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
+Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考这里。
+1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
+2.download hardware from startup panel; 因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
+3.sudo apt-get update/sudo apt-get upgrade [upgrade is breaking here.] 按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
+4.download chrome for linux; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb sudo gdebi google-chrome-stable_current_amd64.deb 下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。
+5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!) 还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】
+6.install git. 安装Git。
+7.generate my ssh-key for github. 生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。
+8.download shadowsocks-qt5. 装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。
+https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa:hzwhuang/ss-qt5 sudo apt-get update sudo apt-get install shadowsocks-qt5)</description>
     </item>
     
     <item>
@@ -195,58 +55,16 @@ This worked for me！ :)&lt;/p&gt;
       <pubDate>Wed, 08 Mar 2017 10:37:45 +0800</pubDate>
       
       <guid>http://misanya.com/post/record_a_jquery_bug/</guid>
-      <description>
-
-&lt;h3 id=&#34;记录一个jquery的bug的查找过程:bd1784536fb452ec4c59aa586c936ca6&#34;&gt;记录一个jQuery的bug的查找过程&lt;/h3&gt;
-
-&lt;p&gt;想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。&lt;/p&gt;
-
-&lt;h4 id=&#34;发现问题:bd1784536fb452ec4c59aa586c936ca6&#34;&gt;发现问题&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://misanya.com/post/imgs/bug-01.png&#34; alt=&#34;问题截图&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://misanya.com/post/imgs/bug-03.png&#34; alt=&#34;有问题的DOM结构&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;很明显，不知道是谁给添加了一个line-height:3px的限制。&lt;/p&gt;
-
-&lt;h4 id=&#34;定位问题:bd1784536fb452ec4c59aa586c936ca6&#34;&gt;定位问题&lt;/h4&gt;
-
-&lt;p&gt;在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;contentToggle: function () {
-let $dom = $(&#39;#js_comment_list .txt p&#39;);
-$dom.each(function (index) {
-    let $domHeight = parseInt($(this).css(&#39;height&#39;));
-    let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;));
-    //console.info(&#39;line height is &#39;+$domLineHeight+&#39;,index is:&#39;+index);
-    let $domMaxHeight = $domLineHeight * 3;
-    ...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;找到问题:bd1784536fb452ec4c59aa586c936ca6&#34;&gt;找到问题&lt;/h4&gt;
-
-&lt;p&gt;看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://misanya.com/post/imgs/bug-02.png&#34; alt=&#34;IE9的控制台输出&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://misanya.com/post/imgs/bug-04.png&#34; alt=&#34;Chrome的控制台输出&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://bugs.jquery.com/ticket/13472&#34;&gt;JQuery Bug Report&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;解决问题:bd1784536fb452ec4c59aa586c936ca6&#34;&gt;解决问题&lt;/h4&gt;
-
-&lt;p&gt;我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？&lt;/p&gt;
-
-&lt;p&gt;但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。&lt;/p&gt;
-
-&lt;h4 id=&#34;总结问题:bd1784536fb452ec4c59aa586c936ca6&#34;&gt;总结问题&lt;/h4&gt;
-
-&lt;p&gt;总结个毛啊 有啥好总结的。&lt;/p&gt;
-</description>
+      <description>记录一个jQuery的bug的查找过程 想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。
+发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
+很明显，不知道是谁给添加了一个line-height:3px的限制。
+定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
+contentToggle: function () { let $dom = $(&#39;#js_comment_list .txt p&#39;); $dom.each(function (index) { let $domHeight = parseInt($(this).css(&#39;height&#39;)); let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;)); //console.info(&#39;line height is &#39;+$domLineHeight+&#39;,index is:&#39;+index); let $domMaxHeight = $domLineHeight * 3; ...  找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
+JQuery Bug Report
+解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
+但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。
+总结问题 总结个毛啊 有啥好总结的。</description>
     </item>
     
     <item>
@@ -255,48 +73,23 @@ $dom.each(function (index) {
       <pubDate>Tue, 21 Feb 2017 20:30:28 +0800</pubDate>
       
       <guid>http://misanya.com/post/way_to_happiness/</guid>
-      <description>
-
-&lt;h2 id=&#34;前言:01181f6916d8af12c9544e9bbf7a8ef8&#34;&gt;前言&lt;/h2&gt;
-
-&lt;p&gt;写的东西实在太少，于是索性把上次写的没有发出来的，两篇一起发了出来。那本书看了，但是，没怎么吸收。&lt;/p&gt;
-
-&lt;h2 id=&#34;勿忘初心-2017-02-07:01181f6916d8af12c9544e9bbf7a8ef8&#34;&gt;勿忘初心    2017-02-07&lt;/h2&gt;
-
-&lt;p&gt;虽然有些解释能让自己暂时舒服一些。但是自己心里的结，还是很难打开。等到忙碌暂时停下来，却又会犯起旧病。&lt;/p&gt;
-
-&lt;p&gt;那些文艺的耳鼻青年总是有个什么勿忘初心的说法。我想了想，自己之前说过的想法。想要体会更多的事情。&lt;/p&gt;
-
-&lt;p&gt;不小心在知乎看到了。别既想享受男生的好，又无法给他们爱情这样的说辞。&lt;/p&gt;
-
-&lt;p&gt;前面的千句万句都仿佛沙滩写字，却偏偏这一句让人难过。&lt;/p&gt;
-
-&lt;p&gt;突然明白，就算是勉强了。我的焦虑也不会就此停止。&lt;/p&gt;
-
-&lt;p&gt;不得不承认，我再努力，她也已经没法给我爱情了。&lt;/p&gt;
-
-&lt;p&gt;回到更当初，意气风发地跟XN说，我的目标是体验更多，更好地理解这个世界。&lt;/p&gt;
-
-&lt;p&gt;这个目标是多么的美好。不会牵扯那贪婪的占有欲。&lt;/p&gt;
-
-&lt;p&gt;让我舍弃那过去的不堪往事，重新擦亮心灵的窗户，去追寻那最初的目标吧。&lt;/p&gt;
-
-&lt;h2 id=&#34;永远幸福的科学-2017-02-21:01181f6916d8af12c9544e9bbf7a8ef8&#34;&gt;永远幸福的科学 2017-02-21&lt;/h2&gt;
-
-&lt;p&gt;过年在家无所事事，总算看了这么一本书。一个美国恋爱心理学家Ty Tashiro所著的。&lt;/p&gt;
-
-&lt;p&gt;总结看完之后觉得句句真实没什么不对的却又好像没什么有用的。许多东西都可以用俗语来概括。比如“结婚不会改变一个人”=&amp;gt;“江山易改，本性难移”。所以要慎重选择自己的对象，而不是妄想去改造一个人。“恋爱中的人的家人朋友往往能对恋情的发展做出更符合实际的判断”=&amp;gt;“当局者迷旁观者清”。“经济富足在超越一定水平之后对恋爱满足感的提升是不显著的”=&amp;gt;“但是我现在恐怕连基本的都保障不了吧？”，咳咳。“外貌对于繁育力、恋爱满足感以及实际的能力并没有明显的关系”=&amp;gt;“人不可貌相”。&lt;/p&gt;
-
-&lt;p&gt;她从一个安娜的故事开始，讲述了她通过用三个条件来筛选自己的男友的故事。但是等她做完之后，却对这个决定无比的后悔。&lt;/p&gt;
-
-&lt;p&gt;为什么我们对自己的BF/GF只能提出三个条件呢？因为通常来说，通过三个足够严格的条件筛选之后，已经有大部分的人被pass掉了。&lt;/p&gt;
-
-&lt;p&gt;现实生活中有着如此多既不幸福又不稳定的悲剧，都包含着著名的悲剧剧情中必备的两个因素：美丽与遗失。失去平庸的确会让人沮丧而懊恼，但丧失美好之物则会带来一种绝望的悲恸。陷入热恋的过程是如此的激情澎湃，让人感觉玄虚神奇且命中注定。因此，这美丽的瞬间一旦消失，人们或许就会担心如此玄幻而美好的东西是否还会再来。很可惜，我们每个人其实都或多或少的知道，激烈的感情只是昙花一现，如果把激情作为长久恋情的首要目标，那么我们大多只能得到一些美好的片段和悲情的结局。&lt;/p&gt;
-
-&lt;p&gt;根据作者提出的框架。从性格特征、依赖模式、恋爱风格三个方向进行选择是最基础的。总结了一下我之前不自觉的选择，好像都是喜欢比较活泼但是却又能够安静下来的。古灵精怪虽然有时候也是很可爱，但是却始终不是我的菜。至于依赖模式，当然是安全型的最合适，但是我自己还没有达到那个地步。而恋爱风格。我QNMD，我没恋爱过怎么知道。&lt;/p&gt;
-
-&lt;p&gt;我希望一年之后我会像丹尼尔一样，勇敢地打出那个电话。即使不知道安妮会不会接那个电话，我也会这样去做。。&lt;/p&gt;
-</description>
+      <description>前言 写的东西实在太少，于是索性把上次写的没有发出来的，两篇一起发了出来。那本书看了，但是，没怎么吸收。
+勿忘初心 2017-02-07 虽然有些解释能让自己暂时舒服一些。但是自己心里的结，还是很难打开。等到忙碌暂时停下来，却又会犯起旧病。
+那些文艺的耳鼻青年总是有个什么勿忘初心的说法。我想了想，自己之前说过的想法。想要体会更多的事情。
+不小心在知乎看到了。别既想享受男生的好，又无法给他们爱情这样的说辞。
+前面的千句万句都仿佛沙滩写字，却偏偏这一句让人难过。
+突然明白，就算是勉强了。我的焦虑也不会就此停止。
+不得不承认，我再努力，她也已经没法给我爱情了。
+回到更当初，意气风发地跟XN说，我的目标是体验更多，更好地理解这个世界。
+这个目标是多么的美好。不会牵扯那贪婪的占有欲。
+让我舍弃那过去的不堪往事，重新擦亮心灵的窗户，去追寻那最初的目标吧。
+永远幸福的科学 2017-02-21 过年在家无所事事，总算看了这么一本书。一个美国恋爱心理学家Ty Tashiro所著的。
+总结看完之后觉得句句真实没什么不对的却又好像没什么有用的。许多东西都可以用俗语来概括。比如“结婚不会改变一个人”=&amp;gt;“江山易改，本性难移”。所以要慎重选择自己的对象，而不是妄想去改造一个人。“恋爱中的人的家人朋友往往能对恋情的发展做出更符合实际的判断”=&amp;gt;“当局者迷旁观者清”。“经济富足在超越一定水平之后对恋爱满足感的提升是不显著的”=&amp;gt;“但是我现在恐怕连基本的都保障不了吧？”，咳咳。“外貌对于繁育力、恋爱满足感以及实际的能力并没有明显的关系”=&amp;gt;“人不可貌相”。
+她从一个安娜的故事开始，讲述了她通过用三个条件来筛选自己的男友的故事。但是等她做完之后，却对这个决定无比的后悔。
+为什么我们对自己的BF/GF只能提出三个条件呢？因为通常来说，通过三个足够严格的条件筛选之后，已经有大部分的人被pass掉了。
+现实生活中有着如此多既不幸福又不稳定的悲剧，都包含着著名的悲剧剧情中必备的两个因素：美丽与遗失。失去平庸的确会让人沮丧而懊恼，但丧失美好之物则会带来一种绝望的悲恸。陷入热恋的过程是如此的激情澎湃，让人感觉玄虚神奇且命中注定。因此，这美丽的瞬间一旦消失，人们或许就会担心如此玄幻而美好的东西是否还会再来。很可惜，我们每个人其实都或多或少的知道，激烈的感情只是昙花一现，如果把激情作为长久恋情的首要目标，那么我们大多只能得到一些美好的片段和悲情的结局。
+根据作者提出的框架。从性格特征、依赖模式、恋爱风格三个方向进行选择是最基础的。总结了一下我之前不自觉的选择，好像都是喜欢比较活泼但是却又能够安静下来的。古灵精怪虽然有时候也是很可爱，但是却始终不是我的菜。至于依赖模式，当然是安全型的最合适，但是我自己还没有达到那个地步。而恋爱风格。我QNMD，我没恋爱过怎么知道。
+我希望一年之后我会像丹尼尔一样，勇敢地打出那个电话。即使不知道安妮会不会接那个电话，我也会这样去做。。</description>
     </item>
     
     <item>
@@ -305,22 +98,13 @@ $dom.each(function (index) {
       <pubDate>Tue, 10 Jan 2017 12:03:20 +0800</pubDate>
       
       <guid>http://misanya.com/post/minimalist-lifestyle/</guid>
-      <description>&lt;p&gt;失业期间养成了买书缓解压力的习惯，但是买了却基本不会看完。上周周末百无聊赖之际总算开始读了一本书，乔舒亚·贝克尔的《极简》，读过之后深以为然，在此推荐给大家。&lt;/p&gt;
-
-&lt;p&gt;这本书的作者是在一次整理家庭车库的时候领悟到的极简的意义。而我觉得这本书也的确是最适合已经结婚的家庭进行最佳实践。但是即便是对普通的单身狗其实也是很有意义的。&lt;/p&gt;
-
-&lt;p&gt;当他在整理车库时，把自己搞的精疲力竭却发现过了一个上午自己也没有整理好那些东西。而且还导致自己不能兑现对孩子的承诺——打扫完房间就陪孩子玩。当与邻居交谈时受到启发，明白了“拥有”不等于幸福的道理。&lt;/p&gt;
-
-&lt;p&gt;想了想要怎么解释这个极简主义，却一时语塞。不知道是不是因为我已经接受这个东西并融入自己了？【没深刻体会的狡辩】。摘录一下乔舒亚的解释：“简而言之，它是刻意地扩展生命中最有价值的东西，并舍弃任何阻碍我们得到它们的东西。尽管我们现在谈论的是清理物品，但最终目的，却是为了是我们能更好地实现生命中最高远的目标”。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img1.doubanio.com/lpic/s29108947.jpg&#34; alt=&#34;《极简》&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;书中所写的东西，在我看来是一个十分有生活经验的大叔在教导你。因为有很多遇到的情况是很切合实际、贴近生活的。比如，我看了之后觉得不幸躺枪的：关于清理无意义的关系的那一部分。作者没有从更多的心理学上解释，虽然说法直接干脆，但是我也觉得可以接受了。虐待和过度依赖的关系是最应该被清理的。&lt;/p&gt;
-
-&lt;p&gt;不知道乔舒亚·贝克尔之前是什么职业，但是我觉得在中国一般人一定写不出。不是妄自菲薄，而是造就他写书动机的所处的中产阶级生活在中国还不够多。可以说，他的书里把极简的各个基本方面都涉及到并颇有研究了。&lt;/p&gt;
-
-&lt;p&gt;在豆瓣上看到一个评论，说是与《怦然心动的人生整理魔法》([日]近藤麻理惠)内容相似。这本书之前在书店看到过，但是没有下手。今天翻了下那本书的目录，发现的确内容有些相似，但是那本书对于整理的细节更为细致一些，而极简里则更多是向你解释，如何让你心里“过得去”，如何让你向别人解释，说服别人。我想那是因为这些道理都是大家生活中切切实实体会到的吧。道理是相通的，但是这本书更适合单身狗，那本书更适合家庭主妇吧233333。&lt;/p&gt;
-</description>
+      <description>失业期间养成了买书缓解压力的习惯，但是买了却基本不会看完。上周周末百无聊赖之际总算开始读了一本书，乔舒亚·贝克尔的《极简》，读过之后深以为然，在此推荐给大家。
+这本书的作者是在一次整理家庭车库的时候领悟到的极简的意义。而我觉得这本书也的确是最适合已经结婚的家庭进行最佳实践。但是即便是对普通的单身狗其实也是很有意义的。
+当他在整理车库时，把自己搞的精疲力竭却发现过了一个上午自己也没有整理好那些东西。而且还导致自己不能兑现对孩子的承诺——打扫完房间就陪孩子玩。当与邻居交谈时受到启发，明白了“拥有”不等于幸福的道理。
+想了想要怎么解释这个极简主义，却一时语塞。不知道是不是因为我已经接受这个东西并融入自己了？【没深刻体会的狡辩】。摘录一下乔舒亚的解释：“简而言之，它是刻意地扩展生命中最有价值的东西，并舍弃任何阻碍我们得到它们的东西。尽管我们现在谈论的是清理物品，但最终目的，却是为了是我们能更好地实现生命中最高远的目标”。
+书中所写的东西，在我看来是一个十分有生活经验的大叔在教导你。因为有很多遇到的情况是很切合实际、贴近生活的。比如，我看了之后觉得不幸躺枪的：关于清理无意义的关系的那一部分。作者没有从更多的心理学上解释，虽然说法直接干脆，但是我也觉得可以接受了。虐待和过度依赖的关系是最应该被清理的。
+不知道乔舒亚·贝克尔之前是什么职业，但是我觉得在中国一般人一定写不出。不是妄自菲薄，而是造就他写书动机的所处的中产阶级生活在中国还不够多。可以说，他的书里把极简的各个基本方面都涉及到并颇有研究了。
+在豆瓣上看到一个评论，说是与《怦然心动的人生整理魔法》([日]近藤麻理惠)内容相似。这本书之前在书店看到过，但是没有下手。今天翻了下那本书的目录，发现的确内容有些相似，但是那本书对于整理的细节更为细致一些，而极简里则更多是向你解释，如何让你心里“过得去”，如何让你向别人解释，说服别人。我想那是因为这些道理都是大家生活中切切实实体会到的吧。道理是相通的，但是这本书更适合单身狗，那本书更适合家庭主妇吧233333。</description>
     </item>
     
     <item>
@@ -329,28 +113,17 @@ $dom.each(function (index) {
       <pubDate>Mon, 02 Jan 2017 16:18:42 +0800</pubDate>
       
       <guid>http://misanya.com/post/year_2016/</guid>
-      <description>&lt;p&gt;经历了太多，想写一首诗来总结。但是后来还是发现很难做到。&lt;/p&gt;
-
-&lt;p&gt;2月份开始的纠结，3月份自行爆炸。&lt;/p&gt;
-
-&lt;p&gt;4月份去南京见老哥，想到了很多，学到了很多。&lt;/p&gt;
-
-&lt;p&gt;6月底开始跟老板闹离职，终于到8月初交接完离职。&lt;/p&gt;
-
-&lt;p&gt;疯狂地玩了两个多月。期间入坑LL神教。【滑稽】&lt;/p&gt;
-
-&lt;p&gt;10月底，好运眷顾遇到现在的公司和同事们。&lt;/p&gt;
-
-&lt;p&gt;11月份回了一次家。&lt;/p&gt;
-
-&lt;p&gt;12月底突然想到了之前的事情。&lt;/p&gt;
-
-&lt;p&gt;到昨天，终于释怀了。&lt;/p&gt;
-
-&lt;p&gt;我想过了一年，自己的变化还是很显著的。&lt;/p&gt;
-
-&lt;p&gt;感谢大家。&lt;/p&gt;
-</description>
+      <description>经历了太多，想写一首诗来总结。但是后来还是发现很难做到。
+2月份开始的纠结，3月份自行爆炸。
+4月份去南京见老哥，想到了很多，学到了很多。
+6月底开始跟老板闹离职，终于到8月初交接完离职。
+疯狂地玩了两个多月。期间入坑LL神教。【滑稽】
+10月底，好运眷顾遇到现在的公司和同事们。
+11月份回了一次家。
+12月底突然想到了之前的事情。
+到昨天，终于释怀了。
+我想过了一年，自己的变化还是很显著的。
+感谢大家。</description>
     </item>
     
     <item>
@@ -359,44 +132,20 @@ $dom.each(function (index) {
       <pubDate>Sun, 18 Dec 2016 13:08:08 +0800</pubDate>
       
       <guid>http://misanya.com/post/about_chinese_spirit/</guid>
-      <description>
-
-&lt;h3 id=&#34;前言与闲话:2c31e58dc0ec1a5dff1a81d108fbdd32&#34;&gt;前言与闲话&lt;/h3&gt;
-
-&lt;p&gt;因为自己觉得技术太挫了，所以还是多写一点读书的东西。制定了一个小的读书计划，开始就遭遇了一点点小的问题（其实是目前最大的问题），没有在预估的时间内完成。不过还是勉强自己硬是把这本书读完了。总比大学时候那次读社会契约论最后解释不清楚的好，因为那次自己根本就没看完嘛。&lt;/p&gt;
-
-&lt;p&gt;这本书写于一战的时候，所以，是对为什么这个自称是最先进的文明的欧洲文明的社会结构进行的反思，并且提出了解决方案，想要解决欧洲文明所遇到的问题，只有通过在中国存在的良民宗教，来解决。&lt;/p&gt;
-
-&lt;p&gt;题外话，我意识到并联想到了一些事情。很多人在做评论和提出主张的时候，都没有去根本的了解过事情就妄下断言。我个人是很讨厌这种行为的（也许有时候自己也会这样但是却不自知）。这与了解情况并自信地提出意见完全不是一种情况。我现在做不到后者这种情况，有的时候，会导致不利的状况，但是宁可这样，也不愿意做成前一种状态，来赢取他人的信任。&lt;/p&gt;
-
-&lt;h3 id=&#34;问题的根源与辜鸿铭所说的春秋大义:2c31e58dc0ec1a5dff1a81d108fbdd32&#34;&gt;问题的根源与辜鸿铭所说的春秋大义&lt;/h3&gt;
-
-&lt;p&gt;辜鸿铭认为，问题的根源所在，在于欧洲人在得到进步，瓦解前一个提供信仰的工具(教会)的同时，没有提供一个可靠、 有效的替代工具。而这种顶替教会的工具，在中国，至少当时的中国，是存在的。包括当时的日本，也是存在的。而且通过对比日俄战争结束之后在两国内引起不同反响，最终俄国导致了一次大战来证明，这种良民宗教的好处。(这段历史不是很清楚，所以在此不置评论)&lt;/p&gt;
-
-&lt;p&gt;在他看来一战会打响，是因为平民掌握了更多的发言权，但是却并不具有实际上做出真正正确决策的能力。平民心中的恐惧，导致了战争，只有当民众内心平静的时候，才会使战争从根源上避免。而这种抚慰民众内心的工具，在之前的欧洲，是宗教与对上帝的信仰。在中国则是孔子提出的良民宗教。&lt;/p&gt;
-
-&lt;p&gt;个人需要宗教与对科学家对于科学，艺术家对于艺术，哲学家对于哲学的索求相同，是普罗大众所需要的庇护和慰藉。欧洲采用的警察与军队制度来管理，其实本质上还是用到了人的荣誉感，而这种荣誉感，其实完全可以依靠所有人的共同信仰来达到，而不是军国主义。这也许可以解释所谓的李约瑟难题，因为中国的良民宗教足够强大，以至于不需要科学来慰藉个人。&lt;/p&gt;
-
-&lt;p&gt;这种所谓的良民宗教，并不是一种确切的西方式的宗教。“与其说中国没有宗教，不如说中国人不需要宗教更为确切”。儒家学说顶替了宗教成为中国公民的信仰。所有人都相信自己帝国的皇帝是尽职尽责，公正无私的。他所说的“春秋大义”，就是忠君的绝对责任。&lt;/p&gt;
-
-&lt;p&gt;如果这样说的话，现在恐怕已经没有还维持这种精神的中国人了。因为中国已经没有君主了。但是至少公正自在人心的观念还在中国人的心中留了下来。&lt;/p&gt;
-
-&lt;p&gt;在我看来，他们的问题的出发点就不相同。欧洲人所宣扬的，是人人平等，皆有可能。而东方所立足的，是为了解决社会动荡不安的问题，是使公民各司其职，社会有序进行的方法。所谓的自由，说实话，恐怕在这里什么都不是。&lt;/p&gt;
-
-&lt;p&gt;辜鸿铭所想到的最终的解决方案，通俗来说，是通过全人类的教育，来实现人人心中皆有良民观念，然后再辅以少量的警察惩治丧心病狂的犯罪分子以维持秩序。当然这全人类的 教育与现在的通识教育根本不同。&lt;/p&gt;
-
-&lt;h3 id=&#34;中国的女性:2c31e58dc0ec1a5dff1a81d108fbdd32&#34;&gt;中国的女性&lt;/h3&gt;
-
-&lt;p&gt;君子之道，造端乎夫妇。&lt;/p&gt;
-
-&lt;p&gt;在传统中国社会，家庭就是妇女的意义所在。而男人学习忠君爱国思想的开始，就是要学会对自己的妻子负责。&lt;/p&gt;
-
-&lt;p&gt;你可能会说，把自己的人生交给别人去负责，是不理智的。但是，实际上人是不可能脱离社会而存在的。你又如何能保证，你所相信的制度，在具体到自己处于不能自理的那一刻的时候，是否真的会能够履行呢。这使我蓦地想起了那个夏天，我跛腿的舅舅所说的，他所相信的，情定胜理。人要活下去还是需要相互之间的感情的。&lt;/p&gt;
-
-&lt;h3 id=&#34;结束语:2c31e58dc0ec1a5dff1a81d108fbdd32&#34;&gt;结束语&lt;/h3&gt;
-
-&lt;p&gt;可以毫不客气的说，现在的中国人，相当多人，恐怕已经不存在这种辜鸿铭提到的良民精神了。而且对自己国家的历史传统，估计知道的也不是很多了。辜鸿铭的这本《中国人的精神》，本来是向外国人宣扬、介绍中国的春秋大义，但是我也推荐给大家，虽然有些东西未必正确，但这的确是一本不可多得的了解自己民族真实状况的书籍。&lt;/p&gt;
-</description>
+      <description>前言与闲话 因为自己觉得技术太挫了，所以还是多写一点读书的东西。制定了一个小的读书计划，开始就遭遇了一点点小的问题（其实是目前最大的问题），没有在预估的时间内完成。不过还是勉强自己硬是把这本书读完了。总比大学时候那次读社会契约论最后解释不清楚的好，因为那次自己根本就没看完嘛。
+这本书写于一战的时候，所以，是对为什么这个自称是最先进的文明的欧洲文明的社会结构进行的反思，并且提出了解决方案，想要解决欧洲文明所遇到的问题，只有通过在中国存在的良民宗教，来解决。
+题外话，我意识到并联想到了一些事情。很多人在做评论和提出主张的时候，都没有去根本的了解过事情就妄下断言。我个人是很讨厌这种行为的（也许有时候自己也会这样但是却不自知）。这与了解情况并自信地提出意见完全不是一种情况。我现在做不到后者这种情况，有的时候，会导致不利的状况，但是宁可这样，也不愿意做成前一种状态，来赢取他人的信任。
+问题的根源与辜鸿铭所说的春秋大义 辜鸿铭认为，问题的根源所在，在于欧洲人在得到进步，瓦解前一个提供信仰的工具(教会)的同时，没有提供一个可靠、 有效的替代工具。而这种顶替教会的工具，在中国，至少当时的中国，是存在的。包括当时的日本，也是存在的。而且通过对比日俄战争结束之后在两国内引起不同反响，最终俄国导致了一次大战来证明，这种良民宗教的好处。(这段历史不是很清楚，所以在此不置评论)
+在他看来一战会打响，是因为平民掌握了更多的发言权，但是却并不具有实际上做出真正正确决策的能力。平民心中的恐惧，导致了战争，只有当民众内心平静的时候，才会使战争从根源上避免。而这种抚慰民众内心的工具，在之前的欧洲，是宗教与对上帝的信仰。在中国则是孔子提出的良民宗教。
+个人需要宗教与对科学家对于科学，艺术家对于艺术，哲学家对于哲学的索求相同，是普罗大众所需要的庇护和慰藉。欧洲采用的警察与军队制度来管理，其实本质上还是用到了人的荣誉感，而这种荣誉感，其实完全可以依靠所有人的共同信仰来达到，而不是军国主义。这也许可以解释所谓的李约瑟难题，因为中国的良民宗教足够强大，以至于不需要科学来慰藉个人。
+这种所谓的良民宗教，并不是一种确切的西方式的宗教。“与其说中国没有宗教，不如说中国人不需要宗教更为确切”。儒家学说顶替了宗教成为中国公民的信仰。所有人都相信自己帝国的皇帝是尽职尽责，公正无私的。他所说的“春秋大义”，就是忠君的绝对责任。
+如果这样说的话，现在恐怕已经没有还维持这种精神的中国人了。因为中国已经没有君主了。但是至少公正自在人心的观念还在中国人的心中留了下来。
+在我看来，他们的问题的出发点就不相同。欧洲人所宣扬的，是人人平等，皆有可能。而东方所立足的，是为了解决社会动荡不安的问题，是使公民各司其职，社会有序进行的方法。所谓的自由，说实话，恐怕在这里什么都不是。
+辜鸿铭所想到的最终的解决方案，通俗来说，是通过全人类的教育，来实现人人心中皆有良民观念，然后再辅以少量的警察惩治丧心病狂的犯罪分子以维持秩序。当然这全人类的 教育与现在的通识教育根本不同。
+中国的女性 君子之道，造端乎夫妇。
+在传统中国社会，家庭就是妇女的意义所在。而男人学习忠君爱国思想的开始，就是要学会对自己的妻子负责。
+你可能会说，把自己的人生交给别人去负责，是不理智的。但是，实际上人是不可能脱离社会而存在的。你又如何能保证，你所相信的制度，在具体到自己处于不能自理的那一刻的时候，是否真的会能够履行呢。这使我蓦地想起了那个夏天，我跛腿的舅舅所说的，他所相信的，情定胜理。人要活下去还是需要相互之间的感情的。
+结束语 可以毫不客气的说，现在的中国人，相当多人，恐怕已经不存在这种辜鸿铭提到的良民精神了。而且对自己国家的历史传统，估计知道的也不是很多了。辜鸿铭的这本《中国人的精神》，本来是向外国人宣扬、介绍中国的春秋大义，但是我也推荐给大家，虽然有些东西未必正确，但这的确是一本不可多得的了解自己民族真实状况的书籍。</description>
     </item>
     
     <item>
@@ -405,68 +154,19 @@ $dom.each(function (index) {
       <pubDate>Mon, 05 Dec 2016 01:29:08 +0800</pubDate>
       
       <guid>http://misanya.com/post/this_special_weekend/</guid>
-      <description>
-
-&lt;h3 id=&#34;奇妙的过程:49e50eade09596b9e350b80eae7dfe77&#34;&gt;奇妙的过程&lt;/h3&gt;
-
-&lt;p&gt;实际上，时间并没有变得更长或者如何，但是却让人觉得这个周末比以往都长很多，仿佛过了小半个月一样。只有回到现在，夜深人静的时候才会觉得时间慢慢加速起来，要跟之前的快节奏接轨了。&lt;/p&gt;
-
-&lt;p&gt;最近一直都还算是处于比较嗨皮的状态。有些问题依旧没有得到解决，可在我乐(ma)观（mu）的忽视之下并不觉得很成问题。&lt;/p&gt;
-
-&lt;p&gt;我想造成那种错觉的原因可能是我在这两天生产了以前小半个月才会生产出来的无(lian)效(pian)输(fei)出(hua)。可走到结尾蓦地一回头，发现这好像是一个似曾相识的故事。&lt;/p&gt;
-
-&lt;p&gt;多么的相似啊。而结局，仿佛好那么一丁点。所以这次，不会那么难过。&lt;/p&gt;
-
-&lt;h3 id=&#34;关于那些意识:49e50eade09596b9e350b80eae7dfe77&#34;&gt;关于那些意识&lt;/h3&gt;
-
-&lt;p&gt;最近放弃像之前那样打英雄联盟的原因，除了LPL实在太让人失望，自己要融入新的工作之外，还有是自己觉得好像实在不知道如何去进步了。从之前的个人经验来看，只有跟老司机们交流，才能意识到，那些自己之前看不到的东西。&lt;/p&gt;
-
-&lt;p&gt;自己之所以这么嗨皮，还是因为最近意识到了很多之前一直视而不见的东西。&lt;/p&gt;
-
-&lt;p&gt;【这里应该是最值得总结的地方，但是我不想在这里做】&lt;/p&gt;
-
-&lt;h3 id=&#34;特殊的开始:49e50eade09596b9e350b80eae7dfe77&#34;&gt;特殊的开始&lt;/h3&gt;
-
-&lt;p&gt;大概开始于翻开辜鸿铭那本书的时候。以前会觉得他是一个在某些方面脑子瓦特了的糟老头子。所以是带着一定的挑刺心态去看的这本书。但是翻了几页却觉得他所描述的那种关系是那么的令人向往呢。甚至于乎，我觉得他所解释的三从，好像在某种情况下是理所当然的。
-于是我尝试去找一些不同的说法。我想到了受到教育里所描述的那种最先进生产力社会下的理想的关系。对比了一番，我做出了错误的判断和估计，甚至做出了最狂野的计划和妄想。&lt;/p&gt;
-
-&lt;p&gt;当然现在事后会想到一些别的了。既然要公平、平等，那就在尽可能多的事情上面都要做到。既然做不到，有的时候还是要讲究实际情况。说到这里我又再一次觉得，长者真是太棒了。所以，每一对，都会有适合自己的状态。而且，总是会有三六九等，都变得理智了，是不可能的。&lt;/p&gt;
-
-&lt;p&gt;再扯远一些，就算大家都可以找到合适的状态，但是整个群体的平均认知还是会有一个大概标准。冲突总是会有的。&lt;/p&gt;
-
-&lt;h3 id=&#34;所以是个奇葩的周末:49e50eade09596b9e350b80eae7dfe77&#34;&gt;所以是个奇葩的周末&lt;/h3&gt;
-
-&lt;p&gt;仿佛是同一个自己，却又完全像是两个不一样的人。&lt;/p&gt;
-
-&lt;p&gt;最后作为一个普通2B青年伪装(chong)文(zi)艺(shu)的手段：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;pre&gt;&lt;code&gt;                       那只铅笔
-          深海里折断的圆规，
-          嘲笑着那coco。
-          美味的鸩酒，
-          磨盘边的驹儿，       
-          以及，
-          烧不出来的佳肴。
-
-          谢谢这一丝丝温润的雨。
-          深渊里，
-          也见到了探险者的光芒。
-          果儿走了出去。
-
-          被丢弃的三色卡牌，
-          涟漪带走了我的思绪。
-          啊，智叟，           
-          请放心，
-          城隍知道那天空中的气球。
-
-          永远不会再驶向远方，
-          但至少还有鱼儿。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;莫名其妙今天就到了公历生日的这一天，虽然不过公历的，但还是祝自己快乐吧。&lt;/p&gt;
-</description>
+      <description>奇妙的过程 实际上，时间并没有变得更长或者如何，但是却让人觉得这个周末比以往都长很多，仿佛过了小半个月一样。只有回到现在，夜深人静的时候才会觉得时间慢慢加速起来，要跟之前的快节奏接轨了。
+最近一直都还算是处于比较嗨皮的状态。有些问题依旧没有得到解决，可在我乐(ma)观（mu）的忽视之下并不觉得很成问题。
+我想造成那种错觉的原因可能是我在这两天生产了以前小半个月才会生产出来的无(lian)效(pian)输(fei)出(hua)。可走到结尾蓦地一回头，发现这好像是一个似曾相识的故事。
+多么的相似啊。而结局，仿佛好那么一丁点。所以这次，不会那么难过。
+关于那些意识 最近放弃像之前那样打英雄联盟的原因，除了LPL实在太让人失望，自己要融入新的工作之外，还有是自己觉得好像实在不知道如何去进步了。从之前的个人经验来看，只有跟老司机们交流，才能意识到，那些自己之前看不到的东西。
+自己之所以这么嗨皮，还是因为最近意识到了很多之前一直视而不见的东西。
+【这里应该是最值得总结的地方，但是我不想在这里做】
+特殊的开始 大概开始于翻开辜鸿铭那本书的时候。以前会觉得他是一个在某些方面脑子瓦特了的糟老头子。所以是带着一定的挑刺心态去看的这本书。但是翻了几页却觉得他所描述的那种关系是那么的令人向往呢。甚至于乎，我觉得他所解释的三从，好像在某种情况下是理所当然的。 于是我尝试去找一些不同的说法。我想到了受到教育里所描述的那种最先进生产力社会下的理想的关系。对比了一番，我做出了错误的判断和估计，甚至做出了最狂野的计划和妄想。
+当然现在事后会想到一些别的了。既然要公平、平等，那就在尽可能多的事情上面都要做到。既然做不到，有的时候还是要讲究实际情况。说到这里我又再一次觉得，长者真是太棒了。所以，每一对，都会有适合自己的状态。而且，总是会有三六九等，都变得理智了，是不可能的。
+再扯远一些，就算大家都可以找到合适的状态，但是整个群体的平均认知还是会有一个大概标准。冲突总是会有的。
+所以是个奇葩的周末 仿佛是同一个自己，却又完全像是两个不一样的人。
+最后作为一个普通2B青年伪装(chong)文(zi)艺(shu)的手段：
+  那只铅笔 深海里折断的圆规， 嘲笑着那coco。 美味的鸩酒， 磨盘边的驹儿， 以及， 烧不出来的佳肴。 谢谢这一丝丝温润的雨。 深渊里， 也见到了探险者的光芒。 果儿走了出去。 被丢弃的三色卡牌， 涟漪带走了我的思绪。 啊，智叟， 请放心， 城隍知道那天空中的气球。 永远不会再驶向远方， 但至少还有鱼儿。   莫名其妙今天就到了公历生日的这一天，虽然不过公历的，但还是祝自己快乐吧。</description>
     </item>
     
     <item>
@@ -475,50 +175,18 @@ $dom.each(function (index) {
       <pubDate>Sun, 06 Nov 2016 11:00:05 +0800</pubDate>
       
       <guid>http://misanya.com/post/welcome_to_my_new_blog/</guid>
-      <description>
-
-&lt;h4 id=&#34;使用hugo重新搭建我的个人博客:bc1aedbf8a15d6e48eb49b7927134868&#34;&gt;使用Hugo重新搭建我的个人博客&lt;/h4&gt;
-
-&lt;p&gt;听从了杨老师的建议，今天用Hugo重新搭建了自己的个人博客。搭建的过程非常之简单，比起jekyll那茫茫多的配置来说，简直就是傻瓜式的。但是我还是花费了三个小时的时间——其中两个半小时用来挑主题跟自己修图片。。。
-至于以前blog里的那些个文章，还是算了吧，本来也没有几篇内容，而且东西也太水了。&lt;/p&gt;
-
-&lt;p&gt;上午挑了半天的主题，下午想补充下about页面的时候，发现选出来的主题跟杨老师是一样的。。。大概是主题太少了吧。也说明我的审美也还算正常吧= =！&lt;/p&gt;
-
-&lt;p&gt;我还挑了下面这几个主题：&lt;/p&gt;
-
-&lt;p&gt;1.&lt;a href=&#34;http://themes.gohugo.io/artists/&#34;&gt;Artists&lt;/a&gt;  ——第一眼让我觉得惊艳的主题
-跟现在这个theme的样式有些类似，而且中间照片里的文艺大叔一脸惊愕的表情，给这个theme增添了十分的魅力。不过看了demo之后我就放弃了=。=，因为只想找个最方便，简单拿来写blog的主题，而且现在又没有能拿得出手的项目，也没有什么客户评论之类的。很不错的主题，但是不符合我的需求。&lt;/p&gt;
-
-&lt;p&gt;2.&lt;a href=&#34;http://themes.gohugo.io/highlights/&#34;&gt;Highlights&lt;/a&gt;  ——比较漂亮的一页式主题推荐
-也是一个一页式的模板。HTML5，但是讲道理看到有些首次加载那么费劲之后，我觉得做个blog还是简单一点的好，虽然有些特效的确很炫酷，可主要还是要拿来写博客的不是吗。同样因为只是一页的还有&lt;a href=&#34;http://themes.gohugo.io/hugo-identity-theme/&#34;&gt;Hugo Identity&lt;/a&gt; 。上午用的时候死活加载不出来，给人的体验非常差呢。但是不得不承认，加载出来还是很漂亮的。还有一个&lt;a href=&#34;http://themes.gohugo.io/hugo-smpl-theme/&#34;&gt;hugo-smpl-theme&lt;/a&gt;,这个的demo页面倒是一直打不开，难道我只是翻墙到了另一个天朝GFW里？&lt;/p&gt;
-
-&lt;p&gt;3.&lt;a href=&#34;http://themes.gohugo.io/hugo-me-theme/&#34;&gt;Me&lt;/a&gt;   ——几个让我觉得很合适的主题推荐
-这个是我下载好了之后第一个load的主题。跟我之前在jekyll上面使用的主题有些许相似。基本功能也已经做得比较完善，不需要太多的修改了。但是我想吐槽的是，他说的支持的几个默认颜色除了默认的蓝色，其他几个真的是土的不行啊。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://themes.gohugo.io/hugo-geo/&#34;&gt;hugo-geo&lt;/a&gt;
-这个是我第二个看中的主题。也是提供了足够的功能。页面配色也很舒服，左侧栏的特效也很棒。要不是我看了主题作者个人网站上那张他自己的大脸的话，也许我就用这个主题了。讲道理，真的是有点不舒服。。。什么，我自己改小吗。。改小了也未必好看呢。。。而且我只是说这个比较合适，但是有更炫酷的，为什么还要用这个呢=w=&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://themes.gohugo.io/ghostwriter/&#34;&gt;ghostwriter&lt;/a&gt;
-讲道理，这一个主题是最让我挣扎的一个。因为，实在是太简约太geek范儿了！虽然在最终的抉择中，我还是外貌协会了，投靠了&lt;a href=&#34;http://themes.gohugo.io/casper/&#34;&gt;Casper&lt;/a&gt;,但是这个风格真的超喜欢啊！仅次于外貌协会（的选择）！&lt;/p&gt;
-
-&lt;p&gt;其他几个比较简约又比较适合写博客的主题还有：
-&lt;a href=&#34;http://themes.gohugo.io/herring-cove/&#34;&gt;Crisp&lt;/a&gt;  &lt;a href=&#34;http://themes.gohugo.io/hugo-sustain/&#34;&gt;Sustain&lt;/a&gt;
-但是总的来说还是没有一张大图占据整个屏幕带来的视觉冲击感更吸引我了= =！&lt;/p&gt;
-
-&lt;p&gt;4.一个逗比主题&lt;a href=&#34;http://themes.gohugo.io/simple-hugo/&#34;&gt;simple-hugo&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;qnmd,这不就是jekyll的默认主题吗。在这里面有很多是jekyll主题转化过来的！（还有个ghost，估计也是个静态页面生成器）&lt;/p&gt;
-
-&lt;h4 id=&#34;使用hugo搭建个人网站时的参考资料:bc1aedbf8a15d6e48eb49b7927134868&#34;&gt;使用Hugo搭建个人网站时的参考资料：&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.gohugo.org&#34;&gt;Hugo中文文档&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.coderzh.com/2015/08/29/hugo/&#34;&gt;使用hugo搭建个人博客站点&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;themes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;把字调大一些就是好，不仅看着舒服，看起来还觉得写了不少，特爽。&lt;/p&gt;
-</description>
+      <description>使用Hugo重新搭建我的个人博客 听从了杨老师的建议，今天用Hugo重新搭建了自己的个人博客。搭建的过程非常之简单，比起jekyll那茫茫多的配置来说，简直就是傻瓜式的。但是我还是花费了三个小时的时间——其中两个半小时用来挑主题跟自己修图片。。。 至于以前blog里的那些个文章，还是算了吧，本来也没有几篇内容，而且东西也太水了。
+上午挑了半天的主题，下午想补充下about页面的时候，发现选出来的主题跟杨老师是一样的。。。大概是主题太少了吧。也说明我的审美也还算正常吧= =！
+我还挑了下面这几个主题：
+1.Artists ——第一眼让我觉得惊艳的主题 跟现在这个theme的样式有些类似，而且中间照片里的文艺大叔一脸惊愕的表情，给这个theme增添了十分的魅力。不过看了demo之后我就放弃了=。=，因为只想找个最方便，简单拿来写blog的主题，而且现在又没有能拿得出手的项目，也没有什么客户评论之类的。很不错的主题，但是不符合我的需求。
+2.Highlights ——比较漂亮的一页式主题推荐 也是一个一页式的模板。HTML5，但是讲道理看到有些首次加载那么费劲之后，我觉得做个blog还是简单一点的好，虽然有些特效的确很炫酷，可主要还是要拿来写博客的不是吗。同样因为只是一页的还有Hugo Identity 。上午用的时候死活加载不出来，给人的体验非常差呢。但是不得不承认，加载出来还是很漂亮的。还有一个hugo-smpl-theme,这个的demo页面倒是一直打不开，难道我只是翻墙到了另一个天朝GFW里？
+3.Me ——几个让我觉得很合适的主题推荐 这个是我下载好了之后第一个load的主题。跟我之前在jekyll上面使用的主题有些许相似。基本功能也已经做得比较完善，不需要太多的修改了。但是我想吐槽的是，他说的支持的几个默认颜色除了默认的蓝色，其他几个真的是土的不行啊。
+hugo-geo 这个是我第二个看中的主题。也是提供了足够的功能。页面配色也很舒服，左侧栏的特效也很棒。要不是我看了主题作者个人网站上那张他自己的大脸的话，也许我就用这个主题了。讲道理，真的是有点不舒服。。。什么，我自己改小吗。。改小了也未必好看呢。。。而且我只是说这个比较合适，但是有更炫酷的，为什么还要用这个呢=w=
+ghostwriter 讲道理，这一个主题是最让我挣扎的一个。因为，实在是太简约太geek范儿了！虽然在最终的抉择中，我还是外貌协会了，投靠了Casper,但是这个风格真的超喜欢啊！仅次于外貌协会（的选择）！
+其他几个比较简约又比较适合写博客的主题还有： Crisp Sustain 但是总的来说还是没有一张大图占据整个屏幕带来的视觉冲击感更吸引我了= =！
+4.一个逗比主题simple-hugo
+qnmd,这不就是jekyll的默认主题吗。在这里面有很多是jekyll主题转化过来的！（还有个ghost，估计也是个静态页面生成器）
+使用Hugo搭建个人网站时的参考资料：  Hugo中文文档 使用hugo搭建个人博客站点 themes  把字调大一些就是好，不仅看着舒服，看起来还觉得写了不少，特爽。</description>
     </item>
     
   </channel>
