@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="date = “2017-03-08T10:37:45+08:00”title = “记录一个jQuery的问题”draft = falseimage = “http://misanya-1252867445.cossh.myqcloud.com/sky.jpg&amp;quot;
+
+记录一个jQuery的"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Misanya"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="record_a_jquery_bug"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="date = “2017-03-08T10:37:45+08:00”title = “记录一个jQuery的问题”draft = falseimage = “http://misanya-1252867445.cossh.myqcloud.com/sky.jpg&amp;quot;
+
+记录一个jQuery的"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Misanya&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="http://blog.migame.xyzhttps://misanya-1252867445.cos.ap-shanghai.myqcloud.com/Umi2.jpg"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="http://blog.migame.xyzhttps://misanya-1252867445.cos.ap-shanghai.myqcloud.com/Umi2.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>record_a_jquery_bug - Misanya&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Menu</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank" rel="noopener">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('https://misanya-1252867445.cos.ap-shanghai.myqcloud.com/Umi2.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>record_a_jquery_bug</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2020-02-27
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <hr>
+<p>date = “2017-03-08T10:37:45+08:00”<br>title = “记录一个jQuery的问题”<br>draft = false<br>image = “<a href="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg&quot;" target="_blank" rel="noopener">http://misanya-1252867445.cossh.myqcloud.com/sky.jpg&quot;</a></p>
+<hr>
+<h3 id="记录一个jQuery的bug的查找过程"><a href="#记录一个jQuery的bug的查找过程" class="headerlink" title="记录一个jQuery的bug的查找过程"></a>记录一个jQuery的bug的查找过程</h3><p>想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。</p>
+<h4 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h4><p><img src="/post/imgs/bug-01.png" alt="问题截图"></p>
+<p>这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：</p>
+<p><img src="/post/imgs/bug-03.png" alt="有问题的DOM结构"></p>
+<p>很明显，不知道是谁给添加了一个line-height:3px的限制。</p>
+<h4 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h4><p>在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：</p>
+<pre><code>contentToggle: function () {
+let $dom = $(&apos;#js_comment_list .txt p&apos;);
+$dom.each(function (index) {
+    let $domHeight = parseInt($(this).css(&apos;height&apos;));
+    let $domLineHeight = parseInt($(this).css(&apos;lineHeight&apos;));
+    //console.info(&apos;line height is &apos;+$domLineHeight+&apos;,index is:&apos;+index);
+    let $domMaxHeight = $domLineHeight * 3;
+    ...</code></pre><h4 id="找到问题"><a href="#找到问题" class="headerlink" title="找到问题"></a>找到问题</h4><p>看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：</p>
+<p><img src="/post/imgs/bug-02.png" alt="IE9的控制台输出"></p>
+<p><img src="/post/imgs/bug-04.png" alt="Chrome的控制台输出"></p>
+<p>果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。</p>
+<p><a href="https://bugs.jquery.com/ticket/13472" target="_blank" rel="noopener">JQuery Bug Report</a></p>
+<h4 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h4><p>我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？</p>
+<p>但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。</p>
+<h4 id="总结问题"><a href="#总结问题" class="headerlink" title="总结问题"></a>总结问题</h4><p>总结个毛啊 有啥好总结的。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2020 Misanya<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
