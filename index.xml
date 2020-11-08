@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Misanya&#39;s Blog</title>
-    <link>http://misanya.com/</link>
+    <link>http://liushengxian.github.io/</link>
     <description>Recent content on Misanya&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sun, 14 Oct 2018 18:17:30 +0800</lastBuildDate><atom:link href="http://misanya.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Oct 2018 18:17:30 +0800</lastBuildDate><atom:link href="http://liushengxian.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>《无双》观后感</title>
-      <link>http://misanya.com/post/project_gutenburg/</link>
+      <link>http://liushengxian.github.io/post/project_gutenburg/</link>
       <pubDate>Sun, 14 Oct 2018 18:17:30 +0800</pubDate>
       
-      <guid>http://misanya.com/post/project_gutenburg/</guid>
+      <guid>http://liushengxian.github.io/post/project_gutenburg/</guid>
       <description>昨天跟果果一起约好了小聚一下，翻了翻最近档期的电影，发现只有《无双》的评分还是蛮高的，于是下午就一起欣赏了一波。
 可以说，这是一部高智商犯罪片。作为男主角的“画家”（也即李问），以及作为女主角的秀清，可以说都是智商超高的人物。让我想起的另一个角色就是《越狱》里的Micheal Scofield。画家有着制造伪钞的技术，搞清楚了所有的技术难点，有着超强的记忆力和绘画水平，以及超一流的编剧、表演水平。想想自己的水平，高智商犯罪，算了还是好好当老实人吧。真的存在这样的人的话，那可真是我完全没法想象的生活。
 P.S. 当时怎么自己没有选择印钞相关的专业呢。
@@ -31,10 +31,10 @@ P.S. 当时怎么自己没有选择印钞相关的专业呢。
     
     <item>
       <title>拯救你的ubuntu</title>
-      <link>http://misanya.com/post/save_you_linux_system/</link>
+      <link>http://liushengxian.github.io/post/save_you_linux_system/</link>
       <pubDate>Thu, 08 Mar 2018 11:19:14 +0800</pubDate>
       
-      <guid>http://misanya.com/post/save_you_linux_system/</guid>
+      <guid>http://liushengxian.github.io/post/save_you_linux_system/</guid>
       <description>在给大金鱼的ubuntu添加gulp相关的环境变量时候，因为看了不正确的教程。把/opt/profile里的内容修改了，导致无法进入系统。登录界面输入正确密码反复卡在登录界面。
 折腾了许久，发现了解决方案： 在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。
 将 ro recovery nomodeset 改为 rw single init=/bin/bash
@@ -43,10 +43,10 @@ P.S. 当时怎么自己没有选择印钞相关的专业呢。
     
     <item>
       <title>再见我的2017年</title>
-      <link>http://misanya.com/post/saygoodbye_2017/</link>
+      <link>http://liushengxian.github.io/post/saygoodbye_2017/</link>
       <pubDate>Wed, 27 Dec 2017 23:47:07 +0800</pubDate>
       
-      <guid>http://misanya.com/post/saygoodbye_2017/</guid>
+      <guid>http://liushengxian.github.io/post/saygoodbye_2017/</guid>
       <description>通常来说，都认为人在本命年会过得比较坎坷一些。(至少某人是这么认为的吧。)
 再见我的2017 甚至有些平淡地不够真实。
 我想我的问题还是在于有的时候没有去考虑，不自觉地在逃避某些东西。
@@ -61,10 +61,10 @@ P.S. 当时怎么自己没有选择印钞相关的专业呢。
     
     <item>
       <title>配置我的工作项目</title>
-      <link>http://misanya.com/post/my_way_to_config_work_project/</link>
+      <link>http://liushengxian.github.io/post/my_way_to_config_work_project/</link>
       <pubDate>Thu, 04 May 2017 23:49:00 +0800</pubDate>
       
-      <guid>http://misanya.com/post/my_way_to_config_work_project/</guid>
+      <guid>http://liushengxian.github.io/post/my_way_to_config_work_project/</guid>
       <description>配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
 Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。 [ref-1]: http://blog.csdn.net/albertjone/article/details/54633747
 1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
@@ -80,10 +80,10 @@ https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa
     
     <item>
       <title>记录一个jQuery的问题</title>
-      <link>http://misanya.com/post/record_a_jquery_bug/</link>
+      <link>http://liushengxian.github.io/post/record_a_jquery_bug/</link>
       <pubDate>Wed, 08 Mar 2017 10:37:45 +0800</pubDate>
       
-      <guid>http://misanya.com/post/record_a_jquery_bug/</guid>
+      <guid>http://liushengxian.github.io/post/record_a_jquery_bug/</guid>
       <description>记录一个jQuery的bug的查找过程 想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。
 发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
 很明显，不知道是谁给添加了一个line-height:3px的限制。
@@ -98,10 +98,10 @@ JQuery Bug Report
     
     <item>
       <title>勿忘初心&amp;永远幸福的科学</title>
-      <link>http://misanya.com/post/way_to_happiness/</link>
+      <link>http://liushengxian.github.io/post/way_to_happiness/</link>
       <pubDate>Tue, 21 Feb 2017 20:30:28 +0800</pubDate>
       
-      <guid>http://misanya.com/post/way_to_happiness/</guid>
+      <guid>http://liushengxian.github.io/post/way_to_happiness/</guid>
       <description>前言 写的东西实在太少，于是索性把上次写的没有发出来的，两篇一起发了出来。那本书看了，但是，没怎么吸收。
 勿忘初心 2017-02-07 虽然有些解释能让自己暂时舒服一些。但是自己心里的结，还是很难打开。等到忙碌暂时停下来，却又会犯起旧病。
 那些文艺的耳鼻青年总是有个什么勿忘初心的说法。我想了想，自己之前说过的想法。想要体会更多的事情。
@@ -123,10 +123,10 @@ JQuery Bug Report
     
     <item>
       <title>极简主义生活方式</title>
-      <link>http://misanya.com/post/minimalist-lifestyle/</link>
+      <link>http://liushengxian.github.io/post/minimalist-lifestyle/</link>
       <pubDate>Tue, 10 Jan 2017 12:03:20 +0800</pubDate>
       
-      <guid>http://misanya.com/post/minimalist-lifestyle/</guid>
+      <guid>http://liushengxian.github.io/post/minimalist-lifestyle/</guid>
       <description>失业期间养成了买书缓解压力的习惯，但是买了却基本不会看完。上周周末百无聊赖之际总算开始读了一本书，乔舒亚·贝克尔的《极简》，读过之后深以为然，在此推荐给大家。
 这本书的作者是在一次整理家庭车库的时候领悟到的极简的意义。而我觉得这本书也的确是最适合已经结婚的家庭进行最佳实践。但是即便是对普通的单身狗其实也是很有意义的。
 当他在整理车库时，把自己搞的精疲力竭却发现过了一个上午自己也没有整理好那些东西。而且还导致自己不能兑现对孩子的承诺——打扫完房间就陪孩子玩。当与邻居交谈时受到启发，明白了“拥有”不等于幸福的道理。
@@ -138,10 +138,10 @@ JQuery Bug Report
     
     <item>
       <title>2016的回顾</title>
-      <link>http://misanya.com/post/year_2016/</link>
+      <link>http://liushengxian.github.io/post/year_2016/</link>
       <pubDate>Mon, 02 Jan 2017 16:18:42 +0800</pubDate>
       
-      <guid>http://misanya.com/post/year_2016/</guid>
+      <guid>http://liushengxian.github.io/post/year_2016/</guid>
       <description>经历了太多，想写一首诗来总结。但是后来还是发现很难做到。
 2月份开始的纠结，3月份自行爆炸。
 4月份去南京见老哥，想到了很多，学到了很多。
@@ -157,10 +157,10 @@ JQuery Bug Report
     
     <item>
       <title>读辜鸿铭《中国人的精神》</title>
-      <link>http://misanya.com/post/about_chinese_spirit/</link>
+      <link>http://liushengxian.github.io/post/about_chinese_spirit/</link>
       <pubDate>Sun, 18 Dec 2016 13:08:08 +0800</pubDate>
       
-      <guid>http://misanya.com/post/about_chinese_spirit/</guid>
+      <guid>http://liushengxian.github.io/post/about_chinese_spirit/</guid>
       <description>前言与闲话 因为自己觉得技术太挫了，所以还是多写一点读书的东西。制定了一个小的读书计划，开始就遭遇了一点点小的问题（其实是目前最大的问题），没有在预估的时间内完成。不过还是勉强自己硬是把这本书读完了。总比大学时候那次读社会契约论最后解释不清楚的好，因为那次自己根本就没看完嘛。
 这本书写于一战的时候，所以，是对为什么这个自称是最先进的文明的欧洲文明的社会结构进行的反思，并且提出了解决方案，想要解决欧洲文明所遇到的问题，只有通过在中国存在的良民宗教，来解决。
 题外话，我意识到并联想到了一些事情。很多人在做评论和提出主张的时候，都没有去根本的了解过事情就妄下断言。我个人是很讨厌这种行为的（也许有时候自己也会这样但是却不自知）。这与了解情况并自信地提出意见完全不是一种情况。我现在做不到后者这种情况，有的时候，会导致不利的状况，但是宁可这样，也不愿意做成前一种状态，来赢取他人的信任。
@@ -179,10 +179,10 @@ JQuery Bug Report
     
     <item>
       <title>这个奇葩的周末</title>
-      <link>http://misanya.com/post/this_special_weekend/</link>
+      <link>http://liushengxian.github.io/post/this_special_weekend/</link>
       <pubDate>Mon, 05 Dec 2016 01:29:08 +0800</pubDate>
       
-      <guid>http://misanya.com/post/this_special_weekend/</guid>
+      <guid>http://liushengxian.github.io/post/this_special_weekend/</guid>
       <description>奇妙的过程 实际上，时间并没有变得更长或者如何，但是却让人觉得这个周末比以往都长很多，仿佛过了小半个月一样。只有回到现在，夜深人静的时候才会觉得时间慢慢加速起来，要跟之前的快节奏接轨了。
 最近一直都还算是处于比较嗨皮的状态。有些问题依旧没有得到解决，可在我乐(ma)观（mu）的忽视之下并不觉得很成问题。
 我想造成那种错觉的原因可能是我在这两天生产了以前小半个月才会生产出来的无(lian)效(pian)输(fei)出(hua)。可走到结尾蓦地一回头，发现这好像是一个似曾相识的故事。
@@ -200,10 +200,10 @@ JQuery Bug Report
     
     <item>
       <title>欢迎来到我的新博客</title>
-      <link>http://misanya.com/post/welcome_to_my_new_blog/</link>
+      <link>http://liushengxian.github.io/post/welcome_to_my_new_blog/</link>
       <pubDate>Sun, 06 Nov 2016 11:00:05 +0800</pubDate>
       
-      <guid>http://misanya.com/post/welcome_to_my_new_blog/</guid>
+      <guid>http://liushengxian.github.io/post/welcome_to_my_new_blog/</guid>
       <description>使用Hugo重新搭建我的个人博客 听从了杨老师的建议，今天用Hugo重新搭建了自己的个人博客。搭建的过程非常之简单，比起jekyll那茫茫多的配置来说，简直就是傻瓜式的。但是我还是花费了三个小时的时间——其中两个半小时用来挑主题跟自己修图片。。。 至于以前blog里的那些个文章，还是算了吧，本来也没有几篇内容，而且东西也太水了。
 上午挑了半天的主题，下午想补充下about页面的时候，发现选出来的主题跟杨老师是一样的。。。大概是主题太少了吧。也说明我的审美也还算正常吧= =！
 我还挑了下面这几个主题：
@@ -220,10 +220,10 @@ qnmd,这不就是jekyll的默认主题吗。在这里面有很多是jekyll主题
     
     <item>
       <title></title>
-      <link>http://misanya.com/about/</link>
+      <link>http://liushengxian.github.io/about/</link>
       <pubDate>Sun, 06 Nov 2016 09:34:47 +0800</pubDate>
       
-      <guid>http://misanya.com/about/</guid>
+      <guid>http://liushengxian.github.io/about/</guid>
       <description>关于我 可能这个昵称Misanya看起来总是显得很蹩脚。这个ID的来源也是蛮曲折的，盖因本人贴吧的ID叫做“籼哥”，然后姿势水平不高的同志们就给起了米山哥的叫法。后来又机缘巧合，聊到起英文名，ID【悲伤小恒子】的网友顺口给我起了Misan的名字。后来我又在这个基础之上把名字改为了Misanya，当然，之所以能起到这个名字，绝大部分原因也还是因为Misaya若风【高端黑】。作为一个LOLer，我刚开始还是蛮喜欢若风的。
 （起了这么个粗俗的贴吧ID的影响不止如此，比起那些小清新ID，比如【晴天】、【岩岩】，天然就少了被妹子关注的理由。）
 我现在居住在上海。是一名正在尝试转型的菜鸟程序猿。
@@ -233,10 +233,10 @@ qnmd,这不就是jekyll的默认主题吗。在这里面有很多是jekyll主题
     
     <item>
       <title></title>
-      <link>http://misanya.com/reading-list/</link>
+      <link>http://liushengxian.github.io/reading-list/</link>
       <pubDate>Sun, 06 Nov 2016 09:34:47 +0800</pubDate>
       
-      <guid>http://misanya.com/reading-list/</guid>
+      <guid>http://liushengxian.github.io/reading-list/</guid>
       <description>2017.07.20  《小王子》 已读完 《完美关系的秘密》 已读完 《CSS揭秘》 《Web全栈工程师的自我修养》  </description>
     </item>
     

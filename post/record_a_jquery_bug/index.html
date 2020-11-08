@@ -11,7 +11,7 @@
     
         
         <meta name="twitter:card" content="summary_large_image"/>
-        <meta name="twitter:image" content="http://misanya.comhttp://misanya-1252867445.cossh.myqcloud.com/sky.jpg"/>
+        <meta name="twitter:image" content="http://liushengxian.github.iohttp://misanya-1252867445.cossh.myqcloud.com/sky.jpg"/>
     
 
 
@@ -34,7 +34,7 @@ JQuery Bug Report
 
   	<meta property="og:title" content=" 记录一个jQuery的问题 &middot;  Misanya&#39;s Blog" />
   	<meta property="og:site_name" content="Misanya&#39;s Blog" />
-  	<meta property="og:url" content="http://misanya.com/post/record_a_jquery_bug/" />
+  	<meta property="og:url" content="http://liushengxian.github.io/post/record_a_jquery_bug/" />
 
     
   	<meta property="og:type" content="article" />
@@ -53,11 +53,11 @@ JQuery Bug Report
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="shortcut icon" href="http://misanya.comimages/favicon.ico">
-	  <link rel="apple-touch-icon" href="http://misanya.comimages/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="http://liushengxian.github.ioimages/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://liushengxian.github.ioimages/apple-touch-icon.png" />
 
-    <link rel="stylesheet" type="text/css" href="http://misanya.comcss/screen.css" />
-    <link rel="stylesheet" type="text/css" href="http://misanya.comcss/nav.css" />
+    <link rel="stylesheet" type="text/css" href="http://liushengxian.github.iocss/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://liushengxian.github.iocss/nav.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
 
 
@@ -66,7 +66,7 @@ JQuery Bug Report
     
     <meta name="generator" content="Hugo 0.78.1" />
 
-    <link rel="canonical" href="http://misanya.com/post/record_a_jquery_bug/" />
+    <link rel="canonical" href="http://liushengxian.github.io/post/record_a_jquery_bug/" />
 
     
     <script>
@@ -96,17 +96,17 @@ JQuery Bug Report
         
             
             <li class="nav-opened" role="presentation">
-            	<a href="http://misanya.com/">Home</a>
+            	<a href="http://liushengxian.github.io/">Home</a>
             </li>
         
             
             <li class="nav-opened" role="presentation">
-            	<a href="http://misanya.com/about">About me</a>
+            	<a href="http://liushengxian.github.io/about">About me</a>
             </li>
         
             
             <li class="nav-opened" role="presentation">
-            	<a href="http://misanya.com/reading-list">Reading List</a>
+            	<a href="http://liushengxian.github.io/reading-list">Reading List</a>
             </li>
         
     </ul>
@@ -130,7 +130,7 @@ JQuery Bug Report
 
 
   
-      <a class="blog-logo" href="http://misanya.com"><img src="http://misanya.comimages/home.png" alt="Home" /></a>
+      <a class="blog-logo" href="http://liushengxian.github.io"><img src="http://liushengxian.github.ioimages/home.png" alt="Home" /></a>
   
   
       <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
@@ -165,9 +165,9 @@ JQuery Bug Report
       <h3 id="记录一个jquery的bug的查找过程">记录一个jQuery的bug的查找过程</h3>
 <p>想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。</p>
 <h4 id="发现问题">发现问题</h4>
-<p><img src="http://misanya.com/post/imgs/bug-01.png" alt="问题截图"></p>
+<p><img src="http://liushengxian.github.io/post/imgs/bug-01.png" alt="问题截图"></p>
 <p>这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：</p>
-<p><img src="http://misanya.com/post/imgs/bug-03.png" alt="有问题的DOM结构"></p>
+<p><img src="http://liushengxian.github.io/post/imgs/bug-03.png" alt="有问题的DOM结构"></p>
 <p>很明显，不知道是谁给添加了一个line-height:3px的限制。</p>
 <h4 id="定位问题">定位问题</h4>
 <p>在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：</p>
@@ -182,8 +182,8 @@ $dom.each(function (index) {
 </code></pre>
 <h4 id="找到问题">找到问题</h4>
 <p>看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：</p>
-<p><img src="http://misanya.com/post/imgs/bug-02.png" alt="IE9的控制台输出"></p>
-<p><img src="http://misanya.com/post/imgs/bug-04.png" alt="Chrome的控制台输出"></p>
+<p><img src="http://liushengxian.github.io/post/imgs/bug-02.png" alt="IE9的控制台输出"></p>
+<p><img src="http://liushengxian.github.io/post/imgs/bug-04.png" alt="Chrome的控制台输出"></p>
 <p>果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。</p>
 <p><a href="https://bugs.jquery.com/ticket/13472">JQuery Bug Report</a></p>
 <h4 id="解决问题">解决问题</h4>
@@ -200,7 +200,7 @@ $dom.each(function (index) {
 
     
     <figure class="author-image">
-        <a class="img" href="http://misanya.com" style="background-image: url(http://misanya.comimages/avatar.jpg)"><span class="hidden">Misanya Liu's Picture</span></a>
+        <a class="img" href="http://liushengxian.github.io" style="background-image: url(http://liushengxian.github.ioimages/avatar.jpg)"><span class="hidden">Misanya Liu's Picture</span></a>
     </figure>
     
 
@@ -211,7 +211,7 @@ $dom.each(function (index) {
 
 
 <section class="author">
-  <h4><a href="http://misanya.com">Misanya Liu</a></h4>
+  <h4><a href="http://liushengxian.github.io">Misanya Liu</a></h4>
   
   <p>Go forward.</p>
   
@@ -226,19 +226,19 @@ $dom.each(function (index) {
     
 <section class="share">
   <h4>Share this post</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=%e8%ae%b0%e5%bd%95%e4%b8%80%e4%b8%aajQuery%e7%9a%84%e9%97%ae%e9%a2%98&nbsp;-&nbsp;Misanya%27s%20Blog&amp;url=http%3a%2f%2fmisanya.com%2fpost%2frecord_a_jquery_bug%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=%e8%ae%b0%e5%bd%95%e4%b8%80%e4%b8%aajQuery%e7%9a%84%e9%97%ae%e9%a2%98&nbsp;-&nbsp;Misanya%27s%20Blog&amp;url=http%3a%2f%2fliushengxian.github.io%2fpost%2frecord_a_jquery_bug%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
       <span class="hidden">Twitter</span>
   </a>
-  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fmisanya.com%2fpost%2frecord_a_jquery_bug%2f"
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fliushengxian.github.io%2fpost%2frecord_a_jquery_bug%2f"
       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fmisanya.com%2fpost%2frecord_a_jquery_bug%2f&amp;description=%e8%ae%b0%e5%bd%95%e4%b8%80%e4%b8%aajQuery%e7%9a%84%e9%97%ae%e9%a2%98"
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fliushengxian.github.io%2fpost%2frecord_a_jquery_bug%2f&amp;description=%e8%ae%b0%e5%bd%95%e4%b8%80%e4%b8%aajQuery%e7%9a%84%e9%97%ae%e9%a2%98"
       onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
       <span class="hidden">Pinterest</span>
   </a>
-  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2fmisanya.com%2fpost%2frecord_a_jquery_bug%2f"
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2fliushengxian.github.io%2fpost%2frecord_a_jquery_bug%2f"
      onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
       <span class="hidden">Google+</span>
   </a>
@@ -251,7 +251,7 @@ $dom.each(function (index) {
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'Misanya';
-  var disqus_url = 'http:\/\/misanya.com\/post\/record_a_jquery_bug\/';
+  var disqus_url = 'http:\/\/liushengxian.github.io\/post\/record_a_jquery_bug\/';
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -274,10 +274,10 @@ $dom.each(function (index) {
         
     </footer>
     </div>
-    <script type="text/javascript" src="http://misanya.comjs/jquery.js"></script>
-    <script type="text/javascript" src="http://misanya.comjs/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="http://misanya.comjs/index.js"></script>
-    <script type="text/javascript" src="http://misanya.comjs/jquery.dotdotdot.min.js"></script>
+    <script type="text/javascript" src="http://liushengxian.github.iojs/jquery.js"></script>
+    <script type="text/javascript" src="http://liushengxian.github.iojs/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://liushengxian.github.iojs/index.js"></script>
+    <script type="text/javascript" src="http://liushengxian.github.iojs/jquery.dotdotdot.min.js"></script>
     
 </body>
 </html>
