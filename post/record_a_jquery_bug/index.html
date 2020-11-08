@@ -11,7 +11,7 @@
     
         
         <meta name="twitter:card" content="summary_large_image"/>
-        <meta name="twitter:image" content="http://misanya.com/http://misanya-1252867445.cossh.myqcloud.com/sky.jpg"/>
+        <meta name="twitter:image" content="http://misanya.comhttp://misanya-1252867445.cossh.myqcloud.com/sky.jpg"/>
     
 
 
@@ -21,7 +21,7 @@
 发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
 很明显，不知道是谁给添加了一个line-height:3px的限制。
 定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
-contentToggle: function () { let $dom = $(&#39;#js_comment_list .txt p&#39;); $dom.each(function (index) { let $domHeight = parseInt($(this).css(&#39;height&#39;)); let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;)); //console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index); let $domMaxHeight = $domLineHeight * 3; ...  找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+contentToggle: function () {let $dom = $(&#39;#js_comment_list .txt p&#39;);$dom.each(function (index) {let $domHeight = parseInt($(this).css(&#39;height&#39;));let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;));//console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index);let $domMaxHeight = $domLineHeight * 3;... 找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
 果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
 JQuery Bug Report
 解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
@@ -53,18 +53,18 @@ JQuery Bug Report
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="shortcut icon" href="http://misanya.com/images/favicon.ico">
-	  <link rel="apple-touch-icon" href="http://misanya.com/images/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="http://misanya.comimages/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://misanya.comimages/apple-touch-icon.png" />
 
-    <link rel="stylesheet" type="text/css" href="http://misanya.com/css/screen.css" />
-    <link rel="stylesheet" type="text/css" href="http://misanya.com/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="http://misanya.comcss/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://misanya.comcss/nav.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
 
 
     
         <link href="http://feeds.feedburner.com/..." rel="alternate" type="application/rss+xml" title="Misanya&#39;s Blog" />
     
-    <meta name="generator" content="Hugo 0.31.1" />
+    <meta name="generator" content="Hugo 0.78.1" />
 
     <link rel="canonical" href="http://misanya.com/post/record_a_jquery_bug/" />
 
@@ -130,7 +130,7 @@ JQuery Bug Report
 
 
   
-      <a class="blog-logo" href="http://misanya.com/"><img src="http://misanya.com/images/home.png" alt="Home" /></a>
+      <a class="blog-logo" href="http://misanya.com"><img src="http://misanya.comimages/home.png" alt="Home" /></a>
   
   
       <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
@@ -162,26 +162,15 @@ JQuery Bug Report
     </header>
 
     <section class="post-content">
-      
-
-<h3 id="记录一个jquery的bug的查找过程">记录一个jQuery的bug的查找过程</h3>
-
+      <h3 id="记录一个jquery的bug的查找过程">记录一个jQuery的bug的查找过程</h3>
 <p>想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。</p>
-
 <h4 id="发现问题">发现问题</h4>
-
-<p><img src="http://misanya.com/post/imgs/bug-01.png" alt="问题截图" /></p>
-
+<p><img src="http://misanya.com/post/imgs/bug-01.png" alt="问题截图"></p>
 <p>这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：</p>
-
-<p><img src="http://misanya.com/post/imgs/bug-03.png" alt="有问题的DOM结构" /></p>
-
+<p><img src="http://misanya.com/post/imgs/bug-03.png" alt="有问题的DOM结构"></p>
 <p>很明显，不知道是谁给添加了一个line-height:3px的限制。</p>
-
 <h4 id="定位问题">定位问题</h4>
-
 <p>在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：</p>
-
 <pre><code>contentToggle: function () {
 let $dom = $('#js_comment_list .txt p');
 $dom.each(function (index) {
@@ -191,27 +180,16 @@ $dom.each(function (index) {
     let $domMaxHeight = $domLineHeight * 3;
     ...
 </code></pre>
-
 <h4 id="找到问题">找到问题</h4>
-
 <p>看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：</p>
-
-<p><img src="http://misanya.com/post/imgs/bug-02.png" alt="IE9的控制台输出" /></p>
-
-<p><img src="http://misanya.com/post/imgs/bug-04.png" alt="Chrome的控制台输出" /></p>
-
+<p><img src="http://misanya.com/post/imgs/bug-02.png" alt="IE9的控制台输出"></p>
+<p><img src="http://misanya.com/post/imgs/bug-04.png" alt="Chrome的控制台输出"></p>
 <p>果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。</p>
-
 <p><a href="https://bugs.jquery.com/ticket/13472">JQuery Bug Report</a></p>
-
 <h4 id="解决问题">解决问题</h4>
-
 <p>我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？</p>
-
 <p>但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。</p>
-
 <h4 id="总结问题">总结问题</h4>
-
 <p>总结个毛啊 有啥好总结的。</p>
 
     </section>
@@ -222,7 +200,7 @@ $dom.each(function (index) {
 
     
     <figure class="author-image">
-        <a class="img" href="http://misanya.com/" style="background-image: url(http://misanya.com/images/avatar.jpg)"><span class="hidden">Misanya Liu's Picture</span></a>
+        <a class="img" href="http://misanya.com" style="background-image: url(http://misanya.comimages/avatar.jpg)"><span class="hidden">Misanya Liu's Picture</span></a>
     </figure>
     
 
@@ -233,7 +211,7 @@ $dom.each(function (index) {
 
 
 <section class="author">
-  <h4><a href="http://misanya.com/">Misanya Liu</a></h4>
+  <h4><a href="http://misanya.com">Misanya Liu</a></h4>
   
   <p>Go forward.</p>
   
@@ -296,10 +274,10 @@ $dom.each(function (index) {
         
     </footer>
     </div>
-    <script type="text/javascript" src="http://misanya.com/js/jquery.js"></script>
-    <script type="text/javascript" src="http://misanya.com/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="http://misanya.com/js/index.js"></script>
-    <script type="text/javascript" src="http://misanya.com/js/jquery.dotdotdot.min.js"></script>
+    <script type="text/javascript" src="http://misanya.comjs/jquery.js"></script>
+    <script type="text/javascript" src="http://misanya.comjs/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://misanya.comjs/index.js"></script>
+    <script type="text/javascript" src="http://misanya.comjs/jquery.dotdotdot.min.js"></script>
     
 </body>
 </html>

@@ -10,7 +10,7 @@
 
     <meta name="twitter:card" content="summary"/>
     
-        <meta name="twitter:image" content="http://misanya.com/http://misanya-1252867445.cossh.myqcloud.com/sky.jpg"/>
+        <meta name="twitter:image" content="http://misanya.comhttp://misanya-1252867445.cossh.myqcloud.com/sky.jpg"/>
     
 
 
@@ -39,18 +39,18 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="shortcut icon" href="http://misanya.com/images/favicon.ico">
-	  <link rel="apple-touch-icon" href="http://misanya.com/images/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="http://misanya.comimages/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://misanya.comimages/apple-touch-icon.png" />
 
-    <link rel="stylesheet" type="text/css" href="http://misanya.com/css/screen.css" />
-    <link rel="stylesheet" type="text/css" href="http://misanya.com/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="http://misanya.comcss/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://misanya.comcss/nav.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
 
 
     
         <link href="http://feeds.feedburner.com/..." rel="alternate" type="application/rss+xml" title="Misanya&#39;s Blog" />
     
-    <meta name="generator" content="Hugo 0.31.1" />
+    <meta name="generator" content="Hugo 0.78.1" />
 
     <link rel="canonical" href="http://misanya.com/post/" />
 
@@ -115,7 +115,7 @@
 
     <nav class="main-nav overlay clearfix">
       
-        <a class="blog-logo" href="http://misanya.com/"><img src="http://misanya.com/images/home.png" alt="Home" /></a>
+        <a class="blog-logo" href="http://misanya.com"><img src="http://misanya.comimages/home.png" alt="Home" /></a>
       
       
           <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
@@ -171,7 +171,7 @@ P.S. 当时怎么自己没有选择印钞相关的专业呢。
         
 
         
-            <img class="author-thumb" src="http://misanya.com/images/home.png" alt="Author image" nopin="nopin" />
+            <img class="author-thumb" src="http://misanya.comimages/home.png" alt="Author image" nopin="nopin" />
         
         
             Misanya Liu
@@ -200,7 +200,7 @@ P.S. 当时怎么自己没有选择印钞相关的专业呢。
         
 
         
-            <img class="author-thumb" src="http://misanya.com/images/home.png" alt="Author image" nopin="nopin" />
+            <img class="author-thumb" src="http://misanya.comimages/home.png" alt="Author image" nopin="nopin" />
         
         
             Misanya Liu
@@ -235,7 +235,7 @@ P.S. 当时怎么自己没有选择印钞相关的专业呢。
         
 
         
-            <img class="author-thumb" src="http://misanya.com/images/home.png" alt="Author image" nopin="nopin" />
+            <img class="author-thumb" src="http://misanya.comimages/home.png" alt="Author image" nopin="nopin" />
         
         
             Misanya Liu
@@ -255,7 +255,7 @@ P.S. 当时怎么自己没有选择印钞相关的专业呢。
     </header>
     <section class="post-excerpt">
         <p>配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
-Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考这里。
+Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。 [ref-1]: http://blog.csdn.net/albertjone/article/details/54633747
 1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
 2.download hardware from startup panel; 因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
 3.sudo apt-get update/sudo apt-get upgrade [upgrade is breaking here.] 按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
@@ -271,7 +271,7 @@ https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa
         
 
         
-            <img class="author-thumb" src="http://misanya.com/images/home.png" alt="Author image" nopin="nopin" />
+            <img class="author-thumb" src="http://misanya.comimages/home.png" alt="Author image" nopin="nopin" />
         
         
             Misanya Liu
@@ -294,7 +294,7 @@ https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa
 发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
 很明显，不知道是谁给添加了一个line-height:3px的限制。
 定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
-contentToggle: function () { let $dom = $('#js_comment_list .txt p'); $dom.each(function (index) { let $domHeight = parseInt($(this).css('height')); let $domLineHeight = parseInt($(this).css('lineHeight')); //console.info('line height is '+$domLineHeight+',index is:'+index); let $domMaxHeight = $domLineHeight * 3; ...  找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+contentToggle: function () {let $dom = $('#js_comment_list .txt p');$dom.each(function (index) {let $domHeight = parseInt($(this).css('height'));let $domLineHeight = parseInt($(this).css('lineHeight'));//console.info('line height is '+$domLineHeight+',index is:'+index);let $domMaxHeight = $domLineHeight * 3;... 找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
 果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
 JQuery Bug Report
 解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
@@ -306,7 +306,7 @@ JQuery Bug Report
         
 
         
-            <img class="author-thumb" src="http://misanya.com/images/home.png" alt="Author image" nopin="nopin" />
+            <img class="author-thumb" src="http://misanya.comimages/home.png" alt="Author image" nopin="nopin" />
         
         
             Misanya Liu
@@ -339,10 +339,10 @@ JQuery Bug Report
         
     </footer>
     </div>
-    <script type="text/javascript" src="http://misanya.com/js/jquery.js"></script>
-    <script type="text/javascript" src="http://misanya.com/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="http://misanya.com/js/index.js"></script>
-    <script type="text/javascript" src="http://misanya.com/js/jquery.dotdotdot.min.js"></script>
+    <script type="text/javascript" src="http://misanya.comjs/jquery.js"></script>
+    <script type="text/javascript" src="http://misanya.comjs/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://misanya.comjs/index.js"></script>
+    <script type="text/javascript" src="http://misanya.comjs/jquery.dotdotdot.min.js"></script>
     
 </body>
 </html>

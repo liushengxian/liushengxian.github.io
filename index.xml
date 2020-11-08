@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Misanya&#39;s Blog</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sun, 14 Oct 2018 18:17:30 +0800</lastBuildDate>
-    
-	<atom:link href="http://misanya.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 14 Oct 2018 18:17:30 +0800</lastBuildDate><atom:link href="http://misanya.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>《无双》观后感</title>
       <link>http://misanya.com/post/project_gutenburg/</link>
@@ -70,7 +66,7 @@ P.S. 当时怎么自己没有选择印钞相关的专业呢。
       
       <guid>http://misanya.com/post/my_way_to_config_work_project/</guid>
       <description>配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
-Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考这里。
+Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。 [ref-1]: http://blog.csdn.net/albertjone/article/details/54633747
 1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
 2.download hardware from startup panel; 因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
 3.sudo apt-get update/sudo apt-get upgrade [upgrade is breaking here.] 按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
@@ -92,7 +88,7 @@ https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa
 发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
 很明显，不知道是谁给添加了一个line-height:3px的限制。
 定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
-contentToggle: function () { let $dom = $(&#39;#js_comment_list .txt p&#39;); $dom.each(function (index) { let $domHeight = parseInt($(this).css(&#39;height&#39;)); let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;)); //console.info(&#39;line height is &#39;+$domLineHeight+&#39;,index is:&#39;+index); let $domMaxHeight = $domLineHeight * 3; ...  找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+contentToggle: function () {let $dom = $(&#39;#js_comment_list .txt p&#39;);$dom.each(function (index) {let $domHeight = parseInt($(this).css(&#39;height&#39;));let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;));//console.info(&#39;line height is &#39;+$domLineHeight+&#39;,index is:&#39;+index);let $domMaxHeight = $domLineHeight * 3;... 找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
 果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
 JQuery Bug Report
 解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
@@ -199,7 +195,7 @@ JQuery Bug Report
 再扯远一些，就算大家都可以找到合适的状态，但是整个群体的平均认知还是会有一个大概标准。冲突总是会有的。
 所以是个奇葩的周末 仿佛是同一个自己，却又完全像是两个不一样的人。
 最后作为一个普通2B青年伪装(chong)文(zi)艺(shu)的手段：
-  那只铅笔 深海里折断的圆规， 嘲笑着那coco。 美味的鸩酒， 磨盘边的驹儿， 以及， 烧不出来的佳肴。 谢谢这一丝丝温润的雨。 深渊里， 也见到了探险者的光芒。 果儿走了出去。 被丢弃的三色卡牌， 涟漪带走了我的思绪。 啊，智叟， 请放心， 城隍知道那天空中的气球。 永远不会再驶向远方， 但至少还有鱼儿。   莫名其妙今天就到了公历生日的这一天，虽然不过公历的，但还是祝自己快乐吧。</description>
+  那只铅笔深海里折断的圆规，嘲笑着那coco。美味的鸩酒，磨盘边的驹儿， 以及，烧不出来的佳肴。谢谢这一丝丝温润的雨。深渊里，也见到了探险者的光芒。果儿走了出去。被丢弃的三色卡牌，涟漪带走了我的思绪。啊，智叟， 请放心，城隍知道那天空中的气球。永远不会再驶向远方，但至少还有鱼儿。  莫名其妙今天就到了公历生日的这一天，虽然不过公历的，但还是祝自己快乐吧。</description>
     </item>
     
     <item>
@@ -216,7 +212,7 @@ JQuery Bug Report
 3.Me ——几个让我觉得很合适的主题推荐 这个是我下载好了之后第一个load的主题。跟我之前在jekyll上面使用的主题有些许相似。基本功能也已经做得比较完善，不需要太多的修改了。但是我想吐槽的是，他说的支持的几个默认颜色除了默认的蓝色，其他几个真的是土的不行啊。
 hugo-geo 这个是我第二个看中的主题。也是提供了足够的功能。页面配色也很舒服，左侧栏的特效也很棒。要不是我看了主题作者个人网站上那张他自己的大脸的话，也许我就用这个主题了。讲道理，真的是有点不舒服。。。什么，我自己改小吗。。改小了也未必好看呢。。。而且我只是说这个比较合适，但是有更炫酷的，为什么还要用这个呢=w=
 ghostwriter 讲道理，这一个主题是最让我挣扎的一个。因为，实在是太简约太geek范儿了！虽然在最终的抉择中，我还是外貌协会了，投靠了Casper,但是这个风格真的超喜欢啊！仅次于外貌协会（的选择）！
-其他几个比较简约又比较适合写博客的主题还有： Crisp Sustain 但是总的来说还是没有一张大图占据整个屏幕带来的视觉冲击感更吸引我了= =！
+其他几个比较简约又比较适合写博客的主题还有： Crisp Herring Cove Sustain 但是总的来说还是没有一张大图占据整个屏幕带来的视觉冲击感更吸引我了= =！
 4.一个逗比主题simple-hugo
 qnmd,这不就是jekyll的默认主题吗。在这里面有很多是jekyll主题转化过来的！（还有个ghost，估计也是个静态页面生成器）
 使用Hugo搭建个人网站时的参考资料：  Hugo中文文档 使用hugo搭建个人博客站点 themes  把字调大一些就是好，不仅看着舒服，看起来还觉得写了不少，特爽。</description>
@@ -241,7 +237,7 @@ qnmd,这不就是jekyll的默认主题吗。在这里面有很多是jekyll主题
       <pubDate>Sun, 06 Nov 2016 09:34:47 +0800</pubDate>
       
       <guid>http://misanya.com/reading-list/</guid>
-      <description> 2017.07.20  《小王子》 已读完 《完美关系的秘密》 已读完 《CSS揭秘》 《Web全栈工程师的自我修养》  </description>
+      <description>2017.07.20  《小王子》 已读完 《完美关系的秘密》 已读完 《CSS揭秘》 《Web全栈工程师的自我修养》  </description>
     </item>
     
   </channel>
