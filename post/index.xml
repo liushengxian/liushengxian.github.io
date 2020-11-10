@@ -7,7 +7,61 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sun, 14 Oct 2018 18:17:30 +0800</lastBuildDate><atom:link href="http://liushengxian.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Nov 2020 01:23:08 +0800</lastBuildDate><atom:link href="http://liushengxian.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>记录工作中遇到的两个bug</title>
+      <link>http://liushengxian.github.io/post/two-bugs-in-work/</link>
+      <pubDate>Wed, 11 Nov 2020 01:23:08 +0800</pubDate>
+      
+      <guid>http://liushengxian.github.io/post/two-bugs-in-work/</guid>
+      <description>很久没有写blog了。这次在工作中遇到两个bug，更新一下。
+生产环境与开发环境不一致的问题 在上线几个新功能之后，突然QA反馈线上的某个页面的switch按钮不见了。当然，因为程序具有默认行为，所以这几个按钮不见倒也没有太多的用户反馈。
+因为可能在用户看来这个页面本来就是不能做更多控制的。所以我有足够的时间来找出问题的所在。
+在尝试了多次改动之后，发现这个switch按钮在开发环境&amp;amp;测试环境都能看到。但是一到了beta环境或者线上生产环境之后，就还是莫名其妙的失踪了。在线上的console里面甚至看不到任何有用的报错信息。。只有一个奇怪的没有任何提示的红色Error。
+用Chrome的console指针点击页面后，发现按钮组件的dom根本没有生成，而是一个类似于v-if=&amp;ldquo;false&amp;quot;情况下的
+&amp;lt;!-- --&amp;gt; 我开始怀疑是否组件没有正确传入参数，并尝试了几次修改控制组件展示的变量，但是都没有成功，仍旧是在开发环境生龙活虎，在线上、beta消失不见。
+在咨询浩洋哥之后，他提出可以让运维看一下是否发布了正确的版本。
+但是我对比了自己push上去的代码的hash值与CI中build的hash值，却是一样的，说明发布环境没有什么问题。
+就在我百思不得其解的时候，我在beta环境上看到了一个错误提示。应该也就是线上那个被过滤掉的错误提示信息。
+大概意思是说，true不能作为值 赋值给onClick。
+恍然大悟，想到自己在这个组件里看到的on={true}这个选项。意识到这里的on被某个插件（怀疑是升级过后的babel插件、或者typescript插件）自动识别成了onClick。然后将布尔值赋给onClick，自然会无法赋值成功，然后导致运行时错误，dom也就无法顺利渲染出来了。
+将on这个属性改为switch之后，上beta，果然，问题解决了。
+启发 首先这个坑是前面人留下来的，用on来作为一个标志记录组件的状态属实是有些问题的。一般朋友命名时应该都不会用这么简单的名称来写到dom属性上面去吧。
+其次，对我的启发是，自己对代码打包过程的理解还是不足的。如果能够知道每个依赖都做了什么的话，也许在一开始从线上/线下环境不一致就应该考虑到是打包工具的问题。继而寻找代码中有哪些地方做的不够规范。
+vue-router中replace方法失效的问题 第二个问题更加让人头疼。搞了一天才总算搞定。
+当前负责的这个项目中，vue-router的replace方法莫名失效了。结果导致在很多机型上面，操作应用之后各种页面都push进history栈当中。在返回的时候，会有很多之前的页面，返回半天才能返回到应用的入口。
+前面的项目负责人为了解决这个问题，在程序中用了hack的方法，监听页面左上角的返回按钮，在返回到首页的时候，点击返回按钮直接关闭应用。而我也做了一个优化，就是用客户端同事提供的sdk，监听了返回事件，进行页面的跳转。
+但是这个方法也有其无法处理的问题。就是在iOS的机型上面，左滑返回上一页是不在返回事件控制的范畴之内的。导致在iOS上面左滑很多次都有奇怪的页面，很多次才能退出应用。当然一直使用push也会导致应用算占据的内存不断膨胀，也许在操作多次之后就会crash（未验证是否keep-alive会有助于解决这个情况）
+所以我就着手开始解决这个问题。
+其实问题一开始发现也是QA这边发现的，反馈的问题是我们上线新代码之后频繁出现了这个问题（这个问题QA同学一直有遇到过，但是这几次上线之后特别频繁，稳定复现）。
+第一个发现的问题就是，在应用首页多个tab中，之前的开发使用了$router.replace()来记录首页多个tab的变化。当我把这个$router.replace()去掉之后，应用正常切换tab，且观察到浏览器当中的history栈不再增加。
+理论上使用replace来做这种事情是没有问题的。但是在这个replace不生效，莫名变成push的情况下，就变得很糟糕。可以通过快速点击首页的tab实现生成爆炸长度的history。
+当我搜索项目后，发现这个replace主要是提供了一个新的query，叫做tabIndex的值，给另外仅有的一个地方使用。这就让我很放心了，其实这种在app内的应用，完全可以不需要这种地址，反正每次进入都是首页，而且切换tab的事情完全可以放到vuex当中存储。没必要放到路由当中，如果实在不行，就把首页的这个replace撤掉，然后改写一下那仅有的一个地方好了。
+但是问题没有那么简单，虽然这个tabIndex只有一个地方使用，但使用$router.replace()的地方可不止一处，而且很多地方都是不可替换的。
+那么我们继续调查为什么这个router.replace()失败了呢。当我回归到vue-router的文档时，发现replace方法的第二个、第三个参数可以分别设置为replace成功与失败的回调。当然也可以不设置，这样replace返回的是一个promise，可以使用then，catch语句进行捕获结果/错误。
+心想这样总可以找到问题了吧。然后用了回调&amp;amp;catch语句发现，的确是跳转路由失败了，但却没有返回值。（笔者用的vue-router版本不是最新的，最新的代码已经添加了这个报错信息）
+返回的报错值是undefined，就很让人头大，不知道问题出在哪里。
+尝试了一下replaceState方法，发现在使用这个方法的时候，能够正确地更新history历史。实在不行我就把所有的$router.replace()都替换成history.replaceState()吧。我这么想着。
+回头去看vue-router的文档，发现有一个replace选项，甚至在网上查到尤大在0.x版本的github issue上面跟网友探讨是否replace的默认值设置为true会更好一些。抱着试一试的心态我给项目中所有replace方法添加了replace： true。
+果不其然，没有任何用处。
+没办法，只能硬着头皮去看vue-router的源码了。使用debugger开始单步调试，看了大半天，也没发现什么问题。看到不知道几层的代码逻辑之后，连自己也绕晕了。不想再读下去了。
+心想，难道真的升级下vue-router的版本就可以了？于是自己抱着怀疑的态度，去随便搜索了一个公司内的其他项目，确认了代码中也使用了replace方法，然后发现不论是公司的脚手架，还是vue-router的版本，都是一样的。
+果然，问题不出在vue-router或者脚手架的版本上面。前面已经翻过脚手架的CHANGELOG，根本没有发现有什么修复vue-router相关的问题。在网上搜索也找不到相同的情况。
+只好无奈地继续翻vue-router的源码，单步调试看问题出在哪里。嗯，，vue-router最后会生成一个队列，然后把所有钩子函数都执行一遍，然后跳到了一个方法当中去，根据这个方法中的to.replace来看是需要使用push还是replace方法。等等。。？这个to是哪里来的？不是replace方法中的replace选项，那是哪里来的？看着单步调试中，栈在处理完队列的时候，history的长度又增加了1，就觉得莫名忧伤。
+就在这时，我找不到原因的时候，又看到了自己之前尝试的replaceState()的代码，在浏览器中尝试，突然发现自己页面上面虽然能够跳转成功，但是页面的query中携带的用户信息&amp;amp;其他query都不见了。
+这就让我想起之前看到的项目中，两年前项目开始的时候就已经添加上的那个写给vue的插件了。这个插件添加了一个beforeRoute钩子，在钩子中，保留了需要保存的query信息。我想如果要用replaceState来做的话，也要看下怎么兼容这个方案吧。
+打开plugin的文件的时候，突然一道灵光闪过，我意识到问题所在了。
+！！！！！！
+就是这个plugin在它的钩子里使用next()方法修改url的时候，没有使用replace参数！导致每次$router.replace()都会新增一个页面到history栈当中去！
+在给next方法添加了replace：true选项之后，反复试了几次，发现果然history在$router.replace()的时候不再增加了。
+我解决了一个两年前的bug！
+启发 谁也不曾想到，这个问题居然会是这样引起的。
+反思自己一步步来debug的过程，可以看到自己对vue-router的原理一步步加深，但是还是没有完全吃透。
+所以，还是努力把vue-router的源码搞清楚吧。这样再次遇到类似的问题时候，就会更快定位到问题所在。
+再一个启发就是，vue-router已经经历了社区的验证，其实不需要花费过多时间在找它的问题上面，而应该将问题聚焦于自己的业务代码上面。毕竟其他使用vue-router的项目，都没有遇到这个奇葩的问题。所以问题更大可能性是出在我们自己的业务代码/项目自有的框架上面。
+最后 晚安！ 好好休息，保持好状态，不要过分熬夜！就算进度赶不上，也不要太过着急了！</description>
+    </item>
+    
     <item>
       <title>《无双》观后感</title>
       <link>http://liushengxian.github.io/post/project_gutenburg/</link>
