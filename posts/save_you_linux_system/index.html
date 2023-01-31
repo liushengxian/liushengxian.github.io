@@ -3,8 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title> &middot; </title>
-        <meta name="description" content="2017.07.20 《小王子》 已读完 《完美关系的秘密》 已读完 《CSS揭秘》 《Web全栈工程师的自我修养》 ">
+        <title>拯救你的ubuntu &middot; </title>
+        <meta name="description" content="在给大金鱼的ubuntu添加gulp相关的环境变量时候，因为看了不正确的教程。把/opt/profile里的内容修改了，导致无法进入系统。登录界面输入正确密码反复卡在登录界面。
+折腾了许久，发现了解决方案： 在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。
+将 ro recovery nomodeset 改为 rw single init=/bin/bash
+参考资料：recovery mode">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
         <meta name="generator" content="Hugo 0.110.0">
@@ -69,24 +72,26 @@
 <div class="container">
     <article class="post-container">
         <header class="post-header">
-    <h1 class="post-title"></h1>
+    <h1 class="post-title">拯救你的ubuntu</h1>
     
 </header>
 
         <div class="post-content clearfix">
     
-        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/Sonoda_Umi.jpg">
+        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
     
 
-    <h2 id="20170720">2017.07.20</h2>
-<ul>
-<li>《小王子》                     已读完</li>
-<li>《完美关系的秘密》             已读完</li>
-<li>《CSS揭秘》</li>
-<li>《Web全栈工程师的自我修养》</li>
-</ul>
+    <p>在给大金鱼的ubuntu添加gulp相关的环境变量时候，因为看了不正确的教程。把/opt/profile里的内容修改了，导致无法进入系统。登录界面输入正确密码反复卡在登录界面。</p>
+<p>折腾了许久，发现了解决方案：
+在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。</p>
+<p>将 ro recovery nomodeset 改为 rw single init=/bin/bash</p>
+<p>参考资料：<a href="http://blog.csdn.net/code_segment/article/details/78145574">recovery mode</a></p>
 
 </div>
+
+        <footer class="post-footer clearfix"><div class="share">
+    </div>
+</footer>
     </article>
 </div>
 

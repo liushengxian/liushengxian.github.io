@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>配置我的工作项目 &middot; </title>
+        <meta name="description" content="配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
+Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。 [ref-1]: http://blog.csdn.net/albertjone/article/details/54633747
+1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
+2.download hardware from startup panel; 因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
+3.sudo apt-get update/sudo apt-get upgrade [upgrade is breaking here.] 按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
+4.download chrome for linux; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb sudo gdebi google-chrome-stable_current_amd64.deb 下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。
+5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!) 还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】
+6.install git. 安装Git。
+7.generate my ssh-key for github. 生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。
+8.download shadowsocks-qt5. 装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。
+https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa:hzwhuang/ss-qt5 sudo apt-get update sudo apt-get install shadowsocks-qt5)">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.110.0">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
+        
+        
+        
+        
+
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a href="//liushengxian.github.io/">Shawn New Hugo Site</a>
+                            </h1>
+                        
+                        
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
+                                <i class="fa fa-github-alt" aria-hidden="true"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a href="/about-me/">about me</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/reading-list/">reading list</a>
+    </li>
+
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container">
+        <header class="post-header">
+    <h1 class="post-title">配置我的工作项目</h1>
+    
+</header>
+
+        <div class="post-content clearfix">
+    
+        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+    
+
+    <h3 id="配置工作项目的过程">配置工作项目的过程</h3>
+<p>鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。</p>
+<h4 id="day-1">Day 1</h4>
+<p>0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。
+[ref-1]: <a href="http://blog.csdn.net/albertjone/article/details/54633747">http://blog.csdn.net/albertjone/article/details/54633747</a></p>
+<p>1.download netease music for linux;
+下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】</p>
+<p>2.download hardware from startup panel;
+因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。</p>
+<p>3.sudo apt-get update/sudo apt-get upgrade
+[upgrade is breaking here.]
+按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。</p>
+<p>4.download chrome for linux;
+wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb">https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</a>
+sudo gdebi google-chrome-stable_current_amd64.deb
+下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。</p>
+<p>5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!)
+还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】</p>
+<p>6.install git.
+安装Git。</p>
+<p>7.generate my ssh-key for github.
+生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。</p>
+<p>8.download shadowsocks-qt5.
+装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。</p>
+<p><a href="https://github.com/shadowsocks/shadowsocks-qt5/wiki">https://github.com/shadowsocks/shadowsocks-qt5/wiki</a>
+(sudo add-apt-repository ppa:hzwhuang/ss-qt5
+sudo apt-get update
+sudo apt-get install shadowsocks-qt5)</p>
+<p>9.Set up a shadowsocks Server On my linode.
+没想到这么简单。shaodowsocks都做的这么简便了。</p>
+<p>10.Chinese input method
+安装中文输入法。当时在公司折腾中文输入法搞了半天好像因为没重启一直没生效。所以这里就重启了电脑。</p>
+<p>//////Restart My Computer</p>
+<p>11.Switchy Sharp ==&gt; Switchy Omega.
+修改系统代理带来的问题是我的网易云音乐加载歌曲也加载不动了。其实我需要的只是浏览器翻墙。所以去google商店找了这个插件来翻墙。
+只需要配置这里的proxy server指向本地的shadowsocks代理就好了。
+然后启动shadowsocks qt5.</p>
+<p>12.Install Hugo
+安装Hugo。这一步与工作项目无关 = =</p>
+<p>13.Install phpStorm &amp; Register.
+安装phpStorm。其实也是相当独立的一步。无所谓。</p>
+<p>14.download xjf project from Our Company&rsquo;s Git Server。
+(&amp;&amp;&amp;Checkout to branch dev.)</p>
+<p>/////15. sudo apt-get install npm.///////non-sense.</p>
+<p>15.Install Nvm/(Then nodejs)
+(<a href="https://github.com/creationix/nvm">https://github.com/creationix/nvm</a>)
+wget -qO- <a href="https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh">https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh</a> | bash
+(Close or set alias for nvm)
+(nvm install v7.9.0)</p>
+<p>16.Install gulp globally.
+/////npm install cnpm -g
+===&gt;
+17.cnpm install.=====&gt; now you can gulp beatit!
+////</p>
+<p>18.Let&rsquo;s sleep for a while! Good bye!</p>
+<h4 id="day-2">Day 2</h4>
+<p>1.sudo apt-get install zsh   //强大之处在于何处呢？ 后来我又把它卸载了。暂时没时间看这个。</p>
+<p>2.download mysql workbench for linux //Error: Dependency is not satisfiable. libglibmm-2.4-1v5(&gt;= 2.48.0)
+sudo apt-get install mysql-workbench.
+/////////sudo apt-get update!!!!!!</p>
+<p>参考链接: <a href="https://askubuntu.com/questions/420054/trouble-installing-mysql-workbench">https://askubuntu.com/questions/420054/trouble-installing-mysql-workbench</a></p>
+<p>想要安装workbench但是有依赖库不对。倒腾半天之后发现需要update！</p>
+<h4 id="day-25">Day 2.5</h4>
+<p>//another day. May 3.
+3.sudo apt-get remove zsh. //好像还没用到合适的高级功能。</p>
+<p>4.add alias to my .bashrc files.// gst xjf and so-on.</p>
+<p>cmd: xdg-open file
+参考链接: <a href="https://askubuntu.com/questions/31069/how-to-open-a-file-manager-of-the-current-directory-in-the-terminal">https://askubuntu.com/questions/31069/how-to-open-a-file-manager-of-the-current-directory-in-the-terminal</a></p>
+<p>5.nginx log file location: /var/log/nginx
+注意修改nginx.conf里面的路径。</p>
+<p>6.sudo ln -s /etc/nginx/sites-available/nginx.conf
+创建链接到available的快捷方式</p>
+<p>参考链接: <a href="https://www.pocketdigi.com/20120504/822.html">https://www.pocketdigi.com/20120504/822.html</a></p>
+<p>7.restart nginx.</p>
+<p>参考链接: <a href="https://serverfault.com/questions/213185/how-to-restart-nginx">https://serverfault.com/questions/213185/how-to-restart-nginx</a></p>
+<p>8.install redis</p>
+<p>参考链接: <a href="https://redis.io/topics/quickstart">https://redis.io/topics/quickstart</a></p>
+<p>9.重新安装linux环境配置里写的那些php依赖.</p>
+<p>到这里。我发现自己访问在hosts文件里写的本地网站，总是给我跳转到我的远程服务器上。我自己在本地找了半天也没找到我下过这个项目。因为是新配置的机器，所以我知道自己根本没有下载过这个项目。怎么就在本地欢快地跑起来了。</p>
+<p>Nginx里的default文件删了 然后站点挂了。改回来 又好了 。但是总是搞不懂，哪里到底是问题所在。</p>
+<h4 id="day-3">Day 3</h4>
+<p>早上跟江江江讨论。他说default文件是在没有conf成功的时候才会去匹配的。说明我的conf文件还是有问题的。回来修改了下里面的路径，还是没有成功。后来我偶然间发现在切换SwitchOmega插件的状态的时候，localhost上的网页也会发生变化（不能加载与加载成功）。居然是因为自己的SwitchOmega这个插件给我自动跳转到了在线的那个项目！其实前一天我也尝试过关闭远程服务器，但是当时可能忘记清理缓存了，所以导致好像关闭远程也没有影响当前localhost（或者操作失误了？）。</p>
+<p>果断关掉这个插件，然后访问站点。根据小王子说的那个error.log，获得了以下出错信息：</p>
+<p>1.install composer!</p>
+<p>error log：</p>
+<p>2017/05/04 22:56:20 [error] 3739#3739: *31 FastCGI sent in stderr: &ldquo;PHP message: PHP Warning:  require(/home/misanya/workspace/=====/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/misanya/workspace/=====/bootstrap/autoload.php on line 17
+PHP message: PHP Fatal error:  require(): Failed opening required &lsquo;/home/misanya/workspace/=====/bootstrap/../vendor/autoload.php&rsquo; (include_path=&rsquo;.:/usr/share/php&rsquo;) in /home/misanya/workspace/=====/bootstrap/autoload.php on line 17&rdquo; while reading response header from upstream, client: 127.0.0.1, server: api.local.=====.com, request: &ldquo;GET / HTTP/1.1&rdquo;, upstream: &ldquo;fastcgi://unix:/var/run/php/php7.0-fpm.sock:&rdquo;, host: &ldquo;<a href="https://www.local.=====.com">www.local.=====.com</a>&rdquo;</p>
+<p>我按照这个目录过去发现这个vendor文件夹里面是空的。。想起来了。好吧 去按照指示安装composer。然后composer install一下。
+然后他就给我下载了各种东西。。最后自动生成autoload.php。</p>
+<p>2.还是不行
+这次的报错如下：
+‘’‘
+2017/05/04 23:26:44 [error] 6203#6203: *1 FastCGI sent in stderr: &ldquo;PHP message: PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file &ldquo;/home/misanya/workspace/======/storage/logs/laravel-fpm-fcgi-2017-05-04.log&rdquo; could not be opened: failed to open stream: Permission denied in /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:97
+Stack trace:
+#0 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php(88): Monolog\Handler\StreamHandler-&gt;write(Array)
+#1 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(37): Monolog\Handler\RotatingFileHandler-&gt;write(Array)
+#2 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Logger.php(336): Monolog\Handler\AbstractProcessingHandler-&gt;handle(Array)
+#3 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Logger.php(615): Monolog\Logger-&gt;addRecord(400, &lsquo;GET http://www&hellip;.&rsquo;, Array)
+#4 /home/misanya/workspace/======/vendor/laravel/framework/src/Illuminate/Lo&hellip;
+PHP message: PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file &ldquo;/home/misanya/workspace/======/storage/logs/laravel-fpm-fcgi-2017-05-04.log&rdquo; could not be opened: failed to open stream: Permission denied in /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:97
+Stack trace:
+#0 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php(88): Monolog\Handler\StreamHandler-&gt;write(Array)
+#1 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(37): Monolog\Handler\RotatingFileHandler-&gt;write(Array)
+#2 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Logger.php(336): Monolog\Handler\AbstractProcessingHandler-&gt;handle(Array)
+#3 /home/misanya/workspace/======/vendor/monolog/monolog/src/Monolog/Logger.php(615): Monolog\Logger-&gt;addRecord(400, &lsquo;GET http://www&hellip;.&rsquo;, Array)
+’‘’
+好吧。
+sudo chmod -R 777 ./storage
+给文件夹 要加上-R这个选项！</p>
+<p>4.PHP 错误了
+No supported encrypter found. The cipher and / or key length are invalid.</p>
+<p>php artisan key:generate
+This worked for me！ :)</p>
+<p>参考资料：https://laravel.io/forum/06-09-2015-no-supported-encrypter-found-the-cipher-and-or-key-length-are-invalid</p>
+<p>OK！终于配置好了！</p>
+
+</div>
+
+        <footer class="post-footer clearfix"><div class="share">
+    </div>
+</footer>
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a href="//liushengxian.github.io/">Shawn New Hugo Site</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2023 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
+        <script src="//liushengxian.github.io/js/scripts.js"></script>
+        
+    </body>
+</html>
+

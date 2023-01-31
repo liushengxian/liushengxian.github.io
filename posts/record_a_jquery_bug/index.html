@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>记录一个jQuery的问题 &middot; </title>
+        <meta name="description" content="记录一个jQuery的bug的查找过程 想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。
+发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
+很明显，不知道是谁给添加了一个line-height:3px的限制。
+定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
+contentToggle: function () { let $dom = $(&#39;#js_comment_list .txt p&#39;); $dom.each(function (index) { let $domHeight = parseInt($(this).css(&#39;height&#39;)); let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;)); //console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index); let $domMaxHeight = $domLineHeight * 3; ... 找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
+JQuery Bug Report
+解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
+但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。
+总结问题 总结个毛啊 有啥好总结的。">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.110.0">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
+        
+        
+        
+        
+
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a href="//liushengxian.github.io/">Shawn New Hugo Site</a>
+                            </h1>
+                        
+                        
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
+                                <i class="fa fa-github-alt" aria-hidden="true"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a href="/about-me/">about me</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/reading-list/">reading list</a>
+    </li>
+
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container">
+        <header class="post-header">
+    <h1 class="post-title">记录一个jQuery的问题</h1>
+    
+</header>
+
+        <div class="post-content clearfix">
+    
+        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+    
+
+    <h3 id="记录一个jquery的bug的查找过程">记录一个jQuery的bug的查找过程</h3>
+<p>想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。</p>
+<h4 id="发现问题">发现问题</h4>
+<p><img src="/post/imgs/bug-01.png" alt="问题截图"></p>
+<p>这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：</p>
+<p><img src="/post/imgs/bug-03.png" alt="有问题的DOM结构"></p>
+<p>很明显，不知道是谁给添加了一个line-height:3px的限制。</p>
+<h4 id="定位问题">定位问题</h4>
+<p>在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：</p>
+<pre><code>contentToggle: function () {
+let $dom = $('#js_comment_list .txt p');
+$dom.each(function (index) {
+	let $domHeight = parseInt($(this).css('height'));
+	let $domLineHeight = parseInt($(this).css('lineHeight'));
+	//console.info('line height is '+$domLineHeight+',index is:'+index);
+	let $domMaxHeight = $domLineHeight * 3;
+	...
+</code></pre>
+<h4 id="找到问题">找到问题</h4>
+<p>看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：</p>
+<p><img src="/post/imgs/bug-02.png" alt="IE9的控制台输出"></p>
+<p><img src="/post/imgs/bug-04.png" alt="Chrome的控制台输出"></p>
+<p>果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。</p>
+<p><a href="https://bugs.jquery.com/ticket/13472">JQuery Bug Report</a></p>
+<h4 id="解决问题">解决问题</h4>
+<p>我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？</p>
+<p>但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。</p>
+<h4 id="总结问题">总结问题</h4>
+<p>总结个毛啊 有啥好总结的。</p>
+
+</div>
+
+        <footer class="post-footer clearfix"><div class="share">
+    </div>
+</footer>
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a href="//liushengxian.github.io/">Shawn New Hugo Site</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2023 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
+        <script src="//liushengxian.github.io/js/scripts.js"></script>
+        
+    </body>
+</html>
+
