@@ -6,7 +6,26 @@
     <description>Recent content on Shawn New Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Feb 2023 02:31:37 +0800</lastBuildDate><atom:link href="//liushengxian.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Feb 2023 00:00:14 +0800</lastBuildDate><atom:link href="//liushengxian.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Monaco Editor的一些问题记录</title>
+      <link>//liushengxian.github.io/posts/monaco-editor-problems/</link>
+      <pubDate>Tue, 07 Feb 2023 00:00:14 +0800</pubDate>
+      
+      <guid>//liushengxian.github.io/posts/monaco-editor-problems/</guid>
+      <description>上周末开始老薛开始呼叫支援，他的项目里的monaco-editor在升级的时候遭遇问题，结果TypeScript编译过程报错了。
+周末那天因为仓促接到需求，在node@18 + webpack@5 下面搭建了一次monaco-editor和monaco-languageclient。项目代码是能跑过编译的。就把项目代码post到GitHub上，算是草草交差了。
+https://github.com/liushengxian/monaco-client-webpack-test
+但是今天又接到消息。他测试后发现，node 12下也还是行不通的。node 18却根本不需要安装monaco-vscode-api都可以通过编译。
+https://github.com/CraigMeng/monaco-webpack-node-12
+于是乎，今天花了两小时一起debug。最终也没get到解决方案。但是发现了一些小区别：
+比如：https://github.com/nodejs/node/pull/29978
+node到13.2才开始支持条件式导出。
+最后我们定位到的问题是，vscode/services找不到这个定义。然而这个定义是在一个虚假的vscode包里。因为我们用package.json里定义的vscode是
+{ &amp;#34;vscode&amp;#34;: &amp;#34;npm:@codingame/monaco-vscode-api@^1.69.17&amp;#34;, } 然而在我将node版本升级到13，14的时候，项目却依然报同样的错。甚至于升级到18的时候，dev-server直接挂掉了。最后没有办法，我们只能给monaco-languageclient提了一个issue： https://github.com/TypeFox/monaco-languageclient/issues/458
+虽然可能于事无补，毕竟老薛这个repo的node版本已经太旧了。</description>
+    </item>
+    
     <item>
       <title>博客重开暨2022年度总结</title>
       <link>//liushengxian.github.io/posts/my-first-post/</link>

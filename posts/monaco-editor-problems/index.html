@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Monaco Editor的一些问题记录 &middot; </title>
+        <meta name="description" content="上周末开始老薛开始呼叫支援，他的项目里的monaco-editor在升级的时候遭遇问题，结果TypeScript编译过程报错了。
+周末那天因为仓促接到需求，在node@18 &#43; webpack@5 下面搭建了一次monaco-editor和monaco-languageclient。项目代码是能跑过编译的。就把项目代码post到GitHub上，算是草草交差了。
+https://github.com/liushengxian/monaco-client-webpack-test
+但是今天又接到消息。他测试后发现，node 12下也还是行不通的。node 18却根本不需要安装monaco-vscode-api都可以通过编译。
+https://github.com/CraigMeng/monaco-webpack-node-12
+于是乎，今天花了两小时一起debug。最终也没get到解决方案。但是发现了一些小区别：
+比如：https://github.com/nodejs/node/pull/29978
+node到13.2才开始支持条件式导出。
+最后我们定位到的问题是，vscode/services找不到这个定义。然而这个定义是在一个虚假的vscode包里。因为我们用package.json里定义的vscode是
+{ &#34;vscode&#34;: &#34;npm:@codingame/monaco-vscode-api@^1.69.17&#34;, } 然而在我将node版本升级到13，14的时候，项目却依然报同样的错。甚至于升级到18的时候，dev-server直接挂掉了。最后没有办法，我们只能给monaco-languageclient提了一个issue： https://github.com/TypeFox/monaco-languageclient/issues/458
+虽然可能于事无补，毕竟老薛这个repo的node版本已经太旧了。">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.110.0">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
+        
+        
+        
+        
+
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a href="//liushengxian.github.io/">Shawn New Blog</a>
+                            </h1>
+                        
+                        
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
+                                <i class="fa fa-github-alt" aria-hidden="true"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a href="/about-me/">about me</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/reading-list/">reading list</a>
+    </li>
+
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container">
+        <header class="post-header">
+    <h1 class="post-title">Monaco Editor的一些问题记录</h1>
+    
+</header>
+
+        <div class="post-content clearfix">
+    
+        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+    
+
+    <p>上周末开始老薛开始呼叫支援，他的项目里的monaco-editor在升级的时候遭遇问题，结果TypeScript编译过程报错了。</p>
+<p>周末那天因为仓促接到需求，在node@18 + webpack@5 下面搭建了一次monaco-editor和monaco-languageclient。项目代码是能跑过编译的。就把项目代码post到GitHub上，算是草草交差了。</p>
+<p><a href="https://github.com/liushengxian/monaco-client-webpack-test">https://github.com/liushengxian/monaco-client-webpack-test</a></p>
+<p>但是今天又接到消息。他测试后发现，node 12下也还是行不通的。node 18却根本不需要安装monaco-vscode-api都可以通过编译。</p>
+<p><a href="https://github.com/CraigMeng/monaco-webpack-node-12">https://github.com/CraigMeng/monaco-webpack-node-12</a></p>
+<p>于是乎，今天花了两小时一起debug。最终也没get到解决方案。但是发现了一些小区别：</p>
+<p>比如：https://github.com/nodejs/node/pull/29978</p>
+<p>node到13.2才开始支持<strong>条件式导出</strong>。</p>
+<p>最后我们定位到的问题是，vscode/services找不到这个定义。然而这个定义是在一个虚假的vscode包里。因为我们用package.json里定义的vscode是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;vscode&#34;</span>: <span style="color:#e6db74">&#34;npm:@codingame/monaco-vscode-api@^1.69.17&#34;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>然而在我将node版本升级到13，14的时候，项目却依然报同样的错。甚至于升级到18的时候，dev-server直接挂掉了。最后没有办法，我们只能给monaco-languageclient提了一个issue：
+<a href="https://github.com/TypeFox/monaco-languageclient/issues/458">https://github.com/TypeFox/monaco-languageclient/issues/458</a></p>
+<p>虽然可能于事无补，毕竟老薛这个repo的node版本已经太旧了。</p>
+
+</div>
+
+        <footer class="post-footer clearfix"><div class="share">
+    </div>
+</footer>
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a href="//liushengxian.github.io/">Shawn New Blog</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2023 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    
+                    
+                    <span>Copyright by <a href="https://github.com/liushengxian">Shawn Liu</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
+        <script src="//liushengxian.github.io/js/scripts.js"></script>
+        
+    </body>
+</html>
+
