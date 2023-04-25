@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//liushengxian.github.io/posts/monaco-editor-problems/</loc>
-    <lastmod>2023-02-07T00:00:14+08:00</lastmod>
-  </url><url>
     <loc>//liushengxian.github.io/posts/</loc>
-    <lastmod>2023-02-07T00:00:14+08:00</lastmod>
+    <lastmod>2023-04-25T17:33:42+08:00</lastmod>
   </url><url>
     <loc>//liushengxian.github.io/</loc>
+    <lastmod>2023-04-25T17:33:42+08:00</lastmod>
+  </url><url>
+    <loc>//liushengxian.github.io/posts/free-day-thinking/</loc>
+    <lastmod>2023-04-25T17:33:42+08:00</lastmod>
+  </url><url>
+    <loc>//liushengxian.github.io/posts/monaco-editor-problems/</loc>
     <lastmod>2023-02-07T00:00:14+08:00</lastmod>
   </url><url>
     <loc>//liushengxian.github.io/posts/my-first-post/</loc>
