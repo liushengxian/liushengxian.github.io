@@ -17,7 +17,7 @@ Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考[这里]
 https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa:hzwhuang/ss-qt5 sudo apt-get update sudo apt-get install shadowsocks-qt5)">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.113.0">
+        <meta name="generator" content="Hugo 0.78.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -34,14 +34,16 @@ https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa
     </head>
     <body>
         
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-3QY7HT2G2H', { 'anonymize_ip': false });
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'G-3QY7HT2G2H', 'auto');
+	
+	ga('send', 'pageview');
 }
 </script>
 
@@ -185,7 +187,7 @@ sudo apt-get install mysql-workbench.
 <p>1.install composer!</p>
 <p>error log：</p>
 <p>2017/05/04 22:56:20 [error] 3739#3739: *31 FastCGI sent in stderr: &ldquo;PHP message: PHP Warning:  require(/home/misanya/workspace/=====/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/misanya/workspace/=====/bootstrap/autoload.php on line 17
-PHP message: PHP Fatal error:  require(): Failed opening required &lsquo;/home/misanya/workspace/=====/bootstrap/../vendor/autoload.php&rsquo; (include_path=&rsquo;.:/usr/share/php&rsquo;) in /home/misanya/workspace/=====/bootstrap/autoload.php on line 17&rdquo; while reading response header from upstream, client: 127.0.0.1, server: api.local.=====.com, request: &ldquo;GET / HTTP/1.1&rdquo;, upstream: &ldquo;fastcgi://unix:/var/run/php/php7.0-fpm.sock:&rdquo;, host: &ldquo;<a href="https://www.local.=====.com">www.local.=====.com</a>&rdquo;</p>
+PHP message: PHP Fatal error:  require(): Failed opening required &lsquo;/home/misanya/workspace/=====/bootstrap/../vendor/autoload.php&rsquo; (include_path='.:/usr/share/php') in /home/misanya/workspace/=====/bootstrap/autoload.php on line 17&rdquo; while reading response header from upstream, client: 127.0.0.1, server: api.local.=====.com, request: &ldquo;GET / HTTP/1.1&rdquo;, upstream: &ldquo;fastcgi://unix:/var/run/php/php7.0-fpm.sock:&rdquo;, host: &ldquo;<a href="http://www.local.=====.com">www.local.=====.com</a>&rdquo;</p>
 <p>我按照这个目录过去发现这个vendor文件夹里面是空的。。想起来了。好吧 去按照指示安装composer。然后composer install一下。
 然后他就给我下载了各种东西。。最后自动生成autoload.php。</p>
 <p>2.还是不行
@@ -210,7 +212,7 @@ sudo chmod -R 777 ./storage
 给文件夹 要加上-R这个选项！</p>
 <p>4.PHP 错误了
 No supported encrypter found. The cipher and / or key length are invalid.</p>
-<p>php artisan key:generate
+<p>php artisan key:generate 
 This worked for me！ :)</p>
 <p>参考资料：https://laravel.io/forum/06-09-2015-no-supported-encrypter-found-the-cipher-and-or-key-length-are-invalid</p>
 <p>OK！终于配置好了！</p>
@@ -238,7 +240,7 @@ This worked for me！ :)</p>
                 </div>
 
                 <p class="footer-copyright">
-                    <span>&copy; 2023 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                    <span>&copy; 2024 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
                 <p class="footer-copyright">
                     <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
