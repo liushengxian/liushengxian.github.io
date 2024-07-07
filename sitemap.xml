@@ -1,118 +1,75 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
+    <loc>//liushengxian.github.io/posts/second_season_of_2024/</loc>
+    <lastmod>2024-07-07T23:41:32+08:00</lastmod>
+  </url><url>
+    <loc>//liushengxian.github.io/posts/</loc>
+    <lastmod>2024-07-07T23:41:32+08:00</lastmod>
+  </url><url>
+    <loc>//liushengxian.github.io/</loc>
+    <lastmod>2024-07-07T23:41:32+08:00</lastmod>
+  </url><url>
     <loc>//liushengxian.github.io/posts/first_season_of_2024/</loc>
     <lastmod>2024-04-07T21:12:22+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>//liushengxian.github.io/posts/</loc>
-    <lastmod>2024-04-07T21:12:22+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>//liushengxian.github.io/</loc>
-    <lastmod>2024-04-07T21:12:22+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/years-between/</loc>
     <lastmod>2023-06-18T03:53:50+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/free-day-thinking/</loc>
     <lastmod>2023-04-25T17:33:42+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/monaco-editor-problems/</loc>
     <lastmod>2023-02-07T00:00:14+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/my-first-post/</loc>
     <lastmod>2023-02-01T02:31:37+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/two-bugs-in-work/</loc>
     <lastmod>2020-11-11T01:23:08+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/project_gutenburg/</loc>
     <lastmod>2018-10-14T18:17:30+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/save_you_linux_system/</loc>
     <lastmod>2018-03-08T11:19:14+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/saygoodbye_2017/</loc>
     <lastmod>2017-12-27T23:47:07+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/my_way_to_config_work_project/</loc>
     <lastmod>2017-05-04T23:49:00+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/record_a_jquery_bug/</loc>
     <lastmod>2017-03-08T10:37:45+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/way_to_happiness/</loc>
     <lastmod>2017-02-21T20:30:28+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/minimalist-lifestyle/</loc>
     <lastmod>2017-01-10T12:03:20+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/year_2016/</loc>
     <lastmod>2017-01-02T16:18:42+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/about_chinese_spirit/</loc>
     <lastmod>2016-12-18T13:08:08+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/this_special_weekend/</loc>
     <lastmod>2016-12-05T01:29:08+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/posts/welcome_to_my_new_blog/</loc>
     <lastmod>2016-11-06T11:00:05+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/about-me/</loc>
     <lastmod>2016-11-06T09:34:47+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/reading-list/</loc>
     <lastmod>2016-11-06T09:34:47+08:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>//liushengxian.github.io/tags/</loc>
   </url>
-  
 </urlset>
