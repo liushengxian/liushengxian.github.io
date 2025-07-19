@@ -4,20 +4,37 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>配置我的工作项目 &middot; </title>
-        <meta name="description" content="配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
-Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。 [ref-1]: http://blog.csdn.net/albertjone/article/details/54633747
-1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
-2.download hardware from startup panel; 因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
-3.sudo apt-get update/sudo apt-get upgrade [upgrade is breaking here.] 按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
-4.download chrome for linux; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb sudo gdebi google-chrome-stable_current_amd64.deb 下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。
-5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!) 还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】
-6.install git. 安装Git。
-7.generate my ssh-key for github. 生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。
-8.download shadowsocks-qt5. 装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。
-https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa:hzwhuang/ss-qt5 sudo apt-get update sudo apt-get install shadowsocks-qt5)">
+        <meta name="description" content="配置工作项目的过程
+鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
+Day 1
+0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。
+[ref-1]: http://blog.csdn.net/albertjone/article/details/54633747
+1.download netease music for linux;
+下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
+2.download hardware from startup panel;
+因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
+3.sudo apt-get update/sudo apt-get upgrade
+[upgrade is breaking here.]
+按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
+4.download chrome for linux;
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo gdebi google-chrome-stable_current_amd64.deb
+下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。
+5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!)
+还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】
+6.install git.
+安装Git。
+7.generate my ssh-key for github.
+生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。
+8.download shadowsocks-qt5.
+装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。
+https://github.com/shadowsocks/shadowsocks-qt5/wiki
+(sudo add-apt-repository ppa:hzwhuang/ss-qt5
+sudo apt-get update
+sudo apt-get install shadowsocks-qt5)">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.123.4">
+        <meta name="generator" content="Hugo 0.147.6">
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -34,17 +51,20 @@ https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa
     </head>
     <body>
         
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-3QY7HT2G2H', { 'anonymize_ip': false });
-}
-</script>
-
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-3QY7HT2G2H');
+        }
+      </script>
 
         <div id="wrapper">
             <header class="site-header">
@@ -238,7 +258,7 @@ This worked for me！ :)</p>
                 </div>
 
                 <p class="footer-copyright">
-                    <span>&copy; 2024 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                    <span>&copy; 2025 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
                 <p class="footer-copyright">
                     <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>

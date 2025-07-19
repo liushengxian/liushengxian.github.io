@@ -5,12 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>拯救你的ubuntu &middot; </title>
         <meta name="description" content="在给大金鱼的ubuntu添加gulp相关的环境变量时候，因为看了不正确的教程。把/opt/profile里的内容修改了，导致无法进入系统。登录界面输入正确密码反复卡在登录界面。
-折腾了许久，发现了解决方案： 在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。
+折腾了许久，发现了解决方案：
+在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。
 将 ro recovery nomodeset 改为 rw single init=/bin/bash
 参考资料：recovery mode">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.123.4">
+        <meta name="generator" content="Hugo 0.147.6">
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -27,17 +28,20 @@
     </head>
     <body>
         
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-3QY7HT2G2H', { 'anonymize_ip': false });
-}
-</script>
-
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-3QY7HT2G2H');
+        }
+      </script>
 
         <div id="wrapper">
             <header class="site-header">
@@ -121,7 +125,7 @@ if (!doNotTrack) {
                 </div>
 
                 <p class="footer-copyright">
-                    <span>&copy; 2024 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                    <span>&copy; 2025 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
                 <p class="footer-copyright">
                     <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>

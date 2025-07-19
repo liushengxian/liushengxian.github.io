@@ -4,19 +4,38 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>记录一个jQuery的问题 &middot; </title>
-        <meta name="description" content="记录一个jQuery的bug的查找过程 想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。
-发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
+        <meta name="description" content="记录一个jQuery的bug的查找过程
+想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。
+发现问题
+
+这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
+
 很明显，不知道是谁给添加了一个line-height:3px的限制。
-定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
-contentToggle: function () { let $dom = $(&#39;#js_comment_list .txt p&#39;); $dom.each(function (index) { let $domHeight = parseInt($(this).css(&#39;height&#39;)); let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;)); //console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index); let $domMaxHeight = $domLineHeight * 3; ... 找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+定位问题
+在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
+contentToggle: function () {
+let $dom = $(&#39;#js_comment_list .txt p&#39;);
+$dom.each(function (index) {
+	let $domHeight = parseInt($(this).css(&#39;height&#39;));
+	let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;));
+	//console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index);
+	let $domMaxHeight = $domLineHeight * 3;
+	...
+
+找到问题
+看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+
+
 果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
 JQuery Bug Report
-解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
+解决问题
+我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
 但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。
-总结问题 总结个毛啊 有啥好总结的。">
+总结问题
+总结个毛啊 有啥好总结的。">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.123.4">
+        <meta name="generator" content="Hugo 0.147.6">
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -33,17 +52,20 @@ JQuery Bug Report
     </head>
     <body>
         
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-3QY7HT2G2H', { 'anonymize_ip': false });
-}
-</script>
-
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-3QY7HT2G2H');
+        }
+      </script>
 
         <div id="wrapper">
             <header class="site-header">
@@ -151,7 +173,7 @@ $dom.each(function (index) {
                 </div>
 
                 <p class="footer-copyright">
-                    <span>&copy; 2024 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                    <span>&copy; 2025 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
                 <p class="footer-copyright">
                     <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
