@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>教程 on Shawn New Blog</title>
+    <link>//liushengxian.github.io/tags/%E6%95%99%E7%A8%8B/</link>
+    <description>Recent content in 教程 on Shawn New Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Mar 2018 11:19:14 +0800</lastBuildDate>
+    <atom:link href="//liushengxian.github.io/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>拯救你的ubuntu</title>
+      <link>//liushengxian.github.io/posts/save_you_linux_system/</link>
+      <pubDate>Thu, 08 Mar 2018 11:19:14 +0800</pubDate>
+      <guid>//liushengxian.github.io/posts/save_you_linux_system/</guid>
+      <description>&lt;p&gt;在给大金鱼的ubuntu添加gulp相关的环境变量时候，因为看了不正确的教程。把/opt/profile里的内容修改了，导致无法进入系统。登录界面输入正确密码反复卡在登录界面。&lt;/p&gt;&#xA;&lt;p&gt;折腾了许久，发现了解决方案：&#xA;在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。&lt;/p&gt;&#xA;&lt;p&gt;将 ro recovery nomodeset 改为 rw single init=/bin/bash&lt;/p&gt;&#xA;&lt;p&gt;参考资料：&lt;a href=&#34;http://blog.csdn.net/code_segment/article/details/78145574&#34;&gt;recovery mode&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>配置我的工作项目</title>
+      <link>//liushengxian.github.io/posts/my_way_to_config_work_project/</link>
+      <pubDate>Thu, 04 May 2017 23:49:00 +0800</pubDate>
+      <guid>//liushengxian.github.io/posts/my_way_to_config_work_project/</guid>
+      <description>&lt;h3 id=&#34;配置工作项目的过程&#34;&gt;配置工作项目的过程&lt;/h3&gt;&#xA;&lt;p&gt;鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。&lt;/p&gt;&#xA;&lt;h4 id=&#34;day-1&#34;&gt;Day 1&lt;/h4&gt;&#xA;&lt;p&gt;0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。&#xA;[ref-1]: &lt;a href=&#34;http://blog.csdn.net/albertjone/article/details/54633747&#34;&gt;http://blog.csdn.net/albertjone/article/details/54633747&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;1.download netease music for linux;&#xA;下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】&lt;/p&gt;&#xA;&lt;p&gt;2.download hardware from startup panel;&#xA;因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。&lt;/p&gt;&#xA;&lt;p&gt;3.sudo apt-get update/sudo apt-get upgrade&#xA;[upgrade is breaking here.]&#xA;按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。&lt;/p&gt;&#xA;&lt;p&gt;4.download chrome for linux;&#xA;wget &lt;a href=&#34;https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb&#34;&gt;https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb&lt;/a&gt;&#xA;sudo gdebi google-chrome-stable_current_amd64.deb&#xA;下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。&lt;/p&gt;&#xA;&lt;p&gt;5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!)&#xA;还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】&lt;/p&gt;&#xA;&lt;p&gt;6.install git.&#xA;安装Git。&lt;/p&gt;&#xA;&lt;p&gt;7.generate my ssh-key for github.&#xA;生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。&lt;/p&gt;&#xA;&lt;p&gt;8.download shadowsocks-qt5.&#xA;装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/shadowsocks/shadowsocks-qt5/wiki&#34;&gt;https://github.com/shadowsocks/shadowsocks-qt5/wiki&lt;/a&gt;&#xA;(sudo add-apt-repository ppa:hzwhuang/ss-qt5&#xA;sudo apt-get update&#xA;sudo apt-get install shadowsocks-qt5)&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

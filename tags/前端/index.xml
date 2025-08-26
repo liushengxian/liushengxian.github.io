@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前端 on Shawn New Blog</title>
+    <link>//liushengxian.github.io/tags/%E5%89%8D%E7%AB%AF/</link>
+    <description>Recent content in 前端 on Shawn New Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Feb 2023 00:00:14 +0800</lastBuildDate>
+    <atom:link href="//liushengxian.github.io/tags/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Monaco Editor的一些问题记录</title>
+      <link>//liushengxian.github.io/posts/monaco-editor-problems/</link>
+      <pubDate>Tue, 07 Feb 2023 00:00:14 +0800</pubDate>
+      <guid>//liushengxian.github.io/posts/monaco-editor-problems/</guid>
+      <description>&lt;p&gt;上周末开始老薛开始呼叫支援，他的项目里的monaco-editor在升级的时候遭遇问题，结果TypeScript编译过程报错了。&lt;/p&gt;&#xA;&lt;p&gt;周末那天因为仓促接到需求，在node@18 + webpack@5 下面搭建了一次monaco-editor和monaco-languageclient。项目代码是能跑过编译的。就把项目代码post到GitHub上，算是草草交差了。&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/liushengxian/monaco-client-webpack-test&#34;&gt;https://github.com/liushengxian/monaco-client-webpack-test&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;但是今天又接到消息。他测试后发现，node 12下也还是行不通的。node 18却根本不需要安装monaco-vscode-api都可以通过编译。&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/CraigMeng/monaco-webpack-node-12&#34;&gt;https://github.com/CraigMeng/monaco-webpack-node-12&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;于是乎，今天花了两小时一起debug。最终也没get到解决方案。但是发现了一些小区别：&lt;/p&gt;&#xA;&lt;p&gt;比如：https://github.com/nodejs/node/pull/29978&lt;/p&gt;&#xA;&lt;p&gt;node到13.2才开始支持&lt;strong&gt;条件式导出&lt;/strong&gt;。&lt;/p&gt;&#xA;&lt;p&gt;最后我们定位到的问题是，vscode/services找不到这个定义。然而这个定义是在一个虚假的vscode包里。因为我们用package.json里定义的vscode是&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;vscode&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;npm:@codingame/monaco-vscode-api@^1.69.17&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然而在我将node版本升级到13，14的时候，项目却依然报同样的错。甚至于升级到18的时候，dev-server直接挂掉了。最后没有办法，我们只能给monaco-languageclient提了一个issue：&#xA;&lt;a href=&#34;https://github.com/TypeFox/monaco-languageclient/issues/458&#34;&gt;https://github.com/TypeFox/monaco-languageclient/issues/458&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;虽然可能于事无补，毕竟老薛这个repo的node版本已经太旧了。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>记录一个jQuery的问题</title>
+      <link>//liushengxian.github.io/posts/record_a_jquery_bug/</link>
+      <pubDate>Wed, 08 Mar 2017 10:37:45 +0800</pubDate>
+      <guid>//liushengxian.github.io/posts/record_a_jquery_bug/</guid>
+      <description>&lt;h3 id=&#34;记录一个jquery的bug的查找过程&#34;&gt;记录一个jQuery的bug的查找过程&lt;/h3&gt;&#xA;&lt;p&gt;想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。&lt;/p&gt;&#xA;&lt;h4 id=&#34;发现问题&#34;&gt;发现问题&lt;/h4&gt;&#xA;&lt;p&gt;&lt;img src=&#34;//liushengxian.github.io/post/imgs/bug-01.png&#34; alt=&#34;问题截图&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;//liushengxian.github.io/post/imgs/bug-03.png&#34; alt=&#34;有问题的DOM结构&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;很明显，不知道是谁给添加了一个line-height:3px的限制。&lt;/p&gt;&#xA;&lt;h4 id=&#34;定位问题&#34;&gt;定位问题&lt;/h4&gt;&#xA;&lt;p&gt;在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;contentToggle: function () {&#xA;let $dom = $(&#39;#js_comment_list .txt p&#39;);&#xA;$dom.each(function (index) {&#xA;&#x9;let $domHeight = parseInt($(this).css(&#39;height&#39;));&#xA;&#x9;let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;));&#xA;&#x9;//console.info(&#39;line height is &#39;+$domLineHeight+&#39;,index is:&#39;+index);&#xA;&#x9;let $domMaxHeight = $domLineHeight * 3;&#xA;&#x9;...&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;h4 id=&#34;找到问题&#34;&gt;找到问题&lt;/h4&gt;&#xA;&lt;p&gt;看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;//liushengxian.github.io/post/imgs/bug-02.png&#34; alt=&#34;IE9的控制台输出&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;//liushengxian.github.io/post/imgs/bug-04.png&#34; alt=&#34;Chrome的控制台输出&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bugs.jquery.com/ticket/13472&#34;&gt;JQuery Bug Report&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h4 id=&#34;解决问题&#34;&gt;解决问题&lt;/h4&gt;&#xA;&lt;p&gt;我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？&lt;/p&gt;&#xA;&lt;p&gt;但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。&lt;/p&gt;&#xA;&lt;h4 id=&#34;总结问题&#34;&gt;总结问题&lt;/h4&gt;&#xA;&lt;p&gt;总结个毛啊 有啥好总结的。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

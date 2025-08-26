@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Shawn New Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Aug 2025 00:52:51 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 26 Aug 2025 14:30:00 +0800</lastBuildDate>
     <atom:link href="//liushengxian.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用AI重构我的blog</title>
+      <link>//liushengxian.github.io/posts/refactor-blog-using-ai/</link>
+      <pubDate>Tue, 26 Aug 2025 14:30:00 +0800</pubDate>
+      <guid>//liushengxian.github.io/posts/refactor-blog-using-ai/</guid>
+      <description>&lt;h2 id=&#34;ai助手如何帮我重构博客&#34;&gt;AI助手如何帮我重构博客&lt;/h2&gt;&#xA;&lt;p&gt;今天，我决定借助GitHub Copilot的能力来重构我的博客。作为一个技术博客，我一直觉得它缺少一些结构性的元素来帮助读者更好地浏览内容。通过与AI助手的对话，我完成了一系列改进，现在记录下这个过程。&lt;/p&gt;&#xA;&lt;h3 id=&#34;添加标签系统&#34;&gt;添加标签系统&lt;/h3&gt;&#xA;&lt;p&gt;我的博客最大的问题是缺乏良好的内容分类。虽然文章按时间顺序排列，但读者很难找到特定主题的内容。&lt;/p&gt;&#xA;&lt;h4 id=&#34;为所有文章添加标签&#34;&gt;为所有文章添加标签&lt;/h4&gt;&#xA;&lt;p&gt;首先，我让AI助手为所有博文添加了合适的标签。经过分析我的文章内容后，AI助手设计了一个包含以下主要分类的标签系统：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;生活相关&lt;/strong&gt;：生活、日常、家庭、心情&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;个人成长&lt;/strong&gt;：个人成长、感悟、思考、回忆&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;技术相关&lt;/strong&gt;：技术、前端、问题解决、教程&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;兴趣爱好&lt;/strong&gt;：读书、游戏、影评&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;其他&lt;/strong&gt;：工作、博客&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;每篇文章都被赋予了2-3个最相关的标签，使内容更易于分类和发现。&lt;/p&gt;&#xA;&lt;h4 id=&#34;创建标签导航页&#34;&gt;创建标签导航页&lt;/h4&gt;&#xA;&lt;p&gt;为了让读者能够轻松浏览不同类别的内容，我创建了一个专门的标签页，组织了所有标签并提供了简短的描述，帮助访问者理解每个标签所代表的内容类型。&lt;/p&gt;&#xA;&lt;h4 id=&#34;将标签页添加到主导航&#34;&gt;将标签页添加到主导航&lt;/h4&gt;&#xA;&lt;p&gt;为了让标签系统更容易被访问到，我在网站的主导航菜单中添加了一个&amp;quot;标签&amp;quot;链接，使用了Font Awesome的标签图标使其在视觉上更加直观。&lt;/p&gt;&#xA;&lt;h3 id=&#34;清理博客内容&#34;&gt;清理博客内容&lt;/h3&gt;&#xA;&lt;p&gt;除了添加标签系统外，我还：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;删除了所有标记为草稿的文章，确保只有完成的内容被展示&lt;/li&gt;&#xA;&lt;li&gt;简化了标签系统，移除了冗余的标签&lt;/li&gt;&#xA;&lt;li&gt;统一了文章的元数据格式，使博客整体风格更加一致&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;收获与体会&#34;&gt;收获与体会&lt;/h3&gt;&#xA;&lt;p&gt;这次借助AI重构博客的经历让我意识到，技术不仅可以用于创建内容，也可以帮助我们更好地组织和展示内容。通过几个简单的对话，我的博客获得了以下改进：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;更好的内容导航&lt;/strong&gt; - 读者现在可以通过标签快速找到感兴趣的主题&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;更清晰的内容结构&lt;/strong&gt; - 移除了草稿内容，使发布的文章质量更高&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;更一致的元数据格式&lt;/strong&gt; - 标准化了所有文章的前置信息&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;这种结构化的改进不仅对读者有利，对我自己也是有帮助的。当我继续写作时，这个标签系统将帮助我思考文章的分类和主题，使我的博客内容更加有条理。&lt;/p&gt;&#xA;&lt;h2 id=&#34;未来计划&#34;&gt;未来计划&lt;/h2&gt;&#xA;&lt;p&gt;在这次重构的基础上，我计划继续改进我的博客：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;可能考虑按标签或主题组织一些精选文章合集&lt;/li&gt;&#xA;&lt;li&gt;进一步优化博客的视觉设计，使其更加现代化&lt;/li&gt;&#xA;&lt;li&gt;添加更多互动元素，如评论系统和社交分享功能&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;通过这次重构，我重新认识到了博客作为个人表达和知识分享平台的价值。希望这些改进能让我的内容对读者更有帮助，也能激励我继续写作和分享。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;em&gt;感谢GitHub Copilot的协助，让这次重构变得简单而高效。技术的进步确实为内容创作者带来了新的可能性。&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;这篇blog完全由Copilot生成。&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>命运的齿轮开始转动了</title>
       <link>//liushengxian.github.io/posts/gear-turn-2025/</link>
