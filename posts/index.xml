@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Shawn New Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Aug 2025 14:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 27 Aug 2025 01:37:37 +0800</lastBuildDate>
     <atom:link href="//liushengxian.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于读书</title>
+      <link>//liushengxian.github.io/posts/about-reading/</link>
+      <pubDate>Wed, 27 Aug 2025 01:37:37 +0800</pubDate>
+      <guid>//liushengxian.github.io/posts/about-reading/</guid>
+      <description>&lt;p&gt;我在阅读《清醒思考的策略》这本书，第36条建议是，“读书要减量加次，我们阅读的方式是错误的。”&lt;/p&gt;&#xA;&lt;p&gt;大致他说的是，他有三千本藏书，但是其实看过的只有三分之一，而读过的书恐怕也有很多没有留下印象。&lt;/p&gt;&#xA;&lt;p&gt;而之所以没有印象的原因，他认为是读书方法的错误。他现在的读书方法，虽然还是读很多内容，但是书的数量变少了。选择质量更高的书籍，然后把书读上两遍。花十分钟的时间挑选书籍，读或者不读。只有极少数的书才值得读上两遍。&lt;/p&gt;&#xA;&lt;p&gt;这让我想起曾在大学与室友聊过类似的话题。他最后找大佬请教的答复如出一辙。如果记不住，那就反复读。&lt;/p&gt;&#xA;&lt;p&gt;作者给自己的要求是，未来十年读100本书。平均一年10本。我想自己可以激进一点，一年二十本。反复读。&lt;/p&gt;&#xA;&lt;p&gt;于是我在想如何把自己的blog里的reading list利用起来。这个页面我已经做了很久了，但是却写完就放那里了。&lt;/p&gt;&#xA;&lt;p&gt;翻翻列表发现大概只对50%的书有印象，确实是我读过了。&lt;/p&gt;&#xA;&lt;p&gt;今年已经只剩四个月了，准备先挑选20/3=6本书进行反复阅读。&lt;/p&gt;&#xA;&lt;p&gt;恰好，这周带过来的有6本书。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>用AI重构我的blog</title>
       <link>//liushengxian.github.io/posts/refactor-blog-using-ai/</link>
