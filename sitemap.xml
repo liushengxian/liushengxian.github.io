@@ -2,10 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//liushengxian.github.io/posts/</loc>
-    <lastmod>2025-08-27T01:37:37+08:00</lastmod>
-  </url><url>
     <loc>//liushengxian.github.io/</loc>
+    <lastmod>2025-08-29T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>//liushengxian.github.io/posts/</loc>
     <lastmod>2025-08-27T01:37:37+08:00</lastmod>
   </url><url>
     <loc>//liushengxian.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</loc>
@@ -127,5 +127,13 @@
   </url><url>
     <loc>//liushengxian.github.io/reading-list/</loc>
     <lastmod>2016-11-06T09:34:47+08:00</lastmod>
+  </url><url>
+    <loc>//liushengxian.github.io/posts/how_to_use_superslider/</loc>
+  </url><url>
+    <loc>//liushengxian.github.io/posts/ios_input_autofocus/</loc>
+  </url><url>
+    <loc>//liushengxian.github.io/posts/regular_bug_log/</loc>
+  </url><url>
+    <loc>//liushengxian.github.io/posts/something_to_say/</loc>
   </url>
 </urlset>
