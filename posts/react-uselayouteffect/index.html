@@ -36,13 +36,14 @@ AI推荐了ResizeObserver/MutationObserver。当使用ResizeObserver时，我们
 思考的时间
 我下楼抽了根烟，在考虑为什么会发生这个延迟。
 React渲染机制的启示
-当想到之前看过的React渲染机制的时候，我想到，在React中，无论如何，这些浏览器API生效的时候都在Commit阶段之后。
-那么只有等到下一次React渲染的时候，新的位置才会生效。想起来了useLayoutEffect这个Hook好像是在Commit阶段之前生效，用于修改dom的。
+当想到之前看过的React渲染机制的时候，猛然想到，在React中，无论如何，这些浏览器API生效的时候都在Commit阶段之后。
+那么只有等到下一次React渲染的时候，新的位置才会生效。为了把这次调整操作提前，是否可以使用useLayoutEffect这个Hook，在提交到DOM之前调整其位置。
 最终解决方案：useLayoutEffect
 我立即回来尝试了一番，
 useLayoutEffect(() =&gt; {
   panelRef.current.scrollIntoView({ behavior: &#34;instant&#34;, block: &#34;end&#34; });
 }, [someVarToShowChoosePanel]);
+这里的someVarToShowChoosePanel 是用来控制选择面板的显示与隐藏的状态。
 果不其然，延迟消失了。
 总结
 useLayoutEffect 与普通的 useEffect 相比，最关键的区别在于它的执行时机。它会在DOM变更后、浏览器绘制前同步执行，这使得它特别适合于需要直接操作DOM并且希望避免视觉闪烁的场景。
@@ -174,14 +175,15 @@ useLayoutEffect 与普通的 useEffect 相比，最关键的区别在于它的�
 <h2 id="思考的时间">思考的时间</h2>
 <p>我下楼抽了根烟，在考虑为什么会发生这个延迟。</p>
 <h2 id="react渲染机制的启示">React渲染机制的启示</h2>
-<p>当想到之前看过的React渲染机制的时候，我想到，在React中，无论如何，这些浏览器API生效的时候都在Commit阶段之后。</p>
-<p>那么只有等到下一次React渲染的时候，新的位置才会生效。想起来了useLayoutEffect这个Hook好像是在Commit阶段之前生效，用于修改dom的。</p>
+<p>当想到之前看过的React渲染机制的时候，猛然想到，在React中，无论如何，这些浏览器API生效的时候都在Commit阶段之后。</p>
+<p>那么只有等到下一次React渲染的时候，新的位置才会生效。为了把这次调整操作提前，是否可以使用useLayoutEffect这个Hook，在提交到DOM之前调整其位置。</p>
 <h2 id="最终解决方案uselayouteffect">最终解决方案：useLayoutEffect</h2>
 <p>我立即回来尝试了一番，</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">useLayoutEffect</span>(() =&gt; {
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">panelRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">scrollIntoView</span>({ <span style="color:#a6e22e">behavior</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;instant&#34;</span>, <span style="color:#a6e22e">block</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;end&#34;</span> });
 </span></span><span style="display:flex;"><span>}, [<span style="color:#a6e22e">someVarToShowChoosePanel</span>]);
-</span></span></code></pre></div><p>果不其然，延迟消失了。</p>
+</span></span></code></pre></div><p>这里的someVarToShowChoosePanel 是用来控制选择面板的显示与隐藏的状态。</p>
+<p>果不其然，延迟消失了。</p>
 <h2 id="总结">总结</h2>
 <p>useLayoutEffect 与普通的 useEffect 相比，最关键的区别在于它的执行时机。它会在DOM变更后、浏览器绘制前同步执行，这使得它特别适合于需要直接操作DOM并且希望避免视觉闪烁的场景。</p>
 <p>在我们的案例中，这正是解决渲染延迟问题的关键 - 确保滚动操作发生在浏览器绘制之前，而不是之后。这种精确的时机控制是React hooks提供给我们的强大工具之一。</p>
