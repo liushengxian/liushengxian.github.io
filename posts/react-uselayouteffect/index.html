@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>React的useLayoutEffect使用 &middot; Shawn</title>
+        <meta name="description" content="问题背景
+这周在帮助b哥完成他的项目前端的时候遇到了一个有趣的问题。
+先介绍下背景，这是一个企业内即时通讯工具，主要的页面布局，从上往下依次包括消息列表、选择面板、操作栏、输入框。
+
+初次尝试：DOM结构调整
+在一开始的时候，b哥提出的问题在于如何修改CSS让选择面板正确的渲染到操作栏的上方而不是下面。
+这个我想到的当然是直接修改dom结构，何必要用CSS来实现呢，很快就实现了这个需求。
+隐藏的挑战：异步渲染顺序
+然而在之后却发现了新的问题，因为选择面板和消息列表的加载其实是依赖于API的。在当时我们反复测试的情况是，操作栏先渲染成功，然后是消息列表，最后是选择面板。
+对于除了消息列表之外的其他组件，其实是会占据空间然后导致消息列表的可见范围越来越短的。
+在操作栏渲染之后，消息列表才开始渲染，一切都显得很正常。而当选择面板出现的时候，消息列表的高度变小了，但是内容却没有维持在最新的位置。
+尝试CSS解决方案
+这个问题看起来很简单的。b哥要求使用css来完成这个任务，询问AI之后，给出的是flex的column-reverse方案，这个方法看起来可行，实际上却并没有解决问题。
+回顾现有代码：JavaScript解决方案
+当重新阅读代码的时候，发现其实之前的代码使用了一个Javascript方法，在数据加载完成后，手动调用面板的ScrollIntoView方法，以适应高度的变化。
+那么使用纯CSS就没法实现这个功能了，因为这个方法已经在多个地方使用，我们只能继续在合适的地方继续使用而不是自己新建一套CSS方案。
+脱敏示例代码如下
+function recalcposition() {
+  setTimemout(() =&gt; {
+    panelRef.current.scrollIntoView({ behavior: &#34;instant&#34;, block: &#34;end&#34; });
+  }, 50)
+}
+探索DOM观察者API
+一开始我想的是能否找到一个onResize的事件来监听页面的变化，但是实际上React似乎并没有封装这么一套系统，而我又不想使用原生的接口，于是乎想到了IntersectionObserver类似的DOM接口。
+AI推荐了ResizeObserver/MutationObserver。当使用ResizeObserver时，我们发现成功了，但是却发生了新的问题：
+新问题：渲染延迟
+每一次都是选择面板渲染成功之后，经过了一个定量的延迟，消息面板才会滚动到最新的底部位置。
+这个问题可把我们难到了，尝试MutationObserver或者去掉recalcposition的延迟都没有什么效果。
+也许只能这样了？
+思考的时间
+我下楼抽了根烟，在考虑为什么会发生这个延迟。
+React渲染机制的启示
+当想到之前看过的React渲染机制的时候，我想到，在React中，无论如何，这些浏览器API生效的时候都在Commit阶段之后。
+那么只有等到下一次React渲染的时候，新的位置才会生效。想起来了useLayoutEffect这个Hook好像是在Commit阶段之前生效，用于修改dom的。
+最终解决方案：useLayoutEffect
+我立即回来尝试了一番，
+useLayoutEffect(() =&gt; {
+  panelRef.current.scrollIntoView({ behavior: &#34;instant&#34;, block: &#34;end&#34; });
+}, [someVarToShowChoosePanel]);
+果不其然，延迟消失了。
+总结
+useLayoutEffect 与普通的 useEffect 相比，最关键的区别在于它的执行时机。它会在DOM变更后、浏览器绘制前同步执行，这使得它特别适合于需要直接操作DOM并且希望避免视觉闪烁的场景。
+在我们的案例中，这正是解决渲染延迟问题的关键 - 确保滚动操作发生在浏览器绘制之前，而不是之后。这种精确的时机控制是React hooks提供给我们的强大工具之一。">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.148.2">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
+        
+        
+        
+        
+
+    </head>
+    <body>
+        
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-3QY7HT2G2H');
+        }
+      </script>
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a href="//liushengxian.github.io/">Shawn New Blog</a>
+                            </h1>
+                        
+                        
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
+                                <i class="fa fa-github-alt" aria-hidden="true"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a href="/about-me/">about me</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/reading-list/">reading list</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/tags/">tags</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/handmake/">handmake</a>
+    </li>
+
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container">
+        <header class="post-header">
+    <h1 class="post-title">React的useLayoutEffect使用</h1>
+    
+</header>
+
+        <div class="post-content clearfix">
+    
+        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+    
+
+    <h2 id="问题背景">问题背景</h2>
+<p>这周在帮助b哥完成他的项目前端的时候遇到了一个有趣的问题。</p>
+<p>先介绍下背景，这是一个企业内即时通讯工具，主要的页面布局，从上往下依次包括消息列表、选择面板、操作栏、输入框。</p>
+<p><img src="https://misanya-1252867445.cos.ap-shanghai.myqcloud.com/screenshot9527.png" alt="Screenshot"></p>
+<h2 id="初次尝试dom结构调整">初次尝试：DOM结构调整</h2>
+<p>在一开始的时候，b哥提出的问题在于如何修改CSS让选择面板正确的渲染到操作栏的上方而不是下面。</p>
+<p>这个我想到的当然是直接修改dom结构，何必要用CSS来实现呢，很快就实现了这个需求。</p>
+<h2 id="隐藏的挑战异步渲染顺序">隐藏的挑战：异步渲染顺序</h2>
+<p>然而在之后却发现了新的问题，因为选择面板和消息列表的加载其实是依赖于API的。在当时我们反复测试的情况是，操作栏先渲染成功，然后是消息列表，最后是选择面板。</p>
+<p>对于除了消息列表之外的其他组件，其实是会占据空间然后导致消息列表的可见范围越来越短的。</p>
+<p>在操作栏渲染之后，消息列表才开始渲染，一切都显得很正常。而当选择面板出现的时候，消息列表的高度变小了，但是内容却没有维持在最新的位置。</p>
+<h2 id="尝试css解决方案">尝试CSS解决方案</h2>
+<p>这个问题看起来很简单的。b哥要求使用css来完成这个任务，询问AI之后，给出的是flex的column-reverse方案，这个方法看起来可行，实际上却并没有解决问题。</p>
+<h2 id="回顾现有代码javascript解决方案">回顾现有代码：JavaScript解决方案</h2>
+<p>当重新阅读代码的时候，发现其实之前的代码使用了一个Javascript方法，在数据加载完成后，手动调用面板的ScrollIntoView方法，以适应高度的变化。</p>
+<p>那么使用纯CSS就没法实现这个功能了，因为这个方法已经在多个地方使用，我们只能继续在合适的地方继续使用而不是自己新建一套CSS方案。</p>
+<p>脱敏示例代码如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">recalcposition</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setTimemout</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">panelRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">scrollIntoView</span>({ <span style="color:#a6e22e">behavior</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;instant&#34;</span>, <span style="color:#a6e22e">block</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;end&#34;</span> });
+</span></span><span style="display:flex;"><span>  }, <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="探索dom观察者api">探索DOM观察者API</h2>
+<p>一开始我想的是能否找到一个onResize的事件来监听页面的变化，但是实际上React似乎并没有封装这么一套系统，而我又不想使用原生的接口，于是乎想到了IntersectionObserver类似的DOM接口。</p>
+<p>AI推荐了ResizeObserver/MutationObserver。当使用ResizeObserver时，我们发现成功了，但是却发生了新的问题：</p>
+<h2 id="新问题渲染延迟">新问题：渲染延迟</h2>
+<p>每一次都是选择面板渲染成功之后，经过了一个定量的延迟，消息面板才会滚动到最新的底部位置。</p>
+<p>这个问题可把我们难到了，尝试MutationObserver或者去掉recalcposition的延迟都没有什么效果。</p>
+<p>也许只能这样了？</p>
+<h2 id="思考的时间">思考的时间</h2>
+<p>我下楼抽了根烟，在考虑为什么会发生这个延迟。</p>
+<h2 id="react渲染机制的启示">React渲染机制的启示</h2>
+<p>当想到之前看过的React渲染机制的时候，我想到，在React中，无论如何，这些浏览器API生效的时候都在Commit阶段之后。</p>
+<p>那么只有等到下一次React渲染的时候，新的位置才会生效。想起来了useLayoutEffect这个Hook好像是在Commit阶段之前生效，用于修改dom的。</p>
+<h2 id="最终解决方案uselayouteffect">最终解决方案：useLayoutEffect</h2>
+<p>我立即回来尝试了一番，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">useLayoutEffect</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">panelRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">scrollIntoView</span>({ <span style="color:#a6e22e">behavior</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;instant&#34;</span>, <span style="color:#a6e22e">block</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;end&#34;</span> });
+</span></span><span style="display:flex;"><span>}, [<span style="color:#a6e22e">someVarToShowChoosePanel</span>]);
+</span></span></code></pre></div><p>果不其然，延迟消失了。</p>
+<h2 id="总结">总结</h2>
+<p>useLayoutEffect 与普通的 useEffect 相比，最关键的区别在于它的执行时机。它会在DOM变更后、浏览器绘制前同步执行，这使得它特别适合于需要直接操作DOM并且希望避免视觉闪烁的场景。</p>
+<p>在我们的案例中，这正是解决渲染延迟问题的关键 - 确保滚动操作发生在浏览器绘制之前，而不是之后。这种精确的时机控制是React hooks提供给我们的强大工具之一。</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+        <p class="post-tags">
+            <span>Tagged:</span>
+                <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>, 
+                <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>, 
+                <a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决</a>
+        </p>
+    <div class="share">
+    </div>
+</footer>
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a href="//liushengxian.github.io/">Shawn New Blog</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2025 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
+        <script src="//liushengxian.github.io/js/scripts.js"></script>
+        
+    </body>
+</html>
+
