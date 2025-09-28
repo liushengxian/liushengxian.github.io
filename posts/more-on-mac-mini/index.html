@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Mac Mini 进阶配置：生产力与娱乐兼备 &middot; Shawn</title>
+        <meta name="description" content="Mac Mini 进阶配置：生产力与娱乐兼备
+在上一篇文章中，我分享了 Mac Mini 的基础开发环境配置。今天，我将继续分享更多实用工具和应用，让 Mac Mini 在工作与生活中发挥更大价值。这些工具涵盖了笔记管理、通讯、娱乐、开发工具等多个方面，希望能给大家提供一些参考。
+音乐与娱乐
+网易云音乐
+作为国内最受欢迎的音乐平台之一，网易云音乐自然是我的首选：
+
+访问网易云音乐官网下载 macOS 版本
+安装并登录账号同步我的歌单和听歌记录
+设置为开机自启动，确保工作时有好音乐相伴
+
+Steam
+游戏平台自然少不了 Steam：
+brew install --cask steam
+虽然已经安装好了，但由于网络速度限制，目前还没有下载太多游戏。不过有了 Steam，至少周末娱乐有了更多选择。
+生产力工具
+Obsidian &#43; Git
+Obsidian 是我管理知识库的核心工具，结合 Git 可以轻松实现多设备同步：
+
+
+安装 Obsidian：
+brew install --cask obsidian
+
+
+将我之前 MBP 上的 Vault 仓库克隆到 Mac Mini：
+# 在 Vault 上级目录进行初始化
+git clone git@github.com:username/obsidian-vault.git
+
+
+有时候简单的解决方案就足够好用！不需要复杂的同步服务，Git 已经能完美满足需求。
+即时通讯工具
+微信
+作为日常交流必备工具：
+brew install --cask wechat
+飞书
+工作协作和远程面试的利器：
+brew install --cask feishu
+飞书不仅是即时通讯工具，更是我面试和远程协作的首选平台。">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.150.1">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
+        
+        
+        
+        
+
+    </head>
+    <body>
+        
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-3QY7HT2G2H');
+        }
+      </script>
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a href="//liushengxian.github.io/">Shawn New Blog</a>
+                            </h1>
+                        
+                        
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
+                                <i class="fa fa-github-alt" aria-hidden="true"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a href="/about-me/">about me</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/reading-list/">reading list</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/tags/">tags</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/handmake/">handmake</a>
+    </li>
+
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container">
+        <header class="post-header">
+    <h1 class="post-title">Mac Mini 进阶配置：生产力与娱乐兼备</h1>
+    
+</header>
+
+        <div class="post-content clearfix">
+    
+
+    <h1 id="mac-mini-进阶配置生产力与娱乐兼备">Mac Mini 进阶配置：生产力与娱乐兼备</h1>
+<p>在<a href="/posts/setup-my-mac-mini/">上一篇文章</a>中，我分享了 Mac Mini 的基础开发环境配置。今天，我将继续分享更多实用工具和应用，让 Mac Mini 在工作与生活中发挥更大价值。这些工具涵盖了笔记管理、通讯、娱乐、开发工具等多个方面，希望能给大家提供一些参考。</p>
+<h2 id="音乐与娱乐">音乐与娱乐</h2>
+<h3 id="网易云音乐">网易云音乐</h3>
+<p>作为国内最受欢迎的音乐平台之一，网易云音乐自然是我的首选：</p>
+<ol>
+<li>访问<a href="https://music.163.com/">网易云音乐官网</a>下载 macOS 版本</li>
+<li>安装并登录账号同步我的歌单和听歌记录</li>
+<li>设置为开机自启动，确保工作时有好音乐相伴</li>
+</ol>
+<h3 id="steam">Steam</h3>
+<p>游戏平台自然少不了 Steam：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install --cask steam
+</span></span></code></pre></div><p>虽然已经安装好了，但由于网络速度限制，目前还没有下载太多游戏。不过有了 Steam，至少周末娱乐有了更多选择。</p>
+<h2 id="生产力工具">生产力工具</h2>
+<h3 id="obsidian--git">Obsidian + Git</h3>
+<p>Obsidian 是我管理知识库的核心工具，结合 Git 可以轻松实现多设备同步：</p>
+<ol>
+<li>
+<p>安装 Obsidian：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install --cask obsidian
+</span></span></code></pre></div></li>
+<li>
+<p>将我之前 MBP 上的 Vault 仓库克隆到 Mac Mini：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 在 Vault 上级目录进行初始化</span>
+</span></span><span style="display:flex;"><span>git clone git@github.com:username/obsidian-vault.git
+</span></span></code></pre></div></li>
+</ol>
+<p>有时候简单的解决方案就足够好用！不需要复杂的同步服务，Git 已经能完美满足需求。</p>
+<h3 id="即时通讯工具">即时通讯工具</h3>
+<h4 id="微信">微信</h4>
+<p>作为日常交流必备工具：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install --cask wechat
+</span></span></code></pre></div><h4 id="飞书">飞书</h4>
+<p>工作协作和远程面试的利器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install --cask feishu
+</span></span></code></pre></div><p>飞书不仅是即时通讯工具，更是我面试和远程协作的首选平台。</p>
+<h2 id="系统增强">系统增强</h2>
+<h3 id="hot-corners热区">Hot Corners（热区）</h3>
+<p>macOS 内置的热区功能实在太方便了：</p>
+<ol>
+<li>系统设置 → 桌面与程序坞 → 热区</li>
+<li>我的设置：
+<ul>
+<li>左上：调度中心</li>
+<li>右上：桌面</li>
+<li>左下：启动台</li>
+<li>右下：屏幕保护</li>
+</ul>
+</li>
+</ol>
+<p>这个小功能极大提升了我的工作效率，强烈推荐每个 Mac 用户都去设置它。</p>
+<h3 id="mac-mouse-fix">Mac Mouse Fix</h3>
+<p>在 GitHub 上发现了这款神器（竟然发现之前就已经 star 过了！）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install --cask mac-mouse-fix
+</span></span></code></pre></div><p>这款工具可以让普通鼠标在 Mac 上拥有更自然的滚动和更多自定义功能，极大改善了鼠标使用体验。</p>
+<h3 id="maccy">Maccy</h3>
+<p>这是一款剪贴板管理工具，不过发现现在收费了，所以最终放弃使用。有兴趣的朋友可以寻找其他替代品，比如 Clipy。</p>
+<h2 id="开发工具进阶">开发工具进阶</h2>
+<h3 id="mkcert">mkcert</h3>
+<p>本地开发 HTTPS 证书的必备工具：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install mkcert
+</span></span><span style="display:flex;"><span>mkcert -install
+</span></span></code></pre></div><p>使用 mkcert 可以轻松创建本地信任的证书，解决本地开发 HTTPS 的问题。</p>
+<h3 id="docker">Docker</h3>
+<p>容器化开发的基础设施：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install --cask docker
+</span></span></code></pre></div><p>安装后打开 Docker Desktop，完成初始设置。Docker 让我能够在本地模拟各种复杂的开发和测试环境。</p>
+<h3 id="ollama">Ollama</h3>
+<p>本地大语言模型运行工具：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install ollama
+</span></span></code></pre></div><p>尝试下载 qwen3:8b 模型时遇到了困难（可能是由于网络或硬件限制），最终换成了更小的 0.6b 版本，勉强能用。对于想在本地运行 AI 模型又不想依赖云服务的开发者来说，这是个不错的选择。</p>
+<h3 id="bruno">Bruno</h3>
+<p>API 测试工具，Postman 的绝佳替代品：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install bruno
+</span></span></code></pre></div><p>开源、轻量且功能强大，已经完全取代了我之前使用的 Postman。</p>
+<h3 id="dbeaver">DBeaver</h3>
+<p>全能数据库管理工具：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install --cask dbeaver-community
+</span></span></code></pre></div><p>支持几乎所有主流数据库，界面友好，功能丰富，是我处理数据库操作的首选工具。</p>
+<h2 id="总结">总结</h2>
+<p>经过这些额外配置，我的 Mac Mini 已经成为一个功能齐全、生产力与娱乐兼备的工作站。从音乐、笔记、通讯到专业开发工具，一应俱全。</p>
+<p>在实际使用过程中，我发现 Mac Mini 的性能表现相当出色，即使是运行多个开发工具和 Docker 容器也不成问题。唯一的遗憾可能是在运行较大的 AI 模型时，受到了一些硬件限制。</p>
+<p>希望这两篇 Mac Mini 配置文章能对大家有所帮助。如果你有其他好用的工具推荐，欢迎在评论区分享！</p>
+<h2 id="备注">备注</h2>
+<p>这两篇blog都是用AI生成的。里面的细节配置可能是AI编撰的（比如Hot Cornors的四个配置项，再比如有很多也不是通过brew来安装的）。</p>
+<p>因为我其实只是记录了自己安装了什么软件罢了。</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+        <p class="post-tags">
+            <span>Tagged:</span>
+                <a href="/tags/macos/">MacOS</a>, 
+                <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">效率工具</a>, 
+                <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>, 
+                <a href="/tags/%E5%A8%B1%E4%B9%90%E5%BA%94%E7%94%A8/">娱乐应用</a>
+        </p>
+    <div class="share">
+    </div>
+</footer>
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a href="//liushengxian.github.io/">Shawn New Blog</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2025 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
+        <script src="//liushengxian.github.io/js/scripts.js"></script>
+        
+    </body>
+</html>
+
