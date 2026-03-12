@@ -92,6 +92,215 @@ function getSelectedRuleContent() {
     return rule ? rule.content : '';
 }
 
+function extractAndParseAIJson(rawContent) {
+    if (!rawContent || typeof rawContent !== 'string') {
+        throw new Error('AI 返回内容为空');
+    }
+
+    let content = rawContent.trim();
+
+    const fencedMatch = content.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+    if (fencedMatch && fencedMatch[1]) {
+        content = fencedMatch[1].trim();
+    }
+
+    content = content
+        .replace(/^\uFEFF/, '')
+        .replace(/，/g, ',')
+        .replace(/：/g, ':')
+        .replace(/,\s*([}\]])/g, '$1')
+        .replace(/([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)\s*:/g, '$1"$2":');
+
+    let parsed;
+    try {
+        parsed = JSON.parse(content);
+    } catch {
+        throw new Error('AI 返回不是合法 JSON，请重试');
+    }
+
+    const periodList = Array.isArray(parsed.periodList)
+        ? parsed.periodList.map(item => ({
+            startDate: String(item?.startDate || ''),
+            endDate: String(item?.endDate || '')
+        }))
+        : [];
+
+    const priceList = Array.isArray(parsed.priceList)
+        ? parsed.priceList.map(item => ({
+            month: Number(item?.month),
+            price: Number(item?.price)
+        }))
+        : [];
+
+    const isPeriodValid = periodList.length > 0 && periodList.every(item => item.startDate && item.endDate);
+    const isPriceValid = priceList.length > 0 && priceList.every(item => Number.isFinite(item.month) && Number.isFinite(item.price));
+
+    if (!isPeriodValid || !isPriceValid) {
+        throw new Error('AI 返回格式不符合预期，请重试');
+    }
+
+    return {
+        periodList,
+        priceList
+    };
+}
+
+function parseDateString(dateStr) {
+    const [year, month, day] = String(dateStr).split('-').map(Number);
+    if (!year || !month || !day) {
+        return null;
+    }
+    return new Date(Date.UTC(year, month - 1, day));
+}
+
+function formatDate(date) {
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+function addDays(date, days) {
+    const next = new Date(date);
+    next.setUTCDate(next.getUTCDate() + days);
+    return next;
+}
+
+function getMonthDays(year, monthIndex) {
+    return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+}
+
+function getAnchorDate(year, monthIndex, anchorDay) {
+    const monthDays = getMonthDays(year, monthIndex);
+    const day = Math.min(anchorDay, monthDays);
+    return new Date(Date.UTC(year, monthIndex, day));
+}
+
+function getBucketEndByDate(date, anchorDay) {
+    const year = date.getUTCFullYear();
+    const monthIndex = date.getUTCMonth();
+    const day = date.getUTCDate();
+
+    const currentMonthAnchor = getAnchorDate(year, monthIndex, anchorDay);
+    if (day <= currentMonthAnchor.getUTCDate()) {
+        return currentMonthAnchor;
+    }
+
+    const nextMonthIndex = monthIndex === 11 ? 0 : monthIndex + 1;
+    const nextYear = monthIndex === 11 ? year + 1 : year;
+    return getAnchorDate(nextYear, nextMonthIndex, anchorDay);
+}
+
+function calculateDistanceMonth(baseDate, date) {
+    const baseYear = baseDate.getUTCFullYear();
+    const baseMonth = baseDate.getUTCMonth();
+    const baseDay = baseDate.getUTCDate();
+
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth();
+    const day = date.getUTCDate();
+
+    const monthDiff = (year - baseYear) * 12 + (month - baseMonth);
+    return day > baseDay ? monthDiff + 1 : monthDiff;
+}
+
+function buildResultList(periodList, priceList, startDate) {
+    const startDateObj = parseDateString(startDate);
+    if (!startDateObj) {
+        throw new Error('起始日格式无效');
+    }
+
+    const baseDay = startDateObj.getUTCDate();
+    const resultList = [];
+
+    periodList.forEach(period => {
+        const periodStart = parseDateString(period.startDate);
+        const periodEnd = parseDateString(period.endDate);
+
+        if (!periodStart || !periodEnd || periodStart > periodEnd) {
+            return;
+        }
+
+        let cursor = periodStart;
+        while (cursor <= periodEnd) {
+            const bucketEnd = getBucketEndByDate(cursor, baseDay);
+            const segmentEnd = bucketEnd < periodEnd ? bucketEnd : periodEnd;
+            const distanceMonth = calculateDistanceMonth(startDateObj, cursor);
+            const priceMatch = priceList.find(item => item.month === distanceMonth);
+
+            resultList.push({
+                startDate: formatDate(cursor),
+                endDate: formatDate(segmentEnd),
+                distanceMonth,
+                month: priceMatch?.month ?? null,
+                price: Number.isFinite(priceMatch?.price) ? priceMatch.price : null
+            });
+
+            cursor = addDays(segmentEnd, 1);
+        }
+    });
+
+    return resultList;
+}
+
+function formatDateToChinese(dateStr) {
+    const date = parseDateString(dateStr);
+    if (!date) {
+        return dateStr;
+    }
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    return `${year}年${month}月${day}日`;
+}
+
+function formatPrice(price) {
+    if (!Number.isFinite(price)) {
+        return '-';
+    }
+    return price.toFixed(2);
+}
+
+function formatResultSummary(resultList) {
+    const groupedMap = new Map();
+
+    resultList.forEach(item => {
+        const key = item.distanceMonth;
+        if (!groupedMap.has(key)) {
+            groupedMap.set(key, {
+                distanceMonth: key,
+                price: item.price,
+                periods: []
+            });
+        }
+
+        const group = groupedMap.get(key);
+        if (!Number.isFinite(group.price) && Number.isFinite(item.price)) {
+            group.price = item.price;
+        }
+
+        group.periods.push({
+            startDate: item.startDate,
+            endDate: item.endDate
+        });
+    });
+
+    const groups = Array.from(groupedMap.values()).sort((a, b) => a.distanceMonth - b.distanceMonth);
+
+    const lines = ['北京银行上海分行今日同业人民币资金价格详情'];
+
+    groups.forEach(group => {
+        const monthText = String(group.distanceMonth).padStart(2, '0');
+        const periodText = group.periods
+            .map(period => `${formatDateToChinese(period.startDate)}—${formatDateToChinese(period.endDate)}`)
+            .join(' ');
+
+        lines.push(`${monthText}M ${formatPrice(group.price)}%    到期日：${periodText}`);
+    });
+
+    return lines.join('\n');
+}
+
 // 调用 DeepSeek API
 async function callDeepSeekAPI(prompt, apiKey, ruleContent, startDate) {
     // 构建消息数组
@@ -105,16 +314,10 @@ async function callDeepSeekAPI(prompt, apiKey, ruleContent, startDate) {
         });
     }
     
-    // 构建包含起始日的用户输入
-    let userContent = prompt;
-    if (startDate) {
-        userContent = `起始日: ${startDate}\n\n${prompt}`;
-    }
-    
     // 添加用户输入
     messages.push({
         role: 'user',
-        content: userContent
+        content: `${prompt}\n\n请严格只返回 JSON，结构必须为：{"periodList":[{"startDate":"YYYY-MM-DD","endDate":"YYYY-MM-DD"}],"priceList":[{"month":1,"price":1.23}]}`
     });
     
     const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
@@ -136,7 +339,10 @@ async function callDeepSeekAPI(prompt, apiKey, ruleContent, startDate) {
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    const content = data?.choices?.[0]?.message?.content || '';
+    const normalized = extractAndParseAIJson(content);
+    const resultList = buildResultList(normalized.periodList, normalized.priceList, startDate);
+    return formatResultSummary(resultList);
 }
 
 // 计算按钮点击事件
