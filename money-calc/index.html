@@ -38,6 +38,7 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 20px;
+            flex-wrap: nowrap;
         }
         
         .header-row h1 {
@@ -191,6 +192,11 @@
                 margin-bottom: 16px;
             }
 
+            .header-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
             .config-section {
                 margin-bottom: 14px;
                 padding: 12px;
@@ -224,7 +230,11 @@
 <body>
     <div class="container">
         <div class="header-row">
-            <h1>DeepSeek AI Calculator（姜行专用 4.0）</h1>
+            <h1>DeepSeek AI Calculator
+            </h1>
+            <h1>
+                （姜行专用 4.0）
+            </h1>    
             <button id="setSuffixBtn" class="primary">设置尾部追加词</button>
         </div>
         
