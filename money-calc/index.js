@@ -9,7 +9,14 @@ const inputText = document.getElementById('inputText');
 const outputText = document.getElementById('outputText');
 const calculateBtn = document.getElementById('calculateBtn');
 const clearBtn = document.getElementById('clearBtn');
+const setSuffixBtn = document.getElementById('setSuffixBtn');
 const statusDiv = document.getElementById('status');
+
+// Dialog 相关元素
+const suffixDialog = document.getElementById('suffixDialog');
+const suffixText = document.getElementById('suffixText');
+const saveBtn = document.getElementById('saveBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 
 // 存储规则列表
 let rules = rulesData.rules;
@@ -298,6 +305,13 @@ function formatResultSummary(resultList) {
         lines.push(`${monthText}M ${formatPrice(group.price)}%    到期日：${periodText}`);
     });
 
+    // 追加尾部内容
+    const suffix = localStorage.getItem('result_suffix') || '';
+    if (suffix.trim()) {
+        lines.push('');
+        lines.push(suffix);
+    }
+
     return lines.join('\n');
 }
 
@@ -408,4 +422,32 @@ inputText.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         calculateBtn.click();
     }
+});
+
+// 设置尾部追加词按钮点击事件
+setSuffixBtn.addEventListener('click', () => {
+    // 加载当前保存的内容，如果没有则使用默认内容
+    const defaultSuffix = '如有价格要求，欢迎随时沟通。\n另祝各位交易顺利，万事无忧！';
+    const currentSuffix = localStorage.getItem('result_suffix');
+    suffixText.value = currentSuffix !== null ? currentSuffix : defaultSuffix;
+    
+    // 显示对话框
+    suffixDialog.showModal();
+});
+
+// 保存按钮点击事件
+saveBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const suffix = suffixText.value.trim();
+    localStorage.setItem('result_suffix', suffix);
+    suffixDialog.close();
+    showStatus('尾部追加词已保存');
+    setTimeout(() => {
+        clearStatus();
+    }, 2000);
+});
+
+// 取消按钮点击事件
+cancelBtn.addEventListener('click', () => {
+    suffixDialog.close();
 });

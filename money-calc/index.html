@@ -32,6 +32,34 @@
             color: #333;
         }
         
+        .header-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .header-row h1 {
+            margin-bottom: 0;
+        }
+        
+        .header-row button {
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+        
+        /* Dialog footer 样式 */
+        dialog footer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        dialog footer button {
+            width: 100%;
+        }
+        
         .config-section {
             margin-bottom: 20px;
             padding: 15px;
@@ -63,6 +91,7 @@
         .textarea-wrapper {
             display: flex;
             gap: 20px;
+            padding: 0 20px;
             margin-bottom: 20px;
         }
         
@@ -190,10 +219,14 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="./pico.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>DeepSeek AI Calculator（姜行专用 3.0）</h1>
+        <div class="header-row">
+            <h1>DeepSeek AI Calculator（姜行专用 4.0）</h1>
+            <button id="setSuffixBtn" class="primary">设置尾部追加词</button>
+        </div>
         
         <div class="config-section">
             <label for="apiKey">DeepSeek API Key:</label>
@@ -231,6 +264,25 @@
         
         <div id="status"></div>
     </div>
+    
+    <!-- 尾部追加词设置对话框 -->
+    <dialog id="suffixDialog">
+        <article>
+            <header>
+                <h3>设置尾部追加词</h3>
+            </header>
+            <form method="dialog">
+                <label for="suffixText">
+                    请输入要追加到结果末尾的内容：
+                    <textarea id="suffixText" rows="4" placeholder="在这里输入内容..."></textarea>
+                </label>
+                <footer>
+                    <button type="button" id="cancelBtn" class="outline">取消</button>
+                    <button type="submit" id="saveBtn">保存</button>
+                </footer>
+            </form>
+        </article>
+    </dialog>
     
     <script type="module" src="index.js"></script>
 </body>
