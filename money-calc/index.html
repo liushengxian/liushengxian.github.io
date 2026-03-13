@@ -108,6 +108,13 @@
             color: #333;
         }
         
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
         textarea {
             flex: 1;
             min-height: 400px;
@@ -168,13 +175,25 @@
             margin-top: 10px;
         }
         
-        .error {
-            color: #dc3545;
-            padding: 10px;
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
+        #copyBtn {
+            align-self: flex-start;
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border: none;
             border-radius: 4px;
-            margin-top: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        #copyBtn:hover:not(:disabled) {
+            background-color: #218838;
+        }
+        
+        #copyBtn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
         @media (max-width: 768px) {
@@ -262,7 +281,10 @@
             </div>
             
             <div class="textarea-container">
-                <label for="outputText">返回内容:</label>
+                <div class="label-row">
+                    <label for="outputText">返回内容:</label>
+                    <button id="copyBtn" disabled>一键复制</button>
+                </div>
                 <textarea id="outputText" placeholder="计算结果将显示在这里..." readonly></textarea>
             </div>
         </div>

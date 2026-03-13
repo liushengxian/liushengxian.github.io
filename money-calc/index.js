@@ -10,6 +10,7 @@ const outputText = document.getElementById('outputText');
 const calculateBtn = document.getElementById('calculateBtn');
 const clearBtn = document.getElementById('clearBtn');
 const setSuffixBtn = document.getElementById('setSuffixBtn');
+const copyBtn = document.getElementById('copyBtn');
 const statusDiv = document.getElementById('status');
 
 // Dialog 相关元素
@@ -73,6 +74,9 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // 加载规则列表
     loadRules();
+    
+    // 初始化复制按钮状态
+    updateCopyBtn();
 });
 
 // 保存API密钥到localStorage
@@ -90,6 +94,11 @@ function showStatus(message, isError = false) {
 // 清空状态消息
 function clearStatus() {
     statusDiv.innerHTML = '';
+}
+
+// 更新复制按钮状态
+function updateCopyBtn() {
+    copyBtn.disabled = outputText.value.trim() === '';
 }
 
 // 获取当前选择的规则内容
@@ -393,6 +402,7 @@ calculateBtn.addEventListener('click', async () => {
         
         // 显示结果
         outputText.value = result;
+        updateCopyBtn();
         clearStatus();
         showStatus('✓ 计算完成');
         
@@ -414,6 +424,7 @@ calculateBtn.addEventListener('click', async () => {
 clearBtn.addEventListener('click', () => {
     inputText.value = '';
     outputText.value = '';
+    updateCopyBtn();
     clearStatus();
 });
 
@@ -450,4 +461,21 @@ saveBtn.addEventListener('click', (e) => {
 // 取消按钮点击事件
 cancelBtn.addEventListener('click', () => {
     suffixDialog.close();
+});
+
+// 复制按钮点击事件
+copyBtn.addEventListener('click', async () => {
+    try {
+        await navigator.clipboard.writeText(outputText.value);
+        showStatus('✓ 已复制到剪贴板');
+        setTimeout(() => {
+            clearStatus();
+        }, 2000);
+    } catch (error) {
+        console.error('复制失败:', error);
+        showStatus('复制失败，请手动复制', true);
+        setTimeout(() => {
+            clearStatus();
+        }, 2000);
+    }
 });
