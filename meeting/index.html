@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AI Robot 讨论会 | 三方辩论</title>
+        <!-- 引入Pico CSS框架 -->
+        <link rel="stylesheet" href="pico.min.css" />
+        <!-- 引入自定义样式 -->
+        <link rel="stylesheet" href="index.css" />
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>🤖 AI Robot 讨论会</h1>
+                <p class="subtitle">创建三个AI角色，围绕话题展开10轮深度讨论</p>
+                <div class="app-description">
+                    在这个应用中，您可以创建三个具有不同角色设定的AI机器人。设置好角色后，提出一个话题，三个AI将轮流进行10轮讨论（每次发言不超过140字），最后系统会自动总结讨论结论。
+                </div>
+            </header>
+
+            <div class="main-content">
+                <div class="setup-panel">
+                    <h2>🎭 设置AI角色</h2>
+
+                    <div class="robot-card">
+                        <h3>🤖 AI 机器人 1</h3>
+                        <label for="robot1-name">机器人名称：</label>
+                        <input
+                            type="text"
+                            id="robot1-name"
+                            placeholder="例如：智慧学者"
+                            value="智慧学者"
+                        />
+
+                        <label for="robot1-role">角色设定：</label>
+                        <textarea
+                            id="robot1-role"
+                            placeholder="描述这个AI的角色特点、专业领域和思维方式..."
+                            maxlength="300"
+                        >
+一位博学多才的学者，擅长逻辑分析和理性思考。注重事实依据，喜欢从历史和经验中寻找答案。说话严谨，条理清晰。</textarea
+                        >
+                        <div class="character-count" id="robot1-count">
+                            0/300
+                        </div>
+
+                        <label for="robot1-style">发言风格：</label>
+                        <select id="robot1-style">
+                            <option value="formal">正式严谨</option>
+                            <option value="friendly">友好亲切</option>
+                            <option value="critical">批判性</option>
+                            <option value="creative">创造性</option>
+                            <option value="humorous">幽默风趣</option>
+                        </select>
+                    </div>
+
+                    <div class="robot-card">
+                        <h3>🤖 AI 机器人 2</h3>
+                        <label for="robot2-name">机器人名称：</label>
+                        <input
+                            type="text"
+                            id="robot2-name"
+                            placeholder="例如：创新先锋"
+                            value="创新先锋"
+                        />
+
+                        <label for="robot2-role">角色设定：</label>
+                        <textarea
+                            id="robot2-role"
+                            placeholder="描述这个AI的角色特点、专业领域和思维方式..."
+                            maxlength="300"
+                        >
+一位富有创造力的思想家，总是寻找新的可能性和解决方案。喜欢挑战传统观念，拥抱变化和创新。思维跳跃，充满想象力。</textarea
+                        >
+                        <div class="character-count" id="robot2-count">
+                            0/300
+                        </div>
+
+                        <label for="robot2-style">发言风格：</label>
+                        <select id="robot2-style">
+                            <option value="formal">正式严谨</option>
+                            <option value="friendly" selected>友好亲切</option>
+                            <option value="critical">批判性</option>
+                            <option value="creative">创造性</option>
+                            <option value="humorous">幽默风趣</option>
+                        </select>
+                    </div>
+
+                    <div class="robot-card">
+                        <h3>🤖 AI 机器人 3</h3>
+                        <label for="robot3-name">机器人名称：</label>
+                        <input
+                            type="text"
+                            id="robot3-name"
+                            placeholder="例如：实践专家"
+                            value="实践专家"
+                        />
+
+                        <label for="robot3-role">角色设定：</label>
+                        <textarea
+                            id="robot3-role"
+                            placeholder="描述这个AI的角色特点、专业领域和思维方式..."
+                            maxlength="300"
+                        >
+一位注重实际应用的专家，关注可行性和现实约束。善于将理论转化为实践，考虑成本和效益。说话直接，务实高效。</textarea
+                        >
+                        <div class="character-count" id="robot3-count">
+                            0/300
+                        </div>
+
+                        <label for="robot3-style">发言风格：</label>
+                        <select id="robot3-style">
+                            <option value="formal">正式严谨</option>
+                            <option value="friendly">友好亲切</option>
+                            <option value="critical" selected>批判性</option>
+                            <option value="creative">创造性</option>
+                            <option value="humorous">幽默风趣</option>
+                        </select>
+                    </div>
+
+                    <div class="api-settings">
+                        <h3>🔑 DeepSeek API 设置</h3>
+                        <div style="margin-bottom: 15px">
+                            <label
+                                style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    cursor: pointer;
+                                "
+                            >
+                                <input
+                                    type="checkbox"
+                                    id="use-api-toggle"
+                                    style="margin-right: 8px"
+                                />
+                                <span>使用DeepSeek API生成回复</span>
+                            </label>
+                        </div>
+
+                        <div id="api-token-section" style="display: none">
+                            <label for="api-token">API Token：</label>
+                            <input
+                                type="password"
+                                id="api-token"
+                                placeholder="请输入您的DeepSeek API Token"
+                            />
+                            <div class="api-info">
+                                <small>
+                                    🔒 您的API
+                                    Token仅存储在本地浏览器中，不会发送到任何其他服务器。
+                                    <br />
+                                    📝 获取API Token：访问
+                                    <a
+                                        href="https://platform.deepseek.com/api_keys"
+                                        target="_blank"
+                                        >DeepSeek平台</a
+                                    >
+                                    <br />
+                                    💡 如果没有API Token，系统将使用智能模拟回复
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn" id="save-btn">
+                            💾 保存角色设置
+                        </button>
+                        <button class="btn btn-secondary" id="reset-btn">
+                            🔄 重置为默认
+                        </button>
+                        <button
+                            class="btn btn-secondary"
+                            id="test-api-btn"
+                            style="display: none"
+                        >
+                            🧪 测试API连接
+                        </button>
+                    </div>
+                </div>
+
+                <div class="discussion-panel">
+                    <h2>
+                        💬 开始讨论
+                        <span
+                            id="mode-indicator"
+                            class="mode-indicator simulated"
+                            >模拟模式</span
+                        >
+                    </h2>
+
+                    <div class="topic-input">
+                        <label for="topic">讨论话题：</label>
+                        <textarea
+                            id="topic"
+                            placeholder="请输入要讨论的话题，例如：人工智能对教育的影响、未来城市的发展方向、环境保护与经济发展的平衡等..."
+                            maxlength="200"
+                        ></textarea>
+                        <div class="character-count" id="topic-count">
+                            0/200
+                        </div>
+                    </div>
+
+                    <div class="topic-display" id="topic-display">
+                        <h3>当前话题：</h3>
+                        <p id="current-topic"></p>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-success" id="start-btn">
+                            🚀 开始讨论
+                        </button>
+                        <button
+                            class="btn btn-secondary"
+                            id="pause-btn"
+                            disabled
+                        >
+                            ⏸️ 暂停
+                        </button>
+                        <button
+                            class="btn btn-danger"
+                            id="reset-discussion-btn"
+                        >
+                            🗑️ 重置讨论
+                        </button>
+                    </div>
+
+                    <div class="loading" id="loading">正在思考</div>
+
+                    <div id="discussion-area">
+                        <!-- 讨论内容将在这里显示 -->
+                    </div>
+
+                    <div class="summary" id="summary">
+                        <h3>📊 讨论总结</h3>
+                        <div class="summary-content" id="summary-content">
+                            <!-- 总结内容将在这里显示 -->
+                        </div>
+                        <div class="stats" id="stats">
+                            <!-- 统计数据将在这里显示 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                AI Robot 讨论会 | 每个发言不超过140字 | 10轮深度讨论 |
+                自动总结结论
+            </p>
+            <p>© 2024 手工制作项目</p>
+        </footer>
+
+        <script src="index.js"></script>
+    </body>
+</html>
