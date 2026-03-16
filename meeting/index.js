@@ -10,27 +10,20 @@ let totalRounds = 10;
 let isDiscussionActive = false;
 let discussionInterval = null;
 let currentRobotIndex = 0;
+let roundOrder = []; // 每一轮的机器人发言顺序
 let useDeepSeekAPI = false;
 let apiToken = "";
 
 // DOM 加载完成后初始化
 document.addEventListener("DOMContentLoaded", function () {
-  // 初始化角色字数统计
-  initCharacterCounters();
-
-  // 从本地存储加载保存的设置
-  loadSavedRobots();
-
   // 设置按钮事件监听器
   setupEventListeners();
 
   // 加载保存的API设置
   loadAPISettings();
 
-  // 初始化默认机器人
-  if (!localStorage.getItem("aiRobotsSaved")) {
-    resetRobotsToDefault();
-  }
+  // 初始化默认机器人（不依赖DOM元素）
+  initializeRobots();
 });
 
 // 初始化字符计数器
@@ -66,6 +59,12 @@ function updateCharacterCount(textareaId, countId) {
 
 // 设置事件监听器
 function setupEventListeners() {
+  // 设置按钮 - 打开dialog
+  document.getElementById("settings-btn").addEventListener("click", openSettingsDialog);
+
+  // 关闭设置按钮
+  document.getElementById("close-settings-btn").addEventListener("click", closeSettingsDialog);
+
   // 保存角色按钮
   document.getElementById("save-btn").addEventListener("click", saveRobots);
 
@@ -105,6 +104,96 @@ function setupEventListeners() {
     .addEventListener("change", toggleAPIMode);
 }
 
+// 初始化机器人设置
+function initializeRobots() {
+  const savedRobots = localStorage.getItem("aiRobots");
+  if (savedRobots) {
+    try {
+      robots = JSON.parse(savedRobots);
+    } catch (e) {
+      console.error("加载保存的机器人设置失败:", e);
+      setDefaultRobots();
+    }
+  } else {
+    setDefaultRobots();
+  }
+}
+
+// 设置默认机器人
+function setDefaultRobots() {
+  robots = [
+    {
+      name: "智慧学者",
+      role: "一位博学多才的学者，擅长逻辑分析和理性思考。注重事实依据，喜欢从历史和经验中寻找答案。说话严谨，条理清晰。",
+      style: "formal",
+      avatar: "🤓",
+    },
+    {
+      name: "创新先锋",
+      role: "一位富有创造力的思想家，总是寻找新的可能性和解决方案。喜欢挑战传统观念，拥抱变化和创新。思维跳跃，充满想象力。",
+      style: "friendly",
+      avatar: "🚀",
+    },
+    {
+      name: "实践专家",
+      role: "一位注重实际应用的专家，关注可行性和现实约束。善于将理论转化为实践，考虑成本和效益。说话直接，务实高效。",
+      style: "critical",
+      avatar: "🔧",
+    },
+  ];
+}
+
+// 打开设置对话框
+function openSettingsDialog() {
+  const dialog = document.getElementById("settings-dialog");
+
+  // 加载保存的设置到表单
+  loadSavedRobotsToForm();
+
+  dialog.showModal();
+}
+
+// 加载保存的机器人设置到表单
+function loadSavedRobotsToForm() {
+  const savedRobots = localStorage.getItem("aiRobots");
+  if (savedRobots) {
+    try {
+      const parsedRobots = JSON.parse(savedRobots);
+
+      // 更新表单
+      if (parsedRobots[0]) {
+        document.getElementById("robot1-name").value = parsedRobots[0].name;
+        document.getElementById("robot1-role").value = parsedRobots[0].role;
+        document.getElementById("robot1-style").value = parsedRobots[0].style;
+      }
+
+      if (parsedRobots[1]) {
+        document.getElementById("robot2-name").value = parsedRobots[1].name;
+        document.getElementById("robot2-role").value = parsedRobots[1].role;
+        document.getElementById("robot2-style").value = parsedRobots[1].style;
+      }
+
+      if (parsedRobots[2]) {
+        document.getElementById("robot3-name").value = parsedRobots[2].name;
+        document.getElementById("robot3-role").value = parsedRobots[2].role;
+        document.getElementById("robot3-style").value = parsedRobots[2].style;
+      }
+
+      // 更新字符计数
+      initCharacterCounters();
+    } catch (e) {
+      console.error("加载保存的机器人设置失败:", e);
+      resetRobotsToDefault();
+    }
+  }
+}
+
+// 关闭设置对话框
+function closeSettingsDialog() {
+  const dialog = document.getElementById("settings-dialog");
+  dialog.close();
+}
+
 // 保存机器人设置
 function saveRobots() {
   robots = [
@@ -140,6 +229,9 @@ function saveRobots() {
 
   // 显示成功消息
   showNotification("角色设置已保存！", "success");
+
+  // 关闭设置对话框
+  closeSettingsDialog();
 }
 
 // 加载API设置
@@ -315,63 +407,36 @@ async function testAPIConnection() {
   }
 }
 
-// 加载保存的机器人设置
-function loadSavedRobots() {
-  const savedRobots = localStorage.getItem("aiRobots");
-  if (savedRobots) {
-    try {
-      robots = JSON.parse(savedRobots);
-
-      // 更新表单
-      if (robots[0]) {
-        document.getElementById("robot1-name").value = robots[0].name;
-        document.getElementById("robot1-role").value = robots[0].role;
-        document.getElementById("robot1-style").value = robots[0].style;
-      }
-
-      if (robots[1]) {
-        document.getElementById("robot2-name").value = robots[1].name;
-        document.getElementById("robot2-role").value = robots[1].role;
-        document.getElementById("robot2-style").value = robots[1].style;
-      }
-
-      if (robots[2]) {
-        document.getElementById("robot3-name").value = robots[2].name;
-        document.getElementById("robot3-role").value = robots[2].role;
-        document.getElementById("robot3-style").value = robots[2].style;
-      }
-
-      // 更新字符计数
-      initCharacterCounters();
-    } catch (e) {
-      console.error("加载保存的机器人设置失败:", e);
-      resetRobotsToDefault();
-    }
-  }
-}
-
 // 重置为默认机器人设置
 function resetRobotsToDefault() {
-  document.getElementById("robot1-name").value = "智慧学者";
-  document.getElementById("robot1-role").value =
-    "一位博学多才的学者，擅长逻辑分析和理性思考。注重事实依据，喜欢从历史和经验中寻找答案。说话严谨，条理清晰。";
-  document.getElementById("robot1-style").value = "formal";
+  // 重置内存中的机器人设置
+  setDefaultRobots();
 
-  document.getElementById("robot2-name").value = "创新先锋";
-  document.getElementById("robot2-role").value =
-    "一位富有创造力的思想家，总是寻找新的可能性和解决方案。喜欢挑战传统观念，拥抱变化和创新。思维跳跃，充满想象力。";
-  document.getElementById("robot2-style").value = "friendly";
+  // 更新表单（如果dialog已打开）
+  const dialog = document.getElementById("settings-dialog");
+  if (dialog && dialog.open) {
+    document.getElementById("robot1-name").value = "智慧学者";
+    document.getElementById("robot1-role").value =
+      "一位博学多才的学者，擅长逻辑分析和理性思考。注重事实依据，喜欢从历史和经验中寻找答案。说话严谨，条理清晰。";
+    document.getElementById("robot1-style").value = "formal";
 
-  document.getElementById("robot3-name").value = "实践专家";
-  document.getElementById("robot3-role").value =
-    "一位注重实际应用的专家，关注可行性和现实约束。善于将理论转化为实践，考虑成本和效益。说话直接，务实高效。";
-  document.getElementById("robot3-style").value = "critical";
+    document.getElementById("robot2-name").value = "创新先锋";
+    document.getElementById("robot2-role").value =
+      "一位富有创造力的思想家，总是寻找新的可能性和解决方案。喜欢挑战传统观念，拥抱变化和创新。思维跳跃，充满想象力。";
+    document.getElementById("robot2-style").value = "friendly";
 
-  // 更新字符计数
-  initCharacterCounters();
+    document.getElementById("robot3-name").value = "实践专家";
+    document.getElementById("robot3-role").value =
+      "一位注重实际应用的专家，关注可行性和现实约束。善于将理论转化为实践，考虑成本和效益。说话直接，务实高效。";
+    document.getElementById("robot3-style").value = "critical";
 
-  // 保存默认设置
-  saveRobots();
+    // 更新字符计数
+    initCharacterCounters();
+  }
+
+  // 清除本地存储
+  localStorage.removeItem("aiRobots");
+  localStorage.removeItem("aiRobotsSaved");
 
   showNotification("已重置为默认角色设置", "info");
 }
@@ -397,6 +462,9 @@ function startDiscussion() {
 
   // 重置讨论状态
   resetDiscussionState();
+
+  // 生成第一轮的随机顺序
+  generateRoundOrder();
 
   // 更新按钮状态
   document.getElementById("start-btn").disabled = true;
@@ -454,6 +522,18 @@ function resetDiscussionState() {
   discussionHistory = [];
   currentRound = 0;
   currentRobotIndex = 0;
+  roundOrder = [];
+}
+
+// 生成新一轮的随机机器人发言顺序
+function generateRoundOrder() {
+  roundOrder = [0, 1, 2];
+  // Fisher-Yates 洗牌算法
+  for (let i = roundOrder.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [roundOrder[i], roundOrder[j]] = [roundOrder[j], roundOrder[i]];
+  }
+  currentRobotIndex = 0;
 }
 
 // 下一个讨论回合
@@ -468,7 +548,8 @@ function nextDiscussionTurn() {
 
   // 模拟AI思考时间
   setTimeout(async () => {
-    const robot = robots[currentRobotIndex];
+    const robotIndex = roundOrder[currentRobotIndex];
+    const robot = robots[robotIndex];
     const topic = document.getElementById("topic").value.trim();
 
     try {
@@ -490,9 +571,12 @@ function nextDiscussionTurn() {
       document.getElementById("loading").style.display = "none";
 
       // 更新索引和轮次
-      currentRobotIndex = (currentRobotIndex + 1) % robots.length;
-      if (currentRobotIndex === 0) {
+      currentRobotIndex++;
+      if (currentRobotIndex >= robots.length) {
         currentRound++;
+        if (currentRound < totalRounds) {
+          generateRoundOrder();
+        }
       }
 
       // 滚动到底部
@@ -748,7 +832,17 @@ function displayMessage(robot, content, round) {
   messageDiv.appendChild(contentDiv);
   messageDiv.appendChild(wordCount);
 
+  // 添加到讨论区域
   discussionArea.appendChild(messageDiv);
+
+  // 强制重排以确保元素已添加到DOM
+  messageDiv.offsetHeight;
+
+  // 触发动画
+  requestAnimationFrame(() => {
+    messageDiv.style.opacity = '1';
+    messageDiv.style.transform = 'translateY(0) scale(1)';
+  });
 }
 
 // 结束讨论

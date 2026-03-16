@@ -1,12 +1,7 @@
 /* AI Robot 讨论会 - 自定义样式 */
 /* 基于Pico CSS框架 */
 
-/* 基础布局 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* 基础布局 - 移除与Pico重复的基础重置样式 */
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -34,6 +29,39 @@ header {
     text-align: center;
 }
 
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.title-section {
+    flex: 1;
+    text-align: center;
+}
+
+.settings-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
 h1 {
     font-size: 2.8rem;
     margin-bottom: 10px;
@@ -55,15 +83,12 @@ h1 {
 
 /* 主要内容区域 */
 .main-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 30px;
     padding: 40px;
 }
 
 @media (max-width: 768px) {
     .main-content {
-        grid-template-columns: 1fr;
+        padding: 20px;
     }
 }
 
@@ -113,7 +138,7 @@ h3 {
     border-left-color: #f56565;
 }
 
-/* 表单元素 */
+/* 表单元素 - 保留自定义样式，移除与Pico重复的基础样式 */
 label {
     display: block;
     margin-bottom: 8px;
@@ -124,7 +149,6 @@ label {
 input,
 textarea,
 select {
-    width: 100%;
     padding: 12px;
     border: 2px solid #e9ecef;
     border-radius: 8px;
@@ -146,20 +170,15 @@ textarea {
     resize: vertical;
 }
 
-/* 按钮样式 */
+/* 按钮样式 - 保留自定义样式，移除与Pico重复的基础属性 */
 .btn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border: none;
     padding: 14px 28px;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
-    cursor: pointer;
     transition: all 0.3s ease;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
     margin: 5px;
 }
 
@@ -193,6 +212,12 @@ textarea {
     border-top: 2px solid #e9ecef;
 }
 
+/* 讨论区域 */
+#discussion-area {
+    min-height: 200px;
+    padding-bottom: 20px;
+}
+
 /* 消息样式 */
 .message {
     background: white;
@@ -201,7 +226,10 @@ textarea {
     margin-bottom: 15px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     border-left: 5px solid #667eea;
-    animation: fadeIn 0.5s ease;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
 }
 
 .message:nth-child(odd) {
@@ -536,14 +564,23 @@ input:checked + .toggle-slider:before {
     transform: translateX(26px);
 }
 
-/* 通知动画 */
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
+/* Dialog样式 */
+dialog {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.dialog-content {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 20px 0;
 }

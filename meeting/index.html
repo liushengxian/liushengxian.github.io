@@ -12,17 +12,93 @@
     <body>
         <div class="container">
             <header>
-                <h1>🤖 AI Robot 讨论会</h1>
-                <p class="subtitle">创建三个AI角色，围绕话题展开10轮深度讨论</p>
+                <div class="header-content">
+                    <div class="title-section">
+                        <h1>🤖 AI Robot 讨论会</h1>
+                        <p class="subtitle">创建三个AI角色，围绕话题展开10轮深度讨论</p>
+                    </div>
+                    <button class="settings-btn" id="settings-btn" title="设置AI角色">
+                        ⚙️
+                    </button>
+                </div>
                 <div class="app-description">
                     在这个应用中，您可以创建三个具有不同角色设定的AI机器人。设置好角色后，提出一个话题，三个AI将轮流进行10轮讨论（每次发言不超过140字），最后系统会自动总结讨论结论。
                 </div>
             </header>
 
             <div class="main-content">
-                <div class="setup-panel">
-                    <h2>🎭 设置AI角色</h2>
+                <div class="discussion-panel">
+                    <h2>
+                        💬 开始讨论
+                        <span
+                            id="mode-indicator"
+                            class="mode-indicator simulated"
+                            >模拟模式</span
+                        >
+                    </h2>
 
+                    <div class="topic-input">
+                        <label for="topic">讨论话题：</label>
+                        <textarea
+                            id="topic"
+                            placeholder="请输入要讨论的话题，例如：人工智能对教育的影响、未来城市的发展方向、环境保护与经济发展的平衡等..."
+                            maxlength="200"
+                        ></textarea>
+                        <div class="character-count" id="topic-count">
+                            0/200
+                        </div>
+                    </div>
+
+                    <div class="topic-display" id="topic-display">
+                        <h3>当前话题：</h3>
+                        <p id="current-topic"></p>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-success" id="start-btn">
+                            🚀 开始讨论
+                        </button>
+                        <button
+                            class="btn btn-secondary"
+                            id="pause-btn"
+                            disabled
+                        >
+                            ⏸️ 暂停
+                        </button>
+                        <button
+                            class="btn btn-danger"
+                            id="reset-discussion-btn"
+                        >
+                            🗑️ 重置讨论
+                        </button>
+                    </div>
+
+                    <div class="loading" id="loading">正在思考</div>
+
+                    <div id="discussion-area">
+                        <!-- 讨论内容将在这里显示 -->
+                    </div>
+
+                    <div class="summary" id="summary">
+                        <h3>📊 讨论总结</h3>
+                        <div class="summary-content" id="summary-content">
+                            <!-- 总结内容将在这里显示 -->
+                        </div>
+                        <div class="stats" id="stats">
+                            <!-- 统计数据将在这里显示 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI角色设置对话框 -->
+        <dialog id="settings-dialog">
+            <article>
+                <header>
+                    <h3>🎭 设置AI角色</h3>
+                </header>
+                <div class="dialog-content">
                     <div class="robot-card">
                         <h3>🤖 AI 机器人 1</h3>
                         <label for="robot1-name">机器人名称：</label>
@@ -179,78 +255,20 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="discussion-panel">
-                    <h2>
-                        💬 开始讨论
-                        <span
-                            id="mode-indicator"
-                            class="mode-indicator simulated"
-                            >模拟模式</span
-                        >
-                    </h2>
-
-                    <div class="topic-input">
-                        <label for="topic">讨论话题：</label>
-                        <textarea
-                            id="topic"
-                            placeholder="请输入要讨论的话题，例如：人工智能对教育的影响、未来城市的发展方向、环境保护与经济发展的平衡等..."
-                            maxlength="200"
-                        ></textarea>
-                        <div class="character-count" id="topic-count">
-                            0/200
-                        </div>
-                    </div>
-
-                    <div class="topic-display" id="topic-display">
-                        <h3>当前话题：</h3>
-                        <p id="current-topic"></p>
-                    </div>
-
-                    <div class="controls">
-                        <button class="btn btn-success" id="start-btn">
-                            🚀 开始讨论
-                        </button>
-                        <button
-                            class="btn btn-secondary"
-                            id="pause-btn"
-                            disabled
-                        >
-                            ⏸️ 暂停
-                        </button>
-                        <button
-                            class="btn btn-danger"
-                            id="reset-discussion-btn"
-                        >
-                            🗑️ 重置讨论
-                        </button>
-                    </div>
-
-                    <div class="loading" id="loading">正在思考</div>
-
-                    <div id="discussion-area">
-                        <!-- 讨论内容将在这里显示 -->
-                    </div>
-
-                    <div class="summary" id="summary">
-                        <h3>📊 讨论总结</h3>
-                        <div class="summary-content" id="summary-content">
-                            <!-- 总结内容将在这里显示 -->
-                        </div>
-                        <div class="stats" id="stats">
-                            <!-- 统计数据将在这里显示 -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <footer>
+                    <button type="button" id="close-settings-btn" class="btn btn-secondary">
+                        关闭
+                    </button>
+                </footer>
+            </article>
+        </dialog>
 
         <footer>
             <p>
                 AI Robot 讨论会 | 每个发言不超过140字 | 10轮深度讨论 |
                 自动总结结论
             </p>
-            <p>© 2024 手工制作项目</p>
+            <p>© 2026 AI制作项目</p>
         </footer>
 
         <script src="index.js"></script>
