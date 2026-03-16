@@ -17,9 +17,14 @@
                         <h1>🤖 AI Robot 讨论会</h1>
                         <p class="subtitle">创建三个AI角色，围绕话题展开10轮深度讨论</p>
                     </div>
-                    <button class="settings-btn" id="settings-btn" title="设置AI角色">
-                        ⚙️
-                    </button>
+                    <div class="header-buttons">
+                        <button class="settings-btn robot-btn" id="robot-btn" title="设置AI角色">
+                            🤖
+                        </button>
+                        <button class="settings-btn api-btn" id="api-btn" title="设置DeepSeek API">
+                            ⚙️
+                        </button>
+                    </div>
                 </div>
                 <div class="app-description">
                     在这个应用中，您可以创建三个具有不同角色设定的AI机器人。设置好角色后，提出一个话题，三个AI将轮流进行10轮讨论（每次发言不超过140字），最后系统会自动总结讨论结论。
@@ -30,11 +35,6 @@
                 <div class="discussion-panel">
                     <h2>
                         💬 开始讨论
-                        <span
-                            id="mode-indicator"
-                            class="mode-indicator simulated"
-                            >模拟模式</span
-                        >
                     </h2>
 
                     <div class="topic-input">
@@ -93,7 +93,7 @@
         </div>
 
         <!-- AI角色设置对话框 -->
-        <dialog id="settings-dialog">
+        <dialog id="robot-settings-dialog">
             <article>
                 <header>
                     <h3>🎭 设置AI角色</h3>
@@ -195,26 +195,33 @@
                         </select>
                     </div>
 
-                    <div class="api-settings">
-                        <h3>🔑 DeepSeek API 设置</h3>
-                        <div style="margin-bottom: 15px">
-                            <label
-                                style="
-                                    display: inline-flex;
-                                    align-items: center;
-                                    cursor: pointer;
-                                "
-                            >
-                                <input
-                                    type="checkbox"
-                                    id="use-api-toggle"
-                                    style="margin-right: 8px"
-                                />
-                                <span>使用DeepSeek API生成回复</span>
-                            </label>
-                        </div>
+                    <div class="controls">
+                        <button class="btn" id="save-robot-btn">
+                            💾 保存角色设置
+                        </button>
+                        <button class="btn btn-secondary" id="reset-robot-btn">
+                            🔄 重置为默认
+                        </button>
+                    </div>
+                </div>
+                <footer>
+                    <button type="button" id="close-robot-settings-btn" class="btn btn-secondary">
+                        关闭
+                    </button>
+                </footer>
+            </article>
+        </dialog>
 
-                        <div id="api-token-section" style="display: none">
+        <!-- DeepSeek API设置对话框 -->
+        <dialog id="api-settings-dialog">
+            <article>
+                <header>
+                    <h3>🔑 DeepSeek API 设置</h3>
+                    <div id="api-error-message" class="error-message" style="display: none;"></div>
+                </header>
+                <div class="dialog-content">
+                    <div class="api-settings">
+                        <div id="api-token-section">
                             <label for="api-token">API Token：</label>
                             <input
                                 type="password"
@@ -233,30 +240,20 @@
                                         >DeepSeek平台</a
                                     >
                                     <br />
-                                    💡 如果没有API Token，系统将使用智能模拟回复
+                                    💡 使用DeepSeek模型生成讨论回复
                                 </small>
                             </div>
                         </div>
                     </div>
 
                     <div class="controls">
-                        <button class="btn" id="save-btn">
-                            💾 保存角色设置
-                        </button>
-                        <button class="btn btn-secondary" id="reset-btn">
-                            🔄 重置为默认
-                        </button>
-                        <button
-                            class="btn btn-secondary"
-                            id="test-api-btn"
-                            style="display: none"
-                        >
+                        <button class="btn btn-secondary" id="test-api-btn">
                             🧪 测试API连接
                         </button>
                     </div>
                 </div>
                 <footer>
-                    <button type="button" id="close-settings-btn" class="btn btn-secondary">
+                    <button type="button" id="close-api-settings-btn" class="btn btn-secondary">
                         关闭
                     </button>
                 </footer>
@@ -272,5 +269,8 @@
         </footer>
 
         <script src="index.js"></script>
+        <script src="settings.js"></script>
+        <script src="deepseek-api.js"></script>
+        <script src="discussion.js"></script>
     </body>
 </html>

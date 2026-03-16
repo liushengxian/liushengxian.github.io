@@ -36,6 +36,11 @@ header {
     margin-bottom: 20px;
 }
 
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
 .title-section {
     flex: 1;
     text-align: center;
@@ -497,73 +502,6 @@ footer {
     color: white;
 }
 
-/* 模式指示器 */
-.mode-indicator {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-left: 10px;
-    background: #667eea;
-    color: white;
-}
-
-.mode-indicator.api {
-    background: #48bb78;
-}
-
-.mode-indicator.simulated {
-    background: #6c757d;
-}
-
-/* 切换开关 */
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-    margin-right: 10px;
-}
-
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
-}
-
-.toggle-slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-}
-
-input:checked + .toggle-slider {
-    background-color: #48bb78;
-}
-
-input:checked + .toggle-slider:before {
-    transform: translateX(26px);
-}
-
 /* Dialog样式 */
 dialog {
     border: none;
@@ -579,8 +517,193 @@ dialog::backdrop {
     backdrop-filter: blur(5px);
 }
 
+.error-message {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    color: white;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-left: 4px solid #c53030;
+}
+
+.success-message {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-left: 4px solid #2f855a;
+}
+
 .dialog-content {
     max-height: 70vh;
     overflow-y: auto;
     padding: 20px 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    header {
+        padding: 20px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .header-buttons {
+        display: flex;
+        gap: 15px;
+    }
+
+    .title-section {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .app-description {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .setup-panel,
+    .discussion-panel {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    .robot-card {
+        padding: 15px;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .message {
+        padding: 15px;
+    }
+
+    .summary {
+        padding: 20px;
+    }
+
+    .stat-item {
+        padding: 10px;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .api-settings {
+        padding: 15px;
+    }
+
+    dialog {
+        max-width: 95vw;
+        margin: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .app-description {
+        font-size: 0.9rem;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .setup-panel,
+    .discussion-panel {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    .robot-card {
+        padding: 12px;
+    }
+
+    .message {
+        padding: 12px;
+    }
+
+    .summary {
+        padding: 15px;
+    }
+
+    .stat-value {
+        font-size: 1.3rem;
+    }
+
+    .robot-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    .settings-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
 }
