@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>前端Base镜像升级 Node.js 18 -&gt; 20 &middot; Shawn</title>
+        <meta name="description" content="背景
+前端项目的Base镜像一直使用的是 Node.js 18.20 版本，最近面临升级需求：
+
+Node.js 18.20 已进入维护末期，后续可能会逐渐出现兼容性问题
+CI 中出现大量版本 Warning，提示需要升级
+团队内其他项目已在 3 月中旬完成 Node.js 20 的升级
+
+镜像选型分析
+
+  
+      
+          镜像
+          curl/ca-certificates
+          git
+          说明
+      
+  
+  
+      
+          node:20
+          ✅
+          ✅
+          基于 buildpack-deps，包含常用工具
+      
+      
+          node:20-bullseye / bookworm
+          ✅
+          ✅
+          Debian 完整版，最稳定
+      
+      
+          node:20-slim
+          ✅
+          ❌
+          精简版
+      
+      
+          node:20-alpine
+          ❌
+          ❌
+          极简版，需手动安装
+      
+  
+
+为什么选择 Alpine？
+
+curl 和 ca-certificates 在 AI Code Review 阶段需要用到
+git 在构建过程中用于给 index.html 打版本信息
+Alpine 镜像体积最小，可以加快日常构建速度
+
+原 Dockerfile 问题
+FROM 旧镜像
+
+ARG APP_DIR=&#34;/usr/src/app&#34;
+
+# 更新源列表
+COPY ./ci/sources.list /etc/apt/sources.list
+
+COPY package.json .npmrc $APP_DIR/
+
+RUN set -xe \
+    # 添加 Google Chrome 仓库的 GPG 密钥
+    &amp;&amp; wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    # 删除 debian.sources，以完全使用 sources.list 作为唯一源
+    &amp;&amp; rm /etc/apt/sources.list.d/debian.sources \
+    &amp;&amp; apt-get update \
+    &amp;&amp; apt-get install -y \
+        default-jre \
+        sshpass \
+    &amp;&amp; (cd $APP_DIR; npm i --verbose --legacy-peer-deps) \
+    &amp;&amp; (npm cache clean --force)
+
+WORKDIR $APP_DIR
+主要问题：">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.150.1">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
+        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
+        
+        
+        
+        
+
+    </head>
+    <body>
+        
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QY7HT2G2H"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-3QY7HT2G2H');
+        }
+      </script>
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a href="//liushengxian.github.io/">Shawn New Blog</a>
+                            </h1>
+                        
+                        
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
+                                <i class="fa fa-github-alt" aria-hidden="true"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a href="/about-me/">about me</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/reading-list/">reading list</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/tags/">tags</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a href="/handmake/">handmake</a>
+    </li>
+
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container">
+        <header class="post-header">
+    <h1 class="post-title">前端Base镜像升级 Node.js 18 -&gt; 20</h1>
+    
+</header>
+
+        <div class="post-content clearfix">
+    
+        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+    
+
+    <h2 id="背景">背景</h2>
+<p>前端项目的Base镜像一直使用的是 Node.js 18.20 版本，最近面临升级需求：</p>
+<ol>
+<li><strong>Node.js 18.20 已进入维护末期</strong>，后续可能会逐渐出现兼容性问题</li>
+<li><strong>CI 中出现大量版本 Warning</strong>，提示需要升级</li>
+<li>团队内其他项目已在 3 月中旬完成 Node.js 20 的升级</li>
+</ol>
+<h2 id="镜像选型分析">镜像选型分析</h2>
+<table>
+  <thead>
+      <tr>
+          <th>镜像</th>
+          <th>curl/ca-certificates</th>
+          <th>git</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>node:20</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>基于 buildpack-deps，包含常用工具</td>
+      </tr>
+      <tr>
+          <td>node:20-bullseye / bookworm</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>Debian 完整版，最稳定</td>
+      </tr>
+      <tr>
+          <td>node:20-slim</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>精简版</td>
+      </tr>
+      <tr>
+          <td>node:20-alpine</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>极简版，需手动安装</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>为什么选择 Alpine？</strong></p>
+<ul>
+<li><code>curl</code> 和 <code>ca-certificates</code> 在 AI Code Review 阶段需要用到</li>
+<li><code>git</code> 在构建过程中用于给 index.html 打版本信息</li>
+<li>Alpine 镜像体积最小，可以加快日常构建速度</li>
+</ul>
+<h2 id="原-dockerfile-问题">原 Dockerfile 问题</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">旧镜像</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> APP_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/usr/src/app&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 更新源列表</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> ./ci/sources.list /etc/apt/sources.list<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> package.json .npmrc $APP_DIR/<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> set -xe <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#75715e"># 添加 Google Chrome 仓库的 GPG 密钥</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#f92672">&amp;&amp;</span> wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#75715e"># 删除 debian.sources，以完全使用 sources.list 作为唯一源</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#f92672">&amp;&amp;</span> rm /etc/apt/sources.list.d/debian.sources <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apt-get update <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apt-get install -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        default-jre <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        sshpass <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">(</span>cd $APP_DIR; npm i --verbose --legacy-peer-deps<span style="color:#f92672">)</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">(</span>npm cache clean --force<span style="color:#f92672">)</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span> <span style="color:#e6db74">$APP_DIR</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p><strong>主要问题：</strong></p>
+<ol>
+<li>Chrome 仓库密钥在 CI Runner 上会遇到各种网络和版本问题</li>
+<li>使用 Node.js 20+ 的 bookworm 镜像在某些 Runner 上会遇到 node 无法启动的问题</li>
+<li>依赖包过大，构建速度慢</li>
+</ol>
+<h2 id="解决方案">解决方案</h2>
+<p>考虑到 Chrome 主要是为了 E2E 测试使用，决定暂时先跳过这部分，聚焦核心需求。</p>
+<h3 id="构建新镜像">构建新镜像</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 拉取基础镜像，选择正确的 platform</span>
+</span></span><span style="display:flex;"><span>docker pull --platform<span style="color:#f92672">=</span>linux/amd64 node:20-alpine
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Dockerfile</span>
+</span></span><span style="display:flex;"><span>FROM node:20-alpine
+</span></span><span style="display:flex;"><span>RUN apk add --no-cache curl git ca-certificates
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 构建并推送</span>
+</span></span><span style="display:flex;"><span>docker build --pull<span style="color:#f92672">=</span>false -t your-registry/frontend/build/node:20-alpine-amd64 .
+</span></span><span style="display:flex;"><span>docker push your-registry/frontend/build/node:20-alpine-amd64
+</span></span></code></pre></div><p><strong>注意事项：</strong> 拉取基础镜像时一定要选择正确的 platform，否则在 linux/amd64 的 CI Runner 上运行 arm64 镜像会极慢，甚至在 build 阶段卡死。</p>
+<h2 id="升级结果">升级结果</h2>
+<ul>
+<li>✅ 使用 Node.js 20 正常运行</li>
+<li>✅ 构建时间 5-6 分钟</li>
+<li>✅ 镜像体积更小，构建速度提升</li>
+</ul>
+<h2 id="其他优化">其他优化</h2>
+<p>除了升级 Node.js 版本，我们还做了以下优化：</p>
+<ol>
+<li><strong>移除过时的 mkdirp</strong> - 使用 <code>fs.mkdirSync</code> 替代</li>
+<li><strong>tsconfig.json 添加 <code>isolatedModules</code></strong> - 优化加速构建</li>
+<li><strong>添加 package-lock.json</strong> - 锁定依赖版本</li>
+<li><strong>ts-node 替换为 tsx</strong> - 解决 Node.js 20+ 的性能问题</li>
+</ol>
+<h2 id="后续优化方向">后续优化方向</h2>
+<ol>
+<li>继续调整镜像包大小，进一步加快构建速度</li>
+<li>为 E2E 测试做准备（后续可以考虑添加 Playwright/Cypress）</li>
+<li>关注 Node.js 22，准备按需升级</li>
+</ol>
+<h2 id="nodejs-版本参考">Node.js 版本参考</h2>
+<p><a href="https://nodejs.org/zh-cn/about/previous-releases">Node.js 官方版本维护周期</a></p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+        <p class="post-tags">
+            <span>Tagged:</span>
+                <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>, 
+                <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>, 
+                <a href="/tags/devops/">DevOps</a>, 
+                <a href="/tags/docker/">Docker</a>
+        </p>
+    <div class="share">
+    </div>
+</footer>
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a href="//liushengxian.github.io/">Shawn New Blog</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2026 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
+        <script src="//liushengxian.github.io/js/scripts.js"></script>
+        
+    </body>
+</html>
+
