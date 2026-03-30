@@ -1,0 +1,1 @@
+import{I as e,d as t}from"./index-DDbOjlxV.js";function n(e=8){return Math.random().toString(16).slice(2,2+e)}function r(n,r){return e(n,e=>{e!==void 0&&(r.value=e)}),t(()=>n.value===void 0?r.value:n.value)}export{n,r as t};
