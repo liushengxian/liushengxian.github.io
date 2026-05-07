@@ -350,7 +350,7 @@ async function callDeepSeekAPI(prompt, apiKey, ruleContent, startDate) {
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: 'deepseek-chat',
+            model: 'deepseek-v4-flash',
             messages: messages,
             stream: false
         })

@@ -12,7 +12,7 @@ let apiToken = "";
 let isTurnInProgress = false;
 
 const DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions";
-const DEEPSEEK_MODEL = "deepseek-chat";
+const DEEPSEEK_MODEL = "deepseek-v4-flash";
 const DEEPSEEK_TIMEOUT_MS = 30000;
 const DEEPSEEK_MAX_RETRIES = 1;
 
