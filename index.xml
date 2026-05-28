@@ -867,41 +867,5 @@ qnmd,这不就是jekyll的默认主题吗。在这里面有很多是jekyll主题
       <description>2017.07.20  《小王子》 ✅ 《完美关系的秘密》 ✅ 《CSS揭秘》 《Web全栈工程师的自我修养》  2023.02.07  《前端架构 从入门到微前端》 《存在主义咖啡馆》 《小米创业思考》 《大问题 —— 简明哲学导论》  2025.08.26  《灰犀牛 —— 如何应对大概率危机》 《死亡》 ✅ 《奥威尔读书笔记》 《数据密集型应用系统设计》 《MySQL必知必会》 《清醒思考的策略》 ✅  2026.01.09  《小狗钱钱》 ✅ 《纳瓦尔宝典》✅ 《远见》 《优秀到不能被忽视》 《斯坦福大学人生设计课》✅ 《数据库系统 数据库与数据仓库导论》 《毛泽东选集》 《通往奴役之路》 《上瘾式学习:科学的自学成才法》 ✅ 《从0到1: 开启商业与未来的秘密》 ✅  </description>
     </item>
     
-    <item>
-      <title></title>
-      <link>//liushengxian.github.io/posts/how_to_use_superslider/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>//liushengxian.github.io/posts/how_to_use_superslider/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>//liushengxian.github.io/posts/ios_input_autofocus/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>//liushengxian.github.io/posts/ios_input_autofocus/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>//liushengxian.github.io/posts/regular_bug_log/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>//liushengxian.github.io/posts/regular_bug_log/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>//liushengxian.github.io/posts/something_to_say/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>//liushengxian.github.io/posts/something_to_say/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
