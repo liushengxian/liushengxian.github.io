@@ -311,6 +311,7 @@ function formatResultSummary(resultList) {
             .map(period => `${formatDateToChinese(period.startDate)}—${formatDateToChinese(period.endDate)}`)
             .join(' ');
 
+        lines.push('');
         lines.push(`${monthText}M ${formatPrice(group.price)}%    到期日：${periodText}`);
     });
 
