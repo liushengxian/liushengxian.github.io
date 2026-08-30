@@ -80,7 +80,7 @@ WORKDIR $APP_DIR
 主要问题：">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.150.1">
+        <meta name="generator" content="Hugo 0.161.1">
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -225,26 +225,26 @@ WORKDIR $APP_DIR
 <h2 id="原-dockerfile-问题">原 Dockerfile 问题</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="s">旧镜像</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">APP_DIR</span><span class="o">=</span><span class="s2">&#34;/usr/src/app&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">ARG</span> <span class="nv">APP_DIR</span><span class="o">=</span><span class="s2">&#34;/usr/src/app&#34;</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 更新源列表</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./ci/sources.list /etc/apt/sources.list<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 更新源列表</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">COPY</span> ./ci/sources.list /etc/apt/sources.list<span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> package.json .npmrc <span class="nv">$APP_DIR</span>/<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">COPY</span> package.json .npmrc <span class="nv">$APP_DIR</span>/<span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">set</span> -xe <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="c1"># 添加 Google Chrome 仓库的 GPG 密钥</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="o">&amp;&amp;</span> wget -q -O - https://dl.google.com/linux/linux_signing_key.pub <span class="p">|</span> apt-key add - <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="c1"># 删除 debian.sources，以完全使用 sources.list 作为唯一源</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="o">&amp;&amp;</span> rm /etc/apt/sources.list.d/debian.sources <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get update <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get install -y <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        default-jre <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        sshpass <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nb">cd</span> <span class="nv">$APP_DIR</span><span class="p">;</span> npm i --verbose --legacy-peer-deps<span class="o">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> <span class="o">(</span>npm cache clean --force<span class="o">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">RUN</span> <span class="nb">set</span> -xe <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="c1"># 添加 Google Chrome 仓库的 GPG 密钥</span><span class="err">
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> wget -q -O - https://dl.google.com/linux/linux_signing_key.pub <span class="p">|</span> apt-key add - <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="c1"># 删除 debian.sources，以完全使用 sources.list 作为唯一源</span><span class="err">
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> rm /etc/apt/sources.list.d/debian.sources <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> apt-get update <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> apt-get install -y <span class="se">\
+</span></span></span><span class="line"><span class="cl">        default-jre <span class="se">\
+</span></span></span><span class="line"><span class="cl">        sshpass <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nb">cd</span> <span class="nv">$APP_DIR</span><span class="p">;</span> npm i --verbose --legacy-peer-deps<span class="o">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="o">(</span>npm cache clean --force<span class="o">)</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="w"> </span><span class="s">$APP_DIR</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">WORKDIR</span><span class="w"> </span><span class="s">$APP_DIR</span><span class="err">
 </span></span></span></code></pre></div><p><strong>主要问题：</strong></p>
 <ol>
 <li>Chrome 仓库密钥在 CI Runner 上会遇到各种网络和版本问题</li>
