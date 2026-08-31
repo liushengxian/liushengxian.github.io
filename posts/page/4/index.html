@@ -61,8 +61,135 @@
       
         
 <article class="post-card">
+  <a class="post-card-cover" href="/posts/my_way_to_config_work_project/" aria-hidden="true" tabindex="-1">
+    
+      
+      
+      
+      
+      
+      
+      
+      <img src="data:image/svg&#43;xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2MDAnIGhlaWdodD0nMzM4JyB2aWV3Qm94PScwIDAgNjAwIDMzOCc&#43;PGRlZnM&#43;PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCUnIHkxPScwJScgeDI9JzEwMCUnIHkyPScxMDAlJz48c3RvcCBvZmZzZXQ9JzAlJyBzdG9wLWNvbG9yPScjNDNlOTdiJy8&#43;PHN0b3Agb2Zmc2V0PScxMDAlJyBzdG9wLWNvbG9yPScjMzhmOWQ3Jy8&#43;PC9saW5lYXJHcmFkaWVudD48L2RlZnM&#43;PHJlY3Qgd2lkdGg9JzYwMCcgaGVpZ2h0PSczMzgnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUwJScgZmlsbD0ncmdiYSgyNTUsMjU1LDI1NSwwLjg4KScgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSctYXBwbGUtc3lzdGVtLFNlZ29lIFVJLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nNzAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nY2VudHJhbCc&#43;6YWNPC90ZXh0Pjwvc3ZnPg==" alt="配置我的工作项目" loading="lazy">
+    
+  </a>
+  <div class="post-card-body">
+    <div class="post-card-meta">
+      <time datetime="2017-05-04T23:49:00&#43;08:00">2017-05-04</time>
+      
+        <span class="post-card-tags">
+          <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a><a href="/tags/%E5%B7%A5%E4%BD%9C/">工作</a><a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+        </span>
+      
+    </div>
+    <h3 class="post-card-title"><a href="/posts/my_way_to_config_work_project/">配置我的工作项目</a></h3>
+    <p class="post-card-summary">配置工作项目的过程 鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
+Day 1 0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。 [ref-1]: http://blog.csdn.net/albertjone/article/details/54633747
+1.download netease music for linux; 下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
+2.download hardware from startup panel; 因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
+3.sudo apt-get update/sudo apt-get upgrade [upgrade is breaking here.] 按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
+4.download chrome for linux; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb sudo gdebi google-chrome-stable_current_amd64.deb 下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。
+5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!) 还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】
+6.install git. 安装Git。
+7.generate my ssh-key for github. 生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。
+8.download shadowsocks-qt5. 装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。
+https://github.com/shadowsocks/shadowsocks-qt5/wiki (sudo add-apt-repository ppa:hzwhuang/ss-qt5 sudo apt-get update sudo apt-get install shadowsocks-qt5)
+</p>
+  </div>
+</article>
+
+      
+        
+<article class="post-card">
+  <a class="post-card-cover" href="/posts/record_a_jquery_bug/" aria-hidden="true" tabindex="-1">
+    
+      
+      
+      
+      
+      
+      
+      
+      <img src="data:image/svg&#43;xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2MDAnIGhlaWdodD0nMzM4JyB2aWV3Qm94PScwIDAgNjAwIDMzOCc&#43;PGRlZnM&#43;PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCUnIHkxPScwJScgeDI9JzEwMCUnIHkyPScxMDAlJz48c3RvcCBvZmZzZXQ9JzAlJyBzdG9wLWNvbG9yPScjZmE3MDlhJy8&#43;PHN0b3Agb2Zmc2V0PScxMDAlJyBzdG9wLWNvbG9yPScjZmVlMTQwJy8&#43;PC9saW5lYXJHcmFkaWVudD48L2RlZnM&#43;PHJlY3Qgd2lkdGg9JzYwMCcgaGVpZ2h0PSczMzgnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUwJScgZmlsbD0ncmdiYSgyNTUsMjU1LDI1NSwwLjg4KScgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSctYXBwbGUtc3lzdGVtLFNlZ29lIFVJLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nNzAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nY2VudHJhbCc&#43;6K6wPC90ZXh0Pjwvc3ZnPg==" alt="记录一个jQuery的问题" loading="lazy">
+    
+  </a>
+  <div class="post-card-body">
+    <div class="post-card-meta">
+      <time datetime="2017-03-08T10:37:45&#43;08:00">2017-03-08</time>
+      
+        <span class="post-card-tags">
+          <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a><a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决</a>
+        </span>
+      
+    </div>
+    <h3 class="post-card-title"><a href="/posts/record_a_jquery_bug/">记录一个jQuery的问题</a></h3>
+    <p class="post-card-summary">记录一个jQuery的bug的查找过程 想写这个也是觉得无聊。而且想起了那个巨硬工程师gay里gay气的丑恶嘴脸。虽然是很无聊的一个bug，但是还是拿来记录一下吧。
+发现问题 这个问题是由我司的测试小姐姐们提出来的。在IE9上面我们的侧边评论栏的评论无论内容多少都会被折叠。首先到IE9上面去查看DOM结构，发现如下的内嵌style：
+很明显，不知道是谁给添加了一个line-height:3px的限制。
+定位问题 在PHPStorm里搜索这个评论列表的id，翻来翻去定位到了以下的这个方法：
+contentToggle: function () {let $dom = $(&#39;#js_comment_list .txt p&#39;);$dom.each(function (index) {let $domHeight = parseInt($(this).css(&#39;height&#39;));let $domLineHeight = parseInt($(this).css(&#39;lineHeight&#39;));//console.info(&#39;line height is &#39;&#43;$domLineHeight&#43;&#39;,index is:&#39;&#43;index);let $domMaxHeight = $domLineHeight * 3;...找到问题 看到最后那行的$domLineHeight * 3，我想大概大家也明白了。因为获取的LineHeight可能是没有单位的1，乘以3加上px就添加到了那上面了。所以在代码里添加上面那一行控制台输出测试下，在IE9/Chrome上面分别得到以下结果：
+果然如我们所推理的，在IE9下面输出的是不带单位的数字，而我们代码里默认返回值以px为单位的。
+JQuery Bug Report
+解决问题 我所想的解决方法是，看line-height是否是小于12的值，如果是，则说明是一个相对值，对吧？
+但是实际上讨论之后，因为这个comment-box只在这个地方用到。所以干脆把line-height写成了一个固定值 18。
+总结问题 总结个毛啊 有啥好总结的。
+</p>
+  </div>
+</article>
+
+      
+        
+<article class="post-card">
+  <a class="post-card-cover" href="/posts/way_to_happiness/" aria-hidden="true" tabindex="-1">
+    
+      
+      
+      
+      
+      
+      
+      
+      <img src="data:image/svg&#43;xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2MDAnIGhlaWdodD0nMzM4JyB2aWV3Qm94PScwIDAgNjAwIDMzOCc&#43;PGRlZnM&#43;PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCUnIHkxPScwJScgeDI9JzEwMCUnIHkyPScxMDAlJz48c3RvcCBvZmZzZXQ9JzAlJyBzdG9wLWNvbG9yPScjNGZhY2ZlJy8&#43;PHN0b3Agb2Zmc2V0PScxMDAlJyBzdG9wLWNvbG9yPScjMDBmMmZlJy8&#43;PC9saW5lYXJHcmFkaWVudD48L2RlZnM&#43;PHJlY3Qgd2lkdGg9JzYwMCcgaGVpZ2h0PSczMzgnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUwJScgZmlsbD0ncmdiYSgyNTUsMjU1LDI1NSwwLjg4KScgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSctYXBwbGUtc3lzdGVtLFNlZ29lIFVJLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nNzAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nY2VudHJhbCc&#43;5Yu/PC90ZXh0Pjwvc3ZnPg==" alt="勿忘初心&amp;永远幸福的科学" loading="lazy">
+    
+  </a>
+  <div class="post-card-body">
+    <div class="post-card-meta">
+      <time datetime="2017-02-21T20:30:28&#43;08:00">2017-02-21</time>
+      
+        <span class="post-card-tags">
+          <a href="/tags/%E6%80%9D%E8%80%83%E6%84%9F%E6%82%9F/">思考感悟</a><a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/">个人成长</a>
+        </span>
+      
+    </div>
+    <h3 class="post-card-title"><a href="/posts/way_to_happiness/">勿忘初心&amp;永远幸福的科学</a></h3>
+    <p class="post-card-summary">前言 写的东西实在太少，于是索性把上次写的没有发出来的，两篇一起发了出来。那本书看了，但是，没怎么吸收。
+勿忘初心 2017-02-07 虽然有些解释能让自己暂时舒服一些。但是自己心里的结，还是很难打开。等到忙碌暂时停下来，却又会犯起旧病。
+那些文艺的耳鼻青年总是有个什么勿忘初心的说法。我想了想，自己之前说过的想法。想要体会更多的事情。
+不小心在知乎看到了。别既想享受男生的好，又无法给他们爱情这样的说辞。
+前面的千句万句都仿佛沙滩写字，却偏偏这一句让人难过。
+突然明白，就算是勉强了。我的焦虑也不会就此停止。
+不得不承认，我再努力，她也已经没法给我爱情了。
+回到更当初，意气风发地跟XN说，我的目标是体验更多，更好地理解这个世界。
+这个目标是多么的美好。不会牵扯那贪婪的占有欲。
+让我舍弃那过去的不堪往事，重新擦亮心灵的窗户，去追寻那最初的目标吧。
+永远幸福的科学 2017-02-21 过年在家无所事事，总算看了这么一本书。一个美国恋爱心理学家Ty Tashiro所著的。
+总结看完之后觉得句句真实没什么不对的却又好像没什么有用的。许多东西都可以用俗语来概括。比如“结婚不会改变一个人”=&gt;“江山易改，本性难移”。所以要慎重选择自己的对象，而不是妄想去改造一个人。“恋爱中的人的家人朋友往往能对恋情的发展做出更符合实际的判断”=&gt;“当局者迷旁观者清”。“经济富足在超越一定水平之后对恋爱满足感的提升是不显著的”=&gt;“但是我现在恐怕连基本的都保障不了吧？”，咳咳。“外貌对于繁育力、恋爱满足感以及实际的能力并没有明显的关系”=&gt;“人不可貌相”。
+她从一个安娜的故事开始，讲述了她通过用三个条件来筛选自己的男友的故事。但是等她做完之后，却对这个决定无比的后悔。
+为什么我们对自己的BF/GF只能提出三个条件呢？因为通常来说，通过三个足够严格的条件筛选之后，已经有大部分的人被pass掉了。
+现实生活中有着如此多既不幸福又不稳定的悲剧，都包含着著名的悲剧剧情中必备的两个因素：美丽与遗失。失去平庸的确会让人沮丧而懊恼，但丧失美好之物则会带来一种绝望的悲恸。陷入热恋的过程是如此的激情澎湃，让人感觉玄虚神奇且命中注定。因此，这美丽的瞬间一旦消失，人们或许就会担心如此玄幻而美好的东西是否还会再来。很可惜，我们每个人其实都或多或少的知道，激烈的感情只是昙花一现，如果把激情作为长久恋情的首要目标，那么我们大多只能得到一些美好的片段和悲情的结局。
+根据作者提出的框架。从性格特征、依赖模式、恋爱风格三个方向进行选择是最基础的。总结了一下我之前不自觉的选择，好像都是喜欢比较活泼但是却又能够安静下来的。古灵精怪虽然有时候也是很可爱，但是却始终不是我的菜。至于依赖模式，当然是安全型的最合适，但是我自己还没有达到那个地步。而恋爱风格。我QNMD，我没恋爱过怎么知道。
+我希望一年之后我会像丹尼尔一样，勇敢地打出那个电话。即使不知道安妮会不会接那个电话，我也会这样去做。。
+</p>
+  </div>
+</article>
+
+      
+        
+<article class="post-card">
   <a class="post-card-cover" href="/posts/minimalist-lifestyle/" aria-hidden="true" tabindex="-1">
-    <img src="http://misanya-1252867445.cossh.myqcloud.com/thumb-1920-740130.png" alt="极简主义生活方式" loading="lazy">
+    
+      <img src="http://misanya-1252867445.cossh.myqcloud.com/thumb-1920-740130.png" alt="极简主义生活方式" loading="lazy">
+    
   </a>
   <div class="post-card-body">
     <div class="post-card-meta">
@@ -89,7 +216,9 @@
         
 <article class="post-card">
   <a class="post-card-cover" href="/posts/year_2016/" aria-hidden="true" tabindex="-1">
-    <img src="http://misanya-1252867445.cossh.myqcloud.com/thumb-1920-740130.png" alt="2016的回顾" loading="lazy">
+    
+      <img src="http://misanya-1252867445.cossh.myqcloud.com/thumb-1920-740130.png" alt="2016的回顾" loading="lazy">
+    
   </a>
   <div class="post-card-body">
     <div class="post-card-meta">
@@ -120,7 +249,16 @@
         
 <article class="post-card">
   <a class="post-card-cover" href="/posts/about_chinese_spirit/" aria-hidden="true" tabindex="-1">
-    <img src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg" alt="读辜鸿铭《中国人的精神》" loading="lazy">
+    
+      
+      
+      
+      
+      
+      
+      
+      <img src="data:image/svg&#43;xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2MDAnIGhlaWdodD0nMzM4JyB2aWV3Qm94PScwIDAgNjAwIDMzOCc&#43;PGRlZnM&#43;PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCUnIHkxPScwJScgeDI9JzEwMCUnIHkyPScxMDAlJz48c3RvcCBvZmZzZXQ9JzAlJyBzdG9wLWNvbG9yPScjNDNlOTdiJy8&#43;PHN0b3Agb2Zmc2V0PScxMDAlJyBzdG9wLWNvbG9yPScjMzhmOWQ3Jy8&#43;PC9saW5lYXJHcmFkaWVudD48L2RlZnM&#43;PHJlY3Qgd2lkdGg9JzYwMCcgaGVpZ2h0PSczMzgnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUwJScgZmlsbD0ncmdiYSgyNTUsMjU1LDI1NSwwLjg4KScgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSctYXBwbGUtc3lzdGVtLFNlZ29lIFVJLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nNzAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nY2VudHJhbCc&#43;6K&#43;7PC90ZXh0Pjwvc3ZnPg==" alt="读辜鸿铭《中国人的精神》" loading="lazy">
+    
   </a>
   <div class="post-card-body">
     <div class="post-card-meta">
@@ -154,7 +292,16 @@
         
 <article class="post-card">
   <a class="post-card-cover" href="/posts/this_special_weekend/" aria-hidden="true" tabindex="-1">
-    <img src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg" alt="这个奇葩的周末" loading="lazy">
+    
+      
+      
+      
+      
+      
+      
+      
+      <img src="data:image/svg&#43;xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2MDAnIGhlaWdodD0nMzM4JyB2aWV3Qm94PScwIDAgNjAwIDMzOCc&#43;PGRlZnM&#43;PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCUnIHkxPScwJScgeDI9JzEwMCUnIHkyPScxMDAlJz48c3RvcCBvZmZzZXQ9JzAlJyBzdG9wLWNvbG9yPScjNGZhY2ZlJy8&#43;PHN0b3Agb2Zmc2V0PScxMDAlJyBzdG9wLWNvbG9yPScjMDBmMmZlJy8&#43;PC9saW5lYXJHcmFkaWVudD48L2RlZnM&#43;PHJlY3Qgd2lkdGg9JzYwMCcgaGVpZ2h0PSczMzgnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUwJScgZmlsbD0ncmdiYSgyNTUsMjU1LDI1NSwwLjg4KScgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSctYXBwbGUtc3lzdGVtLFNlZ29lIFVJLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nNzAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nY2VudHJhbCc&#43;6L&#43;ZPC90ZXh0Pjwvc3ZnPg==" alt="这个奇葩的周末" loading="lazy">
+    
   </a>
   <div class="post-card-body">
     <div class="post-card-meta">
@@ -187,7 +334,16 @@
         
 <article class="post-card">
   <a class="post-card-cover" href="/posts/welcome_to_my_new_blog/" aria-hidden="true" tabindex="-1">
-    <img src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg" alt="欢迎来到我的新博客" loading="lazy">
+    
+      
+      
+      
+      
+      
+      
+      
+      <img src="data:image/svg&#43;xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2MDAnIGhlaWdodD0nMzM4JyB2aWV3Qm94PScwIDAgNjAwIDMzOCc&#43;PGRlZnM&#43;PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCUnIHkxPScwJScgeDI9JzEwMCUnIHkyPScxMDAlJz48c3RvcCBvZmZzZXQ9JzAlJyBzdG9wLWNvbG9yPScjNGZhY2ZlJy8&#43;PHN0b3Agb2Zmc2V0PScxMDAlJyBzdG9wLWNvbG9yPScjMDBmMmZlJy8&#43;PC9saW5lYXJHcmFkaWVudD48L2RlZnM&#43;PHJlY3Qgd2lkdGg9JzYwMCcgaGVpZ2h0PSczMzgnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUwJScgZmlsbD0ncmdiYSgyNTUsMjU1LDI1NSwwLjg4KScgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSctYXBwbGUtc3lzdGVtLFNlZ29lIFVJLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nNzAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nY2VudHJhbCc&#43;5qyiPC90ZXh0Pjwvc3ZnPg==" alt="欢迎来到我的新博客" loading="lazy">
+    
   </a>
   <div class="post-card-body">
     <div class="post-card-meta">

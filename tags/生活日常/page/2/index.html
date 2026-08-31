@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>拯救你的ubuntu · Shawn New Blog</title>
+  <title>生活日常 · Shawn New Blog</title>
   <meta name="description" content="Shawn 的个人博客 —— 记录生活、技术与思考">
   <meta name="author" content="Shawn">
 
   
-  <meta property="og:title" content="拯救你的ubuntu">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://liushengxian.github.io/posts/save_you_linux_system/">
+  <meta property="og:title" content="生活日常">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://liushengxian.github.io/tags/%E7%94%9F%E6%B4%BB%E6%97%A5%E5%B8%B8/">
   <meta property="og:image" content="https://liushengxian.github.io/images/cover-default.jpg">
   <meta property="og:site_name" content="Shawn New Blog">
   <meta name="twitter:card" content="summary_large_image">
@@ -50,55 +50,56 @@
 
   <main class="site-main">
     
-<article class="container post single">
-  <header class="post-header">
-    <h1 class="post-title">拯救你的ubuntu</h1>
-    <div class="post-meta">
-      <time datetime="2018-03-08T11:19:14&#43;08:00">2018-03-08</time>
-      
-        <span class="post-tags">
-          <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决</a><a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-        </span>
-      
-    </div>
+<section class="container">
+  <header class="page-header">
+    <h1 class="page-title">生活日常</h1>
+    
   </header>
 
   
+    <ul class="post-list">
+      
+        <li class="post-list-item">
+          <time datetime="2017-01-10T12:03:20&#43;08:00">2017-01-10</time>
+          <a href="/posts/minimalist-lifestyle/">极简主义生活方式</a>
+        </li>
+      
+        <li class="post-list-item">
+          <time datetime="2017-01-02T16:18:42&#43;08:00">2017-01-02</time>
+          <a href="/posts/year_2016/">2016的回顾</a>
+        </li>
+      
+        <li class="post-list-item">
+          <time datetime="2016-12-05T01:29:08&#43;08:00">2016-12-05</time>
+          <a href="/posts/this_special_weekend/">这个奇葩的周末</a>
+        </li>
+      
+    </ul>
+  
 
   
-  <aside class="toc">
-    <details open>
-      <summary>目录</summary>
-      <nav id="TableOfContents"></nav>
-    </details>
-  </aside>
+<nav class="pagination" aria-label="分页">
+  
+    <a class="page-link" href="/tags/%E7%94%9F%E6%B4%BB%E6%97%A5%E5%B8%B8/" rel="prev">← 上一页</a>
   
 
-  <div class="post-content">
-    <p>在给大金鱼的ubuntu添加gulp相关的环境变量时候，因为看了不正确的教程。把/opt/profile里的内容修改了，导致无法进入系统。登录界面输入正确密码反复卡在登录界面。</p>
-<p>折腾了许久，发现了解决方案：
-在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。</p>
-<p>将 ro recovery nomodeset 改为 rw single init=/bin/bash</p>
-<p>参考资料：<a href="http://blog.csdn.net/code_segment/article/details/78145574">recovery mode</a></p>
+  
+    
+      <a class="page-link" href="/tags/%E7%94%9F%E6%B4%BB%E6%97%A5%E5%B8%B8/">1</a>
+    
+  
+    
+      <a class="page-link" href="/tags/%E7%94%9F%E6%B4%BB%E6%97%A5%E5%B8%B8/page/2/">2</a>
+    
+  
 
-  </div>
+  
+    <span class="page-link disabled">下一页 →</span>
+  
+</nav>
 
-  <nav class="post-nav" aria-label="文章导航">
-    
-    
-      <a class="post-nav-item post-nav-left" href="/posts/project_gutenburg/">
-        <span class="post-nav-label">← 上一篇</span>
-        <strong>《无双》观后感</strong>
-      </a>
-    
-    
-      <a class="post-nav-item post-nav-right" href="/posts/saygoodbye_2017/">
-        <span class="post-nav-label">下一篇 →</span>
-        <strong>再见我的2017年</strong>
-      </a>
-    
-  </nav>
-</article>
+
+</section>
 
   </main>
   <footer class="site-footer">
