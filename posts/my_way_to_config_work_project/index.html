@@ -1,131 +1,92 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>配置我的工作项目 &middot; Shawn</title>
-        <meta name="description" content="配置工作项目的过程
-鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。
-Day 1
-0.安装Mint。用公司的那个安装盘安装的。然后参考[这里][ref-1]。
-[ref-1]: http://blog.csdn.net/albertjone/article/details/54633747
-1.download netease music for linux;
-下载网易云音乐。没有小姐姐的歌声自己在这里折腾系统简直熬不下去。【手动滑稽】
-2.download hardware from startup panel;
-因为下载了播放器但还是没有声音。很郁闷，所以尝试装下驱动。然而并没有什么卵用。
-3.sudo apt-get update/sudo apt-get upgrade
-[upgrade is breaking here.]
-按照上面那个链接里的文章，尝试这两个命令。前面的OK了 但是upgrade总是会中断。
-4.download chrome for linux;
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo gdebi google-chrome-stable_current_amd64.deb
-下载Chrome浏览器。Linux上的Firefox有时候跟Windows的IE的命运是一样的。
-5.no sound: changing into the back plug.(Mint 18)(Someone told me to upgrade linux kernel!)
-还是没有声音，但是调了半天之后发现都没有问题。后来我把耳机从前面的孔插到后面的孔就好了【=。=】
-6.install git.
-安装Git。
-7.generate my ssh-key for github.
-生成本机的SSH-KEY。多台机器其实可以使用相同的KEY。但是这里还是新生成了。
-8.download shadowsocks-qt5.
-装了半天想要google下一些问题 但是发现没有翻墙。于是这里开了小插曲。自己搭了个翻墙服务。
-https://github.com/shadowsocks/shadowsocks-qt5/wiki
-(sudo add-apt-repository ppa:hzwhuang/ss-qt5
-sudo apt-get update
-sudo apt-get install shadowsocks-qt5)">
-        <meta name="HandheldFriendly" content="True">
-        <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.161.1">
-        <meta name="robots" content="index,follow">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
-        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        
-        <link rel="icon" type="image/png" href="/shawn-blog.png">
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>配置我的工作项目 · Shawn New Blog</title>
+  <meta name="description" content="Shawn 的个人博客 —— 记录生活、技术与思考">
+  <meta name="author" content="Shawn">
 
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ee6a1d805e9b40d190f7aed8d27eeec2"}'></script>
+  
+  <meta property="og:title" content="配置我的工作项目">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://liushengxian.github.io/posts/my_way_to_config_work_project/">
+  <meta property="og:image" content="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+  <meta property="og:site_name" content="Shawn New Blog">
+  <meta name="twitter:card" content="summary_large_image">
 
-<style>
-     
-    pre code {
-        padding: 0;
-        font-size: inherit;
-        border-radius: 0;
-        background-color: transparent;
-    }
-</style>
+  <link rel="icon" href="/images/logo.png">
+  <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="alternate" type="application/rss+xml" title="Shawn New Blog" href="https://liushengxian.github.io/index.xml">
 
-        
-        
-        
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/css/syntax-dark.css" media="(prefers-color-scheme: dark)">
 
-    </head>
-    <body>
-        
+  
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ee6a1d805e9b40d190f7aed8d27eeec2"}'></script>
+</head>
 
-        <div id="wrapper">
-            <header class="site-header">
-                <div class="container">
-                    <div class="site-title-wrapper">
-                        
-                            <h1 class="site-title">
-                                <a href="//liushengxian.github.io/">Shawn New Blog</a>
-                            </h1>
-                        
-                        
-                        
-                        
-                        
-                        
-                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
-                                <i class="fa fa-github-alt" aria-hidden="true"></i>
-                            </a>
-                        
-                        
-                        
-                        
-                    </div>
-
-                    <ul class="site-nav">
-                        
-    <li class="site-nav-item">
+<body>
+  <header class="site-header">
+  <div class="container site-header-inner">
+    <a class="site-brand" href="/">
+      <img class="site-logo" src="/images/logo.png" alt="Shawn New Blog" width="34" height="34">
+      <span class="site-title">Shawn New Blog</span>
+    </a>
+    <nav class="site-nav" aria-label="主导航">
+      
         <a href="/about-me/">about me</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/reading-list/">reading list</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/tags/">tags</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/handmake/">handmake</a>
-    </li>
-
-
-                    </ul>
-                </div>
-            </header>
-
-            <div id="container">
-
-
-<div class="container">
-    <article class="post-container">
-        <header class="post-header">
-    <h1 class="post-title">配置我的工作项目</h1>
-    
+      
+    </nav>
+  </div>
 </header>
 
-        <div class="post-content clearfix">
+  <main class="site-main">
     
-        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
-    
+<article class="container post single">
+  <header class="post-header">
+    <h1 class="post-title">配置我的工作项目</h1>
+    <div class="post-meta">
+      <time datetime="2017-05-04T23:49:00&#43;08:00">2017-05-04</time>
+      
+        <span class="post-tags">
+          <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a><a href="/tags/%E5%B7%A5%E4%BD%9C/">工作</a><a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+        </span>
+      
+    </div>
+  </header>
 
+  
+  <div class="post-cover">
+    <img src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg" alt="配置我的工作项目">
+  </div>
+  
+
+  
+  <aside class="toc">
+    <details open>
+      <summary>目录</summary>
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#配置工作项目的过程">配置工作项目的过程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </details>
+  </aside>
+  
+
+  <div class="post-content">
     <h3 id="配置工作项目的过程">配置工作项目的过程</h3>
 <p>鶸米一共花了整整三天晚上才把环境配好。期间记录了自己到底干了什么。下面梳理下配置流程。</p>
 <h4 id="day-1">Day 1</h4>
@@ -242,49 +203,38 @@ This worked for me！ :)</p>
 <p>参考资料：https://laravel.io/forum/06-09-2015-no-supported-encrypter-found-the-cipher-and-or-key-length-are-invalid</p>
 <p>OK！终于配置好了！</p>
 
-</div>
+  </div>
 
-        <footer class="post-footer clearfix">
-        <p class="post-tags">
-            <span>Tagged:</span>
-                <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>, 
-                <a href="/tags/%E5%B7%A5%E4%BD%9C/">工作</a>, 
-                <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-        </p>
-    <div class="share">
-    </div>
+  <nav class="post-nav" aria-label="文章导航">
+    
+    
+      <a class="post-nav-item post-nav-left" href="/posts/saygoodbye_2017/">
+        <span class="post-nav-label">← 上一篇</span>
+        <strong>再见我的2017年</strong>
+      </a>
+    
+    
+      <a class="post-nav-item post-nav-right" href="/posts/record_a_jquery_bug/">
+        <span class="post-nav-label">下一篇 →</span>
+        <strong>记录一个jQuery的问题</strong>
+      </a>
+    
+  </nav>
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container site-footer-inner">
+    <p class="footer-copyright">
+      &copy; 2026 Shawn
+    </p>
+    <p class="footer-links">
+      <a href="https://github.com/liushengxian" target="_blank" rel="noopener">GitHub</a>
+      <a href="/index.xml">RSS</a>
+    </p>
+    <p class="footer-powered">Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></p>
+  </div>
 </footer>
-    </article>
-</div>
 
-            </div>
-        </div>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="site-title-wrapper">
-                    <h1 class="site-title">
-                        <a href="//liushengxian.github.io/">Shawn New Blog</a>
-                    </h1>
-                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
-                        <i class="fa fa-angle-up" aria-hidden="true"></i>
-                    </a>
-                </div>
-
-                <p class="footer-copyright">
-                    <span>&copy; 2026 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
-                </p>
-                <p class="footer-copyright">
-                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
-                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
-                </p>
-            </div>
-        </footer>
-
-        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
-        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
-        <script src="//liushengxian.github.io/js/scripts.js"></script>
-        
-    </body>
+</body>
 </html>
-

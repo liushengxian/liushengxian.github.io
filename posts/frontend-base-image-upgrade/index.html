@@ -1,177 +1,99 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>前端Base镜像升级 Node.js 18 -&gt; 20 &middot; Shawn</title>
-        <meta name="description" content="背景
-前端项目的Base镜像一直使用的是 Node.js 18.20 版本，最近面临升级需求：
-
-Node.js 18.20 已进入维护末期，后续可能会逐渐出现兼容性问题
-CI 中出现大量版本 Warning，提示需要升级
-团队内其他项目已在 3 月中旬完成 Node.js 20 的升级
-
-镜像选型分析
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>前端Base镜像升级 Node.js 18 -&gt; 20 · Shawn New Blog</title>
+  <meta name="description" content="Shawn 的个人博客 —— 记录生活、技术与思考">
+  <meta name="author" content="Shawn">
 
   
-      
-          镜像
-          curl/ca-certificates
-          git
-          说明
-      
+  <meta property="og:title" content="前端Base镜像升级 Node.js 18 -&gt; 20">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://liushengxian.github.io/posts/frontend-base-image-upgrade/">
+  <meta property="og:image" content="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+  <meta property="og:site_name" content="Shawn New Blog">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/images/logo.png">
+  <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="alternate" type="application/rss+xml" title="Shawn New Blog" href="https://liushengxian.github.io/index.xml">
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/css/syntax-dark.css" media="(prefers-color-scheme: dark)">
+
   
-  
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ee6a1d805e9b40d190f7aed8d27eeec2"}'></script>
+</head>
+
+<body>
+  <header class="site-header">
+  <div class="container site-header-inner">
+    <a class="site-brand" href="/">
+      <img class="site-logo" src="/images/logo.png" alt="Shawn New Blog" width="34" height="34">
+      <span class="site-title">Shawn New Blog</span>
+    </a>
+    <nav class="site-nav" aria-label="主导航">
       
-          node:20
-          ✅
-          ✅
-          基于 buildpack-deps，包含常用工具
-      
-      
-          node:20-bullseye / bookworm
-          ✅
-          ✅
-          Debian 完整版，最稳定
-      
-      
-          node:20-slim
-          ✅
-          ❌
-          精简版
-      
-      
-          node:20-alpine
-          ❌
-          ❌
-          极简版，需手动安装
-      
-  
-
-为什么选择 Alpine？
-
-curl 和 ca-certificates 在 AI Code Review 阶段需要用到
-git 在构建过程中用于给 index.html 打版本信息
-Alpine 镜像体积最小，可以加快日常构建速度
-
-原 Dockerfile 问题
-FROM 旧镜像
-
-ARG APP_DIR=&#34;/usr/src/app&#34;
-
-# 更新源列表
-COPY ./ci/sources.list /etc/apt/sources.list
-
-COPY package.json .npmrc $APP_DIR/
-
-RUN set -xe \
-    # 添加 Google Chrome 仓库的 GPG 密钥
-    &amp;&amp; wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    # 删除 debian.sources，以完全使用 sources.list 作为唯一源
-    &amp;&amp; rm /etc/apt/sources.list.d/debian.sources \
-    &amp;&amp; apt-get update \
-    &amp;&amp; apt-get install -y \
-        default-jre \
-        sshpass \
-    &amp;&amp; (cd $APP_DIR; npm i --verbose --legacy-peer-deps) \
-    &amp;&amp; (npm cache clean --force)
-
-WORKDIR $APP_DIR
-主要问题：">
-        <meta name="HandheldFriendly" content="True">
-        <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.161.1">
-        <meta name="robots" content="index,follow">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
-        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        
-        <link rel="icon" type="image/png" href="/shawn-blog.png">
-
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ee6a1d805e9b40d190f7aed8d27eeec2"}'></script>
-
-<style>
-     
-    pre code {
-        padding: 0;
-        font-size: inherit;
-        border-radius: 0;
-        background-color: transparent;
-    }
-</style>
-
-        
-        
-        
-
-    </head>
-    <body>
-        
-
-        <div id="wrapper">
-            <header class="site-header">
-                <div class="container">
-                    <div class="site-title-wrapper">
-                        
-                            <h1 class="site-title">
-                                <a href="//liushengxian.github.io/">Shawn New Blog</a>
-                            </h1>
-                        
-                        
-                        
-                        
-                        
-                        
-                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
-                                <i class="fa fa-github-alt" aria-hidden="true"></i>
-                            </a>
-                        
-                        
-                        
-                        
-                    </div>
-
-                    <ul class="site-nav">
-                        
-    <li class="site-nav-item">
         <a href="/about-me/">about me</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/reading-list/">reading list</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/tags/">tags</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/handmake/">handmake</a>
-    </li>
-
-
-                    </ul>
-                </div>
-            </header>
-
-            <div id="container">
-
-
-<div class="container">
-    <article class="post-container">
-        <header class="post-header">
-    <h1 class="post-title">前端Base镜像升级 Node.js 18 -&gt; 20</h1>
-    
+      
+    </nav>
+  </div>
 </header>
 
-        <div class="post-content clearfix">
+  <main class="site-main">
     
-        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
-    
+<article class="container post single">
+  <header class="post-header">
+    <h1 class="post-title">前端Base镜像升级 Node.js 18 -&gt; 20</h1>
+    <div class="post-meta">
+      <time datetime="2026-03-26T00:00:00&#43;08:00">2026-03-26</time>
+      
+        <span class="post-tags">
+          <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a><a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a href="/tags/devops/">DevOps</a><a href="/tags/docker/">Docker</a>
+        </span>
+      
+    </div>
+  </header>
 
+  
+  <div class="post-cover">
+    <img src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg" alt="前端Base镜像升级 Node.js 18 -&gt; 20">
+  </div>
+  
+
+  
+  <aside class="toc">
+    <details open>
+      <summary>目录</summary>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#镜像选型分析">镜像选型分析</a></li>
+    <li><a href="#原-dockerfile-问题">原 Dockerfile 问题</a></li>
+    <li><a href="#解决方案">解决方案</a>
+      <ul>
+        <li><a href="#构建新镜像">构建新镜像</a></li>
+      </ul>
+    </li>
+    <li><a href="#升级结果">升级结果</a></li>
+    <li><a href="#其他优化">其他优化</a></li>
+    <li><a href="#后续优化方向">后续优化方向</a></li>
+    <li><a href="#nodejs-版本参考">Node.js 版本参考</a></li>
+  </ul>
+</nav>
+    </details>
+  </aside>
+  
+
+  <div class="post-content">
     <h2 id="背景">背景</h2>
 <p>前端项目的Base镜像一直使用的是 Node.js 18.20 版本，最近面临升级需求：</p>
 <ol>
@@ -225,26 +147,26 @@ WORKDIR $APP_DIR
 <h2 id="原-dockerfile-问题">原 Dockerfile 问题</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="s">旧镜像</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="k">ARG</span> <span class="nv">APP_DIR</span><span class="o">=</span><span class="s2">&#34;/usr/src/app&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">APP_DIR</span><span class="o">=</span><span class="s2">&#34;/usr/src/app&#34;</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="c"># 更新源列表</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="k">COPY</span> ./ci/sources.list /etc/apt/sources.list<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 更新源列表</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./ci/sources.list /etc/apt/sources.list<span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="k">COPY</span> package.json .npmrc <span class="nv">$APP_DIR</span>/<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> package.json .npmrc <span class="nv">$APP_DIR</span>/<span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="k">RUN</span> <span class="nb">set</span> -xe <span class="se">\
-</span></span></span><span class="line"><span class="cl">    <span class="c1"># 添加 Google Chrome 仓库的 GPG 密钥</span><span class="err">
-</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> wget -q -O - https://dl.google.com/linux/linux_signing_key.pub <span class="p">|</span> apt-key add - <span class="se">\
-</span></span></span><span class="line"><span class="cl">    <span class="c1"># 删除 debian.sources，以完全使用 sources.list 作为唯一源</span><span class="err">
-</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> rm /etc/apt/sources.list.d/debian.sources <span class="se">\
-</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> apt-get update <span class="se">\
-</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> apt-get install -y <span class="se">\
-</span></span></span><span class="line"><span class="cl">        default-jre <span class="se">\
-</span></span></span><span class="line"><span class="cl">        sshpass <span class="se">\
-</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nb">cd</span> <span class="nv">$APP_DIR</span><span class="p">;</span> npm i --verbose --legacy-peer-deps<span class="o">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="o">(</span>npm cache clean --force<span class="o">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">set</span> -xe <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="c1"># 添加 Google Chrome 仓库的 GPG 密钥</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="o">&amp;&amp;</span> wget -q -O - https://dl.google.com/linux/linux_signing_key.pub <span class="p">|</span> apt-key add - <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="c1"># 删除 debian.sources，以完全使用 sources.list 作为唯一源</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="o">&amp;&amp;</span> rm /etc/apt/sources.list.d/debian.sources <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get update <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get install -y <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        default-jre <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        sshpass <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nb">cd</span> <span class="nv">$APP_DIR</span><span class="p">;</span> npm i --verbose --legacy-peer-deps<span class="o">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> <span class="o">(</span>npm cache clean --force<span class="o">)</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="k">WORKDIR</span><span class="w"> </span><span class="s">$APP_DIR</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="w"> </span><span class="s">$APP_DIR</span><span class="err">
 </span></span></span></code></pre></div><p><strong>主要问题：</strong></p>
 <ol>
 <li>Chrome 仓库密钥在 CI Runner 上会遇到各种网络和版本问题</li>
@@ -288,50 +210,38 @@ WORKDIR $APP_DIR
 <h2 id="nodejs-版本参考">Node.js 版本参考</h2>
 <p><a href="https://nodejs.org/zh-cn/about/previous-releases">Node.js 官方版本维护周期</a></p>
 
-</div>
+  </div>
 
-        <footer class="post-footer clearfix">
-        <p class="post-tags">
-            <span>Tagged:</span>
-                <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>, 
-                <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>, 
-                <a href="/tags/devops/">DevOps</a>, 
-                <a href="/tags/docker/">Docker</a>
-        </p>
-    <div class="share">
-    </div>
+  <nav class="post-nav" aria-label="文章导航">
+    
+    
+      <a class="post-nav-item post-nav-left" href="/posts/my-new-keyboard/">
+        <span class="post-nav-label">← 上一篇</span>
+        <strong>我的新键盘</strong>
+      </a>
+    
+    
+      <a class="post-nav-item post-nav-right" href="/posts/ai-and-future/">
+        <span class="post-nav-label">下一篇 →</span>
+        <strong>关于《AI 时代，凭什么可以抓住机会？》的一些思考</strong>
+      </a>
+    
+  </nav>
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container site-footer-inner">
+    <p class="footer-copyright">
+      &copy; 2026 Shawn
+    </p>
+    <p class="footer-links">
+      <a href="https://github.com/liushengxian" target="_blank" rel="noopener">GitHub</a>
+      <a href="/index.xml">RSS</a>
+    </p>
+    <p class="footer-powered">Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></p>
+  </div>
 </footer>
-    </article>
-</div>
 
-            </div>
-        </div>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="site-title-wrapper">
-                    <h1 class="site-title">
-                        <a href="//liushengxian.github.io/">Shawn New Blog</a>
-                    </h1>
-                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
-                        <i class="fa fa-angle-up" aria-hidden="true"></i>
-                    </a>
-                </div>
-
-                <p class="footer-copyright">
-                    <span>&copy; 2026 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
-                </p>
-                <p class="footer-copyright">
-                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
-                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
-                </p>
-            </div>
-        </footer>
-
-        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
-        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
-        <script src="//liushengxian.github.io/js/scripts.js"></script>
-        
-    </body>
+</body>
 </html>
-

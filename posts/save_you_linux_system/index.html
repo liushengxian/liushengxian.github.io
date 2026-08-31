@@ -1,157 +1,122 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>拯救你的ubuntu &middot; Shawn</title>
-        <meta name="description" content="在给大金鱼的ubuntu添加gulp相关的环境变量时候，因为看了不正确的教程。把/opt/profile里的内容修改了，导致无法进入系统。登录界面输入正确密码反复卡在登录界面。
-折腾了许久，发现了解决方案：
-在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。
-将 ro recovery nomodeset 改为 rw single init=/bin/bash
-参考资料：recovery mode">
-        <meta name="HandheldFriendly" content="True">
-        <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.161.1">
-        <meta name="robots" content="index,follow">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
-        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        
-        <link rel="icon" type="image/png" href="/shawn-blog.png">
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>拯救你的ubuntu · Shawn New Blog</title>
+  <meta name="description" content="Shawn 的个人博客 —— 记录生活、技术与思考">
+  <meta name="author" content="Shawn">
 
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ee6a1d805e9b40d190f7aed8d27eeec2"}'></script>
+  
+  <meta property="og:title" content="拯救你的ubuntu">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://liushengxian.github.io/posts/save_you_linux_system/">
+  <meta property="og:image" content="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+  <meta property="og:site_name" content="Shawn New Blog">
+  <meta name="twitter:card" content="summary_large_image">
 
-<style>
-     
-    pre code {
-        padding: 0;
-        font-size: inherit;
-        border-radius: 0;
-        background-color: transparent;
-    }
-</style>
+  <link rel="icon" href="/images/logo.png">
+  <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="alternate" type="application/rss+xml" title="Shawn New Blog" href="https://liushengxian.github.io/index.xml">
 
-        
-        
-        
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/css/syntax-dark.css" media="(prefers-color-scheme: dark)">
 
-    </head>
-    <body>
-        
+  
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ee6a1d805e9b40d190f7aed8d27eeec2"}'></script>
+</head>
 
-        <div id="wrapper">
-            <header class="site-header">
-                <div class="container">
-                    <div class="site-title-wrapper">
-                        
-                            <h1 class="site-title">
-                                <a href="//liushengxian.github.io/">Shawn New Blog</a>
-                            </h1>
-                        
-                        
-                        
-                        
-                        
-                        
-                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
-                                <i class="fa fa-github-alt" aria-hidden="true"></i>
-                            </a>
-                        
-                        
-                        
-                        
-                    </div>
-
-                    <ul class="site-nav">
-                        
-    <li class="site-nav-item">
+<body>
+  <header class="site-header">
+  <div class="container site-header-inner">
+    <a class="site-brand" href="/">
+      <img class="site-logo" src="/images/logo.png" alt="Shawn New Blog" width="34" height="34">
+      <span class="site-title">Shawn New Blog</span>
+    </a>
+    <nav class="site-nav" aria-label="主导航">
+      
         <a href="/about-me/">about me</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/reading-list/">reading list</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/tags/">tags</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/handmake/">handmake</a>
-    </li>
-
-
-                    </ul>
-                </div>
-            </header>
-
-            <div id="container">
-
-
-<div class="container">
-    <article class="post-container">
-        <header class="post-header">
-    <h1 class="post-title">拯救你的ubuntu</h1>
-    
+      
+    </nav>
+  </div>
 </header>
 
-        <div class="post-content clearfix">
+  <main class="site-main">
     
-        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
-    
+<article class="container post single">
+  <header class="post-header">
+    <h1 class="post-title">拯救你的ubuntu</h1>
+    <div class="post-meta">
+      <time datetime="2018-03-08T11:19:14&#43;08:00">2018-03-08</time>
+      
+        <span class="post-tags">
+          <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决</a><a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+        </span>
+      
+    </div>
+  </header>
 
+  
+  <div class="post-cover">
+    <img src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg" alt="拯救你的ubuntu">
+  </div>
+  
+
+  
+  <aside class="toc">
+    <details open>
+      <summary>目录</summary>
+      <nav id="TableOfContents"></nav>
+    </details>
+  </aside>
+  
+
+  <div class="post-content">
     <p>在给大金鱼的ubuntu添加gulp相关的环境变量时候，因为看了不正确的教程。把/opt/profile里的内容修改了，导致无法进入系统。登录界面输入正确密码反复卡在登录界面。</p>
 <p>折腾了许久，发现了解决方案：
 在启动系统的时候长按shift，进入Linux的Recovery Mode，但是，这个mode下面却无法修改文件。在grub选择Recovery Mode的时候按E，编辑启动文件来修改启动方式。</p>
 <p>将 ro recovery nomodeset 改为 rw single init=/bin/bash</p>
 <p>参考资料：<a href="http://blog.csdn.net/code_segment/article/details/78145574">recovery mode</a></p>
 
-</div>
+  </div>
 
-        <footer class="post-footer clearfix">
-        <p class="post-tags">
-            <span>Tagged:</span>
-                <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>, 
-                <a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决</a>, 
-                <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-        </p>
-    <div class="share">
-    </div>
+  <nav class="post-nav" aria-label="文章导航">
+    
+    
+      <a class="post-nav-item post-nav-left" href="/posts/project_gutenburg/">
+        <span class="post-nav-label">← 上一篇</span>
+        <strong>《无双》观后感</strong>
+      </a>
+    
+    
+      <a class="post-nav-item post-nav-right" href="/posts/saygoodbye_2017/">
+        <span class="post-nav-label">下一篇 →</span>
+        <strong>再见我的2017年</strong>
+      </a>
+    
+  </nav>
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container site-footer-inner">
+    <p class="footer-copyright">
+      &copy; 2026 Shawn
+    </p>
+    <p class="footer-links">
+      <a href="https://github.com/liushengxian" target="_blank" rel="noopener">GitHub</a>
+      <a href="/index.xml">RSS</a>
+    </p>
+    <p class="footer-powered">Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></p>
+  </div>
 </footer>
-    </article>
-</div>
 
-            </div>
-        </div>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="site-title-wrapper">
-                    <h1 class="site-title">
-                        <a href="//liushengxian.github.io/">Shawn New Blog</a>
-                    </h1>
-                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
-                        <i class="fa fa-angle-up" aria-hidden="true"></i>
-                    </a>
-                </div>
-
-                <p class="footer-copyright">
-                    <span>&copy; 2026 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
-                </p>
-                <p class="footer-copyright">
-                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
-                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
-                </p>
-            </div>
-        </footer>
-
-        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
-        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
-        <script src="//liushengxian.github.io/js/scripts.js"></script>
-        
-    </body>
+</body>
 </html>
-

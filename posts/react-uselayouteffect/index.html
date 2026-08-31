@@ -1,147 +1,98 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>React的useLayoutEffect使用 &middot; Shawn</title>
-        <meta name="description" content="问题背景
-这周在帮助b哥完成他的项目前端的时候遇到了一个有趣的问题。
-先介绍下背景，这是一个企业内即时通讯工具，主要的页面布局，从上往下依次包括消息列表、选择面板、操作栏、输入框。
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>React的useLayoutEffect使用 · Shawn New Blog</title>
+  <meta name="description" content="Shawn 的个人博客 —— 记录生活、技术与思考">
+  <meta name="author" content="Shawn">
 
-初次尝试：DOM结构调整
-在一开始的时候，b哥提出的问题在于如何修改CSS让选择面板正确的渲染到操作栏的上方而不是下面。
-这个我想到的当然是直接修改dom结构，何必要用CSS来实现呢，很快就实现了这个需求。
-隐藏的挑战：异步渲染顺序
-然而在之后却发现了新的问题，因为选择面板和消息列表的加载其实是依赖于API的。在当时我们反复测试的情况是，操作栏先渲染成功，然后是消息列表，最后是选择面板。
-对于除了消息列表之外的其他组件，其实是会占据空间然后导致消息列表的可见范围越来越短的。
-在操作栏渲染之后，消息列表才开始渲染，一切都显得很正常。而当选择面板出现的时候，消息列表的高度变小了，但是内容却没有维持在最新的位置。
-尝试CSS解决方案
-这个问题看起来很简单的。b哥要求使用css来完成这个任务，询问AI之后，给出的是flex的column-reverse方案，这个方法看起来可行，实际上却并没有解决问题。
-回顾现有代码：JavaScript解决方案
-当重新阅读代码的时候，发现其实之前的代码使用了一个Javascript方法，在数据加载完成后，手动调用面板的ScrollIntoView方法，以适应高度的变化。
-那么使用纯CSS就没法实现这个功能了，因为这个方法已经在多个地方使用，我们只能继续在合适的地方继续使用而不是自己新建一套CSS方案。
-脱敏示例代码如下
-function recalcposition() {
-  setTimemout(() =&gt; {
-    panelRef.current.scrollIntoView({ behavior: &#34;instant&#34;, block: &#34;end&#34; });
-  }, 50)
-}
-探索DOM观察者API
-一开始我想的是能否找到一个onResize的事件来监听页面的变化，但是实际上React似乎并没有封装这么一套系统，而我又不想使用原生的接口，于是乎想到了IntersectionObserver类似的DOM接口。
-AI推荐了ResizeObserver/MutationObserver。当使用ResizeObserver时，我们发现成功了，但是却发生了新的问题：
-新问题：渲染延迟
-每一次都是选择面板渲染成功之后，经过了一个定量的延迟，消息面板才会滚动到最新的底部位置。
-这个问题可把我们难到了，尝试MutationObserver或者去掉recalcposition的延迟都没有什么效果。
-也许只能这样了？
-思考的时间
-我下楼抽了根烟，在考虑为什么会发生这个延迟。
-React渲染机制的启示
-当想到之前看过的React渲染机制的时候，猛然想到，在React中，无论如何，这些浏览器API生效的时候都在Commit阶段之后。
-那么只有等到下一次React渲染的时候，新的位置才会生效。为了把这次调整操作提前，是否可以使用useLayoutEffect这个Hook，在提交到DOM之前调整其位置。
-最终解决方案：useLayoutEffect
-我立即回来尝试了一番，
-useLayoutEffect(() =&gt; {
-  panelRef.current.scrollIntoView({ behavior: &#34;instant&#34;, block: &#34;end&#34; });
-}, [someVarToShowChoosePanel]);
-这里的someVarToShowChoosePanel 是用来控制选择面板的显示与隐藏的状态。
-果不其然，延迟消失了。
-总结
-useLayoutEffect 与普通的 useEffect 相比，最关键的区别在于它的执行时机。它会在DOM变更后、浏览器绘制前同步执行，这使得它特别适合于需要直接操作DOM并且希望避免视觉闪烁的场景。
-在我们的案例中，这正是解决渲染延迟问题的关键 - 确保滚动操作发生在浏览器绘制之前，而不是之后。这种精确的时机控制是React hooks提供给我们的强大工具之一。">
-        <meta name="HandheldFriendly" content="True">
-        <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.161.1">
-        <meta name="robots" content="index,follow">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="//liushengxian.github.io/dist/site.css">
-        <link rel="stylesheet" href="//liushengxian.github.io/dist/syntax.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        
-        <link rel="icon" type="image/png" href="/shawn-blog.png">
+  
+  <meta property="og:title" content="React的useLayoutEffect使用">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://liushengxian.github.io/posts/react-uselayouteffect/">
+  <meta property="og:image" content="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
+  <meta property="og:site_name" content="Shawn New Blog">
+  <meta name="twitter:card" content="summary_large_image">
 
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ee6a1d805e9b40d190f7aed8d27eeec2"}'></script>
+  <link rel="icon" href="/images/logo.png">
+  <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="alternate" type="application/rss+xml" title="Shawn New Blog" href="https://liushengxian.github.io/index.xml">
 
-<style>
-     
-    pre code {
-        padding: 0;
-        font-size: inherit;
-        border-radius: 0;
-        background-color: transparent;
-    }
-</style>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/css/syntax-dark.css" media="(prefers-color-scheme: dark)">
 
-        
-        
-        
+  
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ee6a1d805e9b40d190f7aed8d27eeec2"}'></script>
+</head>
 
-    </head>
-    <body>
-        
-
-        <div id="wrapper">
-            <header class="site-header">
-                <div class="container">
-                    <div class="site-title-wrapper">
-                        
-                            <h1 class="site-title">
-                                <a href="//liushengxian.github.io/">Shawn New Blog</a>
-                            </h1>
-                        
-                        
-                        
-                        
-                        
-                        
-                            <a class="button-square button-social hint--top" data-hint="Github" aria-label="Github" href="https://github.com/liushengxian" rel="me">
-                                <i class="fa fa-github-alt" aria-hidden="true"></i>
-                            </a>
-                        
-                        
-                        
-                        
-                    </div>
-
-                    <ul class="site-nav">
-                        
-    <li class="site-nav-item">
+<body>
+  <header class="site-header">
+  <div class="container site-header-inner">
+    <a class="site-brand" href="/">
+      <img class="site-logo" src="/images/logo.png" alt="Shawn New Blog" width="34" height="34">
+      <span class="site-title">Shawn New Blog</span>
+    </a>
+    <nav class="site-nav" aria-label="主导航">
+      
         <a href="/about-me/">about me</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/reading-list/">reading list</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/tags/">tags</a>
-    </li>
-
-    <li class="site-nav-item">
+      
         <a href="/handmake/">handmake</a>
-    </li>
-
-
-                    </ul>
-                </div>
-            </header>
-
-            <div id="container">
-
-
-<div class="container">
-    <article class="post-container">
-        <header class="post-header">
-    <h1 class="post-title">React的useLayoutEffect使用</h1>
-    
+      
+    </nav>
+  </div>
 </header>
 
-        <div class="post-content clearfix">
+  <main class="site-main">
     
-        <img class="post-featured-image" src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg">
-    
+<article class="container post single">
+  <header class="post-header">
+    <h1 class="post-title">React的useLayoutEffect使用</h1>
+    <div class="post-meta">
+      <time datetime="2025-09-27T01:49:51&#43;08:00">2025-09-27</time>
+      
+        <span class="post-tags">
+          <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a><a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决</a>
+        </span>
+      
+    </div>
+  </header>
 
+  
+  <div class="post-cover">
+    <img src="http://misanya-1252867445.cossh.myqcloud.com/sky.jpg" alt="React的useLayoutEffect使用">
+  </div>
+  
+
+  
+  <aside class="toc">
+    <details open>
+      <summary>目录</summary>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题背景">问题背景</a></li>
+    <li><a href="#初次尝试dom结构调整">初次尝试：DOM结构调整</a></li>
+    <li><a href="#隐藏的挑战异步渲染顺序">隐藏的挑战：异步渲染顺序</a></li>
+    <li><a href="#尝试css解决方案">尝试CSS解决方案</a></li>
+    <li><a href="#回顾现有代码javascript解决方案">回顾现有代码：JavaScript解决方案</a></li>
+    <li><a href="#探索dom观察者api">探索DOM观察者API</a></li>
+    <li><a href="#新问题渲染延迟">新问题：渲染延迟</a></li>
+    <li><a href="#思考的时间">思考的时间</a></li>
+    <li><a href="#react渲染机制的启示">React渲染机制的启示</a></li>
+    <li><a href="#最终解决方案uselayouteffect">最终解决方案：useLayoutEffect</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+    </details>
+  </aside>
+  
+
+  <div class="post-content">
     <h2 id="问题背景">问题背景</h2>
 <p>这周在帮助b哥完成他的项目前端的时候遇到了一个有趣的问题。</p>
 <p>先介绍下背景，这是一个企业内即时通讯工具，主要的页面布局，从上往下依次包括消息列表、选择面板、操作栏、输入框。</p>
@@ -187,49 +138,38 @@ useLayoutEffect 与普通的 useEffect 相比，最关键的区别在于它的�
 <p>useLayoutEffect 与普通的 useEffect 相比，最关键的区别在于它的执行时机。它会在DOM变更后、浏览器绘制前同步执行，这使得它特别适合于需要直接操作DOM并且希望避免视觉闪烁的场景。</p>
 <p>在我们的案例中，这正是解决渲染延迟问题的关键 - 确保滚动操作发生在浏览器绘制之前，而不是之后。这种精确的时机控制是React hooks提供给我们的强大工具之一。</p>
 
-</div>
+  </div>
 
-        <footer class="post-footer clearfix">
-        <p class="post-tags">
-            <span>Tagged:</span>
-                <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>, 
-                <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>, 
-                <a href="/tags/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">问题解决</a>
-        </p>
-    <div class="share">
-    </div>
+  <nav class="post-nav" aria-label="文章导航">
+    
+    
+      <a class="post-nav-item post-nav-left" href="/posts/setup-my-mac-mini/">
+        <span class="post-nav-label">← 上一篇</span>
+        <strong>Setup My Mac Mini</strong>
+      </a>
+    
+    
+      <a class="post-nav-item post-nav-right" href="/posts/about-reading/">
+        <span class="post-nav-label">下一篇 →</span>
+        <strong>关于读书</strong>
+      </a>
+    
+  </nav>
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container site-footer-inner">
+    <p class="footer-copyright">
+      &copy; 2026 Shawn
+    </p>
+    <p class="footer-links">
+      <a href="https://github.com/liushengxian" target="_blank" rel="noopener">GitHub</a>
+      <a href="/index.xml">RSS</a>
+    </p>
+    <p class="footer-powered">Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></p>
+  </div>
 </footer>
-    </article>
-</div>
 
-            </div>
-        </div>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="site-title-wrapper">
-                    <h1 class="site-title">
-                        <a href="//liushengxian.github.io/">Shawn New Blog</a>
-                    </h1>
-                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
-                        <i class="fa fa-angle-up" aria-hidden="true"></i>
-                    </a>
-                </div>
-
-                <p class="footer-copyright">
-                    <span>&copy; 2026 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
-                </p>
-                <p class="footer-copyright">
-                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
-                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
-                </p>
-            </div>
-        </footer>
-
-        <script src="//liushengxian.github.io/js/jquery-1.11.3.min.js"></script>
-        <script src="//liushengxian.github.io/js/jquery.fitvids.js"></script>
-        <script src="//liushengxian.github.io/js/scripts.js"></script>
-        
-    </body>
+</body>
 </html>
-
