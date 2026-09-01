@@ -275,13 +275,18 @@ h3 { font-size: 1.25rem; }
 
 /* ---- responsive ---- */
 @media (max-width: 768px) {
-  .hero { padding: 40px 0 28px; }
+  .hero { padding: 44px 0 32px; }
   .hero-title { font-size: 2rem; }
+  .hero-subtitle { text-wrap: pretty; font-size: .98rem; line-height: 1.6; }
   .post-title { font-size: 1.6rem; }
   .post-header { text-align: left; }
   .post-meta { justify-content: flex-start; }
-  .site-header-inner { height: auto; padding: 10px 0; flex-wrap: wrap; }
-  .site-nav { width: 100%; justify-content: flex-start; overflow-x: auto; }
+  .site-header-inner { height: auto; padding: 8px 0 10px; flex-wrap: wrap; gap: 6px; }
+  .site-brand { justify-content: space-between; width: 100%; }
+  .site-nav { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .site-nav a {
+    text-align: center; padding: 8px 4px; font-size: .86rem; white-space: nowrap;
+  }
   .post-list-item { flex-direction: column; gap: 2px; }
   .post-list-item time { flex: none; }
   .post-nav { grid-template-columns: 1fr; }
