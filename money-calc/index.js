@@ -1,5 +1,6 @@
 // 导入规则配置
-import rulesData from './rules.js';
+// 发布版本号更新时，这里的 ?v= 需与 index.html 中的版本号同步更新（见 index.html 顶部注释）
+import rulesData from './rules.js?v=4.6.0';
 
 // 获取DOM元素
 const apiKeyInput = document.getElementById('apiKey');
