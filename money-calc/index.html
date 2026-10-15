@@ -1,315 +1,581 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Calculator</title>
+    <link rel="stylesheet" href="./pico.purple.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        
-        .header-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: nowrap;
-        }
-        
-        .header-row h1 {
-            margin-bottom: 0;
-        }
-        
-        .header-row button {
-            font-size: 12px;
-            padding: 6px 12px;
-        }
-        
-        /* Dialog footer 样式 */
-        dialog footer {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        dialog footer button {
-            width: 100%;
-        }
-        
-        .config-section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-        
-        .config-section label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #555;
-        }
-        
-        .config-section input,
-        .config-section select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        
-        .config-section select {
-            background-color: white;
-            cursor: pointer;
-        }
-        
-        .textarea-wrapper {
-            display: flex;
-            gap: 20px;
-            padding: 0 20px;
-            margin-bottom: 20px;
-        }
-        
-        .textarea-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .textarea-container label {
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
-        }
-        
-        .label-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        
-        textarea {
-            flex: 1;
-            min-height: 400px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-            font-size: 14px;
-            resize: vertical;
-        }
-        
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+        /* ============================================================
+           Design tokens（取自 DESIGN.md，冲突处以正文组件规范为准）
+           ============================================================ */
+        :root {
+            /* 颜色 */
+            --c-bg: #F8FAFC;
+            --c-mesh: #EEF2FF;
+            --c-surface: #FFFFFF;
+            --c-surface-2: #F1F5F9;
+            --c-border: #E2E8F0;
+            --c-border-focus: #C7D2FE;
+            --c-text: #0F172A;
+            --c-text-2: #64748B;
+            --c-text-3: #94A3B8;
+            --c-primary: #4F46E5;      /* 原稿 #6366F1 白字仅 4.47:1，降为 Indigo 600 → 6.29:1 */
+            --c-primary-2: #7C3AED;
+            --c-primary-hover: #4338CA;
+            --c-ring: rgba(99, 102, 241, 0.15);
+            --c-success: #10B981;
+            --c-success-text: #047857;
+            --c-error: #EF4444;
+            --c-error-bg: #FFDAD6;
+            --c-error-text: #93000A;
+            --c-disabled-bg: #E2E8F0;
+            --c-disabled-text: #64748B;
+
+            /* 圆角 / 间距 / 阴影 */
+            --r-card: 20px;
+            --r-pane: 12px;
+            --r-control: 8px;
+            --r-chip: 9999px;
+            --sp-xs: 0.375rem;
+            --sp-sm: 0.75rem;
+            --sp-md: 1.25rem;
+            --sp-lg: 1.75rem;
+            --sp-xl: 2.5rem;
+            --shadow-1: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(99, 102, 241, 0.03);
+            --shadow-2: 0 0 0 1px rgba(99, 102, 241, 0.12), 0 12px 28px rgba(15, 23, 42, 0.08);
+            --shadow-primary: 0 6px 20px rgba(124, 58, 237, 0.28);
+
+            /* 字体（不引 CDN：字体栈前置 Inter / JetBrains Mono，本机已装则生效） */
+            --font-ui: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+            /* 同步 Pico 主题变量，让 select / date / dialog 等原生控件跟随新色板 */
+            --pico-primary: #4F46E5;
+            --pico-primary-background: #4F46E5;
+            --pico-primary-hover-background: #4338CA;
+            --pico-primary-border: #4F46E5;
+            --pico-primary-inverse: #FFFFFF;
+            --pico-secondary-background: #64748B;
+            --pico-border-radius: 0.5rem;
+            --pico-font-family: var(--font-ui);
+            --pico-background-color: #F8FAFC;
+            --pico-color: #0F172A;
+            --pico-muted-color: #64748B;
+            --pico-muted-border-color: #E2E8F0;
+            --pico-form-element-background-color: #FFFFFF;
+            --pico-form-element-border-color: #E2E8F0;
+            --pico-form-element-color: #0F172A;
+            --pico-form-element-active-border-color: #4F46E5;
+            --pico-form-element-focus-color: rgba(99, 102, 241, 0.15);
+            --pico-form-element-placeholder-color: #94A3B8;
         }
 
-        #status {
-            margin-top: 10px;
-        }
-        
-        button {
-            padding: 12px 32px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ---------- 画布（Level 0） ---------- */
+        body {
+            min-height: 100vh;
+            padding: var(--sp-md);
+            background-color: var(--c-bg);
+            background-image:
+                radial-gradient(1100px 520px at 50% -8%, rgba(238, 242, 255, 0.9), transparent 68%),
+                radial-gradient(760px 420px at 100% 100%, rgba(238, 242, 255, 0.55), transparent 70%);
+            background-attachment: fixed;
+            color: var(--c-text);
+            font-family: var(--font-ui);
             font-size: 16px;
-            font-weight: 500;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        #calculateBtn {
-            /* background-color: #007bff; */
-            color: white;
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-lg);
         }
-        
-        #calculateBtn:hover:not(:disabled) {
-            background-color: #0056b3;
+
+        /* ---------- 卡片（Level 1） ---------- */
+        .card {
+            background: var(--c-surface);
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-card);
+            box-shadow: var(--shadow-1);
+            padding: var(--sp-lg);
         }
-        
-        #calculateBtn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        
-        #clearBtn {
-            background-color: #6c757d;
-            color: white;
-        }
-        
-        #clearBtn:hover {
-            background-color: #545b62;
-        }
-        
-        .loading {
+
+        /* ---------- 标题行 ---------- */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--sp-sm);
+            flex-wrap: wrap;
             text-align: center;
-            color: #666;
-            margin-top: 10px;
         }
-        
-        #copyBtn {
-            align-self: flex-start;
-            background-color: #28a745;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+
+        .app-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 40px;
+            letter-spacing: -0.025em;
+            color: var(--c-text);
+        }
+
+        .version-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 10px;
+            border-radius: var(--r-chip);
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.16);
+            color: var(--c-primary-2);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+
+        /* ---------- 表单（配置卡片） ---------- */
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--sp-md);
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-xs);
+            min-width: 0;
+        }
+
+        .field-key { grid-column: 1 / -1; }
+
+        .field label,
+        .pane-head label {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 16px;
+            color: #334155;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            height: 44px;
+            margin: 0;
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-control);
+            background-color: var(--c-surface);
+            color: var(--c-text);
             font-size: 14px;
-            transition: background-color 0.3s ease;
+            font-family: var(--font-ui);
         }
-        
-        #copyBtn:hover:not(:disabled) {
-            background-color: #218838;
+
+        .field input { padding: 0 var(--sp-sm); }
+
+        .field select {
+            padding-block: 0;
+            padding-inline-start: var(--sp-sm);
         }
-        
-        #copyBtn:disabled {
-            background-color: #ccc;
+
+        /* 密钥与模型标识用等宽字体（DESIGN.md: Monospace Fields） */
+        #apiKey,
+        #modelInput { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0; }
+
+        .field input:focus,
+        .field select:focus,
+        .field input:focus-visible,
+        .field select:focus-visible {
+            border-color: var(--c-primary);
+            box-shadow: 0 0 0 3px var(--c-ring);
+            outline: none;
+        }
+
+        .field input::placeholder { color: var(--c-text-3); }
+
+        /* ---------- 工作区（双栏计算区） ---------- */
+        .workbench {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--sp-md);
+            align-items: start;
+        }
+
+        .pane {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-sm);
+            background: var(--c-surface);
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-pane);
+            box-shadow: var(--shadow-1);
+            padding: var(--sp-md);
+            min-width: 0;
+        }
+
+        .pane-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--sp-sm);
+            min-height: 32px;
+        }
+
+        .pane textarea {
+            width: 100%;
+            min-height: 400px;
+            margin: 0;
+            padding: var(--sp-sm) var(--sp-md);
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-control);
+            background: var(--c-surface);
+            color: var(--c-text);
+            font-family: var(--font-ui);
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        /* 输出区：等宽 + 表格数字，便于核对金额与日期列 */
+        #outputText {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 20px;
+            font-variant-numeric: tabular-nums;
+            background: #FCFDFF;
+        }
+
+        .pane textarea:focus {
+            border-color: var(--c-primary);
+            box-shadow: 0 0 0 3px var(--c-ring);
+            outline: none;
+        }
+
+        .pane textarea::placeholder { color: var(--c-text-3); }
+
+        /* ---------- 按钮 ---------- */
+        button { font-family: var(--font-ui); cursor: pointer; transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease, border-color .18s ease; }
+
+        /* 主操作（Level 3：渐变 + 环境光晕） */
+        #calculateBtn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: var(--r-control);
+            background-image: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-2) 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), var(--shadow-primary);
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        #calculateBtn:hover:not(:disabled) {
+            background-image: linear-gradient(135deg, var(--c-primary-hover) 0%, #6D28D9 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 10px 26px rgba(109, 40, 217, 0.34);
+            transform: translateY(-1px);
+        }
+
+        #calculateBtn:active:not(:disabled) { transform: translateY(0); }
+
+        #calculateBtn:disabled {
+            background-image: none;
+            background-color: var(--c-disabled-bg);
+            box-shadow: none;
+            color: var(--c-disabled-text);
             cursor: not-allowed;
+        }
+
+        /* 次级操作 */
+        #clearBtn {
+            padding: 12px 28px;
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-control);
+            background: var(--c-surface-2);
+            color: #334155;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        #clearBtn:hover { background: var(--c-border); }
+
+        /* 微操作（复制：ghost 按钮） */
+        #copyBtn {
+            padding: 6px 12px;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: var(--r-chip);
+            background: transparent;
+            color: var(--c-success-text);
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        #copyBtn:hover:not(:disabled) { background: rgba(16, 185, 129, 0.08); }
+
+        #copyBtn:disabled {
+            border-color: var(--c-border);
+            background: transparent;
+            color: var(--c-text-2);
+            cursor: not-allowed;
+        }
+
+        /* 标题行内的设置按钮 */
+        #setSuffixBtn {
+            padding: 6px 14px;
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-chip);
+            background: var(--c-surface);
+            color: #334155;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: var(--shadow-1);
+        }
+
+        #setSuffixBtn:hover { background: var(--c-surface-2); }
+
+        /* ---------- 动作区 ---------- */
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--sp-sm);
+        }
+
+        /* ---------- 状态区（预留高度，避免提示出现时页面跳动） ---------- */
+        #status {
+            min-height: 28px;
+            margin-top: -1rem; /* 抵消容器 gap，让提示贴近按钮 */
+            text-align: center;
+            font-size: 14px;
+        }
+
+        #status .loading { color: var(--c-text-2); }
+
+        #status .error {
+            display: inline-block;
+            padding: 6px 14px;
+            border: 1px solid rgba(186, 26, 26, 0.18);
+            border-radius: var(--r-control);
+            background: var(--c-error-bg);
+            color: var(--c-error-text);
+            font-weight: 500;
+        }
+
+        /* ---------- 对话框（Level 2） ---------- */
+        dialog {
+            width: min(560px, 92vw);
+            max-width: 560px;
+            height: fit-content;      /* 覆盖 Pico 的 min-height:100% */
+            min-height: auto;
+            min-width: auto;          /* 覆盖 Pico 的 min-width:100%（否则左右贴边） */
+            max-height: calc(100vh - 2rem);
+            overflow: auto;
+            margin: auto;             /* 恢复原生居中 */
+            padding: 0;
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-card);
+            background: var(--c-surface);
+            box-shadow: var(--shadow-2);
+        }
+
+        dialog::backdrop { background: rgba(15, 23, 42, 0.45); }
+
+        dialog article {
+            width: 100%;
+            max-width: none;
+            padding: var(--sp-lg);
+            margin: 0;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        dialog header {
+            margin-bottom: var(--sp-md);
+            padding: 0;
+            border-bottom: 0;
+            background: transparent;
+        }
+
+        dialog header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 26px;
+            letter-spacing: -0.015em;
+            color: var(--c-text);
+        }
+
+        dialog label {
+            display: block;
+            margin-bottom: var(--sp-xs);
+            font-size: 13px;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        dialog textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: var(--sp-sm);
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-control);
+            background: var(--c-surface);
+            color: var(--c-text);
+            font-family: var(--font-ui);
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        dialog textarea:focus {
+            border-color: var(--c-primary);
+            box-shadow: 0 0 0 3px var(--c-ring);
+            outline: none;
+        }
+
+        dialog footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            gap: var(--sp-sm);
+            margin-top: var(--sp-md);
+        }
+
+        dialog footer button {
+            width: auto;
+            padding: 10px 20px;
+            border-radius: var(--r-control);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        #cancelBtn {
+            border: 1px solid var(--c-border);
+            background: var(--c-surface-2);
+            color: #334155;
+        }
+
+        #cancelBtn:hover { background: var(--c-border); }
+
+        #saveBtn {
+            border: none;
+            background-image: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-2) 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 14px rgba(124, 58, 237, 0.24);
+            color: #FFFFFF;
+        }
+
+        #saveBtn:hover {
+            background-image: linear-gradient(135deg, var(--c-primary-hover) 0%, #6D28D9 100%);
+        }
+
+        /* focus 可见性（键盘用户） */
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--c-ring);
+            outline-offset: 1px;
+        }
+
+        /* ---------- 响应式 ---------- */
+        @media (max-width: 1024px) {
+            .workbench { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 12px;
-            }
+            body { padding: var(--sp-sm); }
 
-            .container {
-                padding: 14px;
-                border-radius: 6px;
-            }
+            .container { gap: var(--sp-md); }
 
-            h1 {
-                font-size: 20px;
-                margin-bottom: 16px;
-            }
+            .card { padding: var(--sp-md); border-radius: 16px; }
 
-            .header-row {
-                flex-direction: column;
-                gap: 10px;
-            }
+            .app-header { flex-direction: column; gap: var(--sp-sm); }
 
-            .config-section {
-                margin-bottom: 14px;
-                padding: 12px;
-            }
+            .app-header h1 { font-size: 24px; line-height: 32px; }
 
-            .textarea-wrapper {
-                flex-direction: column;
-                gap: 14px;
-            }
+            .field-grid { grid-template-columns: 1fr; gap: var(--sp-md); }
 
-            textarea {
-                min-height: 220px;
-                font-size: 13px;
-            }
+            .pane textarea { min-height: 220px; }
 
-            .button-container {
-                flex-direction: column;
-                gap: 8px;
-            }
+            .actions { flex-direction: column; align-items: stretch; }
 
-            button {
-                width: 100%;
-                min-height: 44px;
-                padding: 10px 16px;
-                font-size: 15px;
-            }
+            #calculateBtn,
+            #clearBtn { width: 100%; min-height: 48px; }
+
+            dialog article { padding: var(--sp-md); }
+
+            dialog footer { flex-direction: column; }
+
+            dialog footer button { width: 100%; min-height: 44px; }
         }
     </style>
-    <link rel="stylesheet" href="./pico.purple.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="header-row">
-            <h1>AI Calculator
-            </h1>
-            <h1>
-                （姜行专用 4.3.0）
-            </h1>    
-            <button id="setSuffixBtn" class="primary">设置尾部追加词</button>
-        </div>
-        
-        <div class="config-section">
-            <label for="providerSelect">AI 供应商:</label>
-            <select id="providerSelect">
-                <option value="">加载中...</option>
-            </select>
-        </div>
-        
-        <div class="config-section">
-            <label for="apiKey" id="apiKeyLabel">DeepSeek API Key:</label>
-            <input type="password" id="apiKey" placeholder="请输入你的 DeepSeek API Key">
-        </div>
-        
-        <div class="config-section">
-            <label for="modelInput">模型:</label>
-            <input type="text" id="modelInput" list="modelOptions" placeholder="模型名称">
-            <datalist id="modelOptions"></datalist>
-        </div>
-        
-        <div class="config-section">
-            <label for="ruleSelect">选择规则:</label>
-            <select id="ruleSelect">
-                <option value="">加载中...</option>
-            </select>
-        </div>
-        
-        <div class="config-section">
-            <label for="startDate">起始日:</label>
-            <input type="date" id="startDate">
-        </div>
-        
-        <div class="textarea-wrapper">
-            <div class="textarea-container">
-                <label for="inputText">输入内容:</label>
+        <header class="app-header">
+            <h1>AI Calculator</h1>
+            <span class="version-chip">姜行专用 4.4.0</span>
+            <button id="setSuffixBtn">设置尾部追加词</button>
+        </header>
+
+        <section class="card">
+            <div class="field-grid">
+                <div class="field">
+                    <label for="providerSelect">AI 供应商:</label>
+                    <select id="providerSelect">
+                        <option value="">加载中...</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="modelInput">模型:</label>
+                    <input type="text" id="modelInput" list="modelOptions" placeholder="模型名称">
+                    <datalist id="modelOptions"></datalist>
+                </div>
+                <div class="field field-key">
+                    <label for="apiKey" id="apiKeyLabel">DeepSeek API Key:</label>
+                    <input type="password" id="apiKey" placeholder="请输入你的 DeepSeek API Key" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="field">
+                    <label for="ruleSelect">选择规则:</label>
+                    <select id="ruleSelect">
+                        <option value="">加载中...</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="startDate">起始日:</label>
+                    <input type="date" id="startDate">
+                </div>
+            </div>
+        </section>
+
+        <section class="workbench">
+            <div class="pane">
+                <div class="pane-head">
+                    <label for="inputText">输入内容:</label>
+                </div>
                 <textarea id="inputText" placeholder="请输入你的问题或内容..."></textarea>
             </div>
-            
-            <div class="textarea-container">
-                <div class="label-row">
+
+            <div class="pane">
+                <div class="pane-head">
                     <label for="outputText">返回内容:</label>
                     <button id="copyBtn" disabled>一键复制</button>
                 </div>
                 <textarea id="outputText" placeholder="计算结果将显示在这里..." readonly></textarea>
             </div>
-        </div>
-        
-        <div class="button-container">
+        </section>
+
+        <div class="actions">
             <button id="calculateBtn">计算</button>
             <button id="clearBtn">清空</button>
         </div>
-        
-        <div id="status"></div>
+
+        <div id="status" role="status" aria-live="polite"></div>
     </div>
-    
+
     <!-- 尾部追加词设置对话框 -->
     <dialog id="suffixDialog">
         <article>
@@ -322,13 +588,13 @@
                     <textarea id="suffixText" rows="4" placeholder="在这里输入内容..."></textarea>
                 </label>
                 <footer>
-                    <button type="button" id="cancelBtn" class="outline">取消</button>
+                    <button type="button" id="cancelBtn">取消</button>
                     <button type="submit" id="saveBtn">保存</button>
                 </footer>
             </form>
         </article>
     </dialog>
-    
+
     <script type="module" src="index.js"></script>
 </body>
 </html>
