@@ -1,6 +1,6 @@
 // 导入规则配置
 // 发布版本号更新时，这里的 ?v= 需与 index.html 中的版本号同步更新（见 index.html 顶部注释）
-import rulesData from './rules.js?v=4.6.0';
+import rulesData from './rules.js?v=4.6.1';
 
 // 获取DOM元素
 const apiKeyInput = document.getElementById('apiKey');
@@ -585,7 +585,7 @@ function formatResultSummary(resultList, total) {
         lines.push(`${monthText}M ${formatPrice(group.price)}%    到期日：${periodText}`);
     });
 
-    // 追加合计金额与尾部内容（合计紧跟在结束语之前）
+    // 追加合计金额与尾部内容（合计与结束语之间空一行）
     const totalLine = formatTotalLine(total);
     const suffix = localStorage.getItem('result_suffix') || '';
 
@@ -593,7 +593,7 @@ function formatResultSummary(resultList, total) {
         lines.push('');
         if (totalLine) {
             lines.push(totalLine);
-            lines.push('\n')
+            lines.push(''); // 空行：join('\n') 下空字符串 = 恰好一行空行，不要写 '\n'
         }
         if (suffix.trim()) {
             lines.push(suffix);
