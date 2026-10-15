@@ -333,6 +333,42 @@ function getSelectedRuleContent() {
     return rule ? rule.content : '';
 }
 
+// 合计金额默认单位（“亿元”统一按“亿”输出）
+const DEFAULT_TOTAL_UNIT = '亿';
+
+// 归一化单位：“亿元”→“亿”，“万元”→“万”；缺失时按默认单位处理
+function normalizeTotalUnit(unit) {
+    const text = String(unit ?? '').trim().replace(/元$/, '');
+    return text || DEFAULT_TOTAL_UNIT;
+}
+
+// 解析 AI 返回的合计金额：支持 {amount, unit}、纯数字、“20亿”/“合计20亿元”等形态；没有合计时返回 null
+function normalizeTotal(rawTotal) {
+    if (rawTotal === null || rawTotal === undefined) {
+        return null;
+    }
+
+    if (typeof rawTotal === 'object') {
+        const amount = Number(rawTotal.amount ?? rawTotal.value ?? rawTotal.number);
+        if (Number.isFinite(amount)) {
+            return { amount: amount, unit: normalizeTotalUnit(rawTotal.unit) };
+        }
+        throw new Error('AI 返回的合计金额格式不正确，请重试');
+    }
+
+    const text = String(rawTotal).trim();
+    if (!text) {
+        return null;
+    }
+
+    const match = text.match(/(\d+(?:\.\d+)?)\s*(亿元|万元|亿|万|元)?/);
+    if (!match) {
+        throw new Error('AI 返回的合计金额格式不正确，请重试');
+    }
+
+    return { amount: Number(match[1]), unit: normalizeTotalUnit(match[2]) };
+}
+
 function extractAndParseAIJson(rawContent) {
     if (!rawContent || typeof rawContent !== 'string') {
         throw new Error('AI 返回内容为空');
@@ -382,7 +418,8 @@ function extractAndParseAIJson(rawContent) {
 
     return {
         periodList,
-        priceList
+        priceList,
+        total: normalizeTotal(parsed.total)
     };
 }
 
@@ -502,7 +539,14 @@ function formatPrice(price) {
     return price.toFixed(2);
 }
 
-function formatResultSummary(resultList) {
+function formatTotalLine(total) {
+    if (!total || !Number.isFinite(total.amount)) {
+        return '';
+    }
+    return `合计${total.amount}${total.unit}`;
+}
+
+function formatResultSummary(resultList, total) {
     const groupedMap = new Map();
 
     resultList.forEach(item => {
@@ -540,11 +584,18 @@ function formatResultSummary(resultList) {
         lines.push(`${monthText}M ${formatPrice(group.price)}%    到期日：${periodText}`);
     });
 
-    // 追加尾部内容
+    // 追加合计金额与尾部内容（合计紧跟在结束语之前）
+    const totalLine = formatTotalLine(total);
     const suffix = localStorage.getItem('result_suffix') || '';
-    if (suffix.trim()) {
+
+    if (totalLine || suffix.trim()) {
         lines.push('');
-        lines.push(suffix);
+        if (totalLine) {
+            lines.push(totalLine);
+        }
+        if (suffix.trim()) {
+            lines.push(suffix);
+        }
     }
 
     return lines.join('\n');
@@ -566,7 +617,7 @@ async function callAI(provider, model, apiKey, prompt, ruleContent, startDate) {
     // 添加用户输入
     messages.push({
         role: 'user',
-        content: `${prompt}\n\n请严格只返回 JSON，结构必须为：{"periodList":[{"startDate":"YYYY-MM-DD","endDate":"YYYY-MM-DD"}],"priceList":[{"month":1,"price":1.23}]}`
+        content: `${prompt}\n\n请严格只返回 JSON，结构必须为：{"periodList":[{"startDate":"YYYY-MM-DD","endDate":"YYYY-MM-DD"}],"priceList":[{"month":1,"price":1.23}],"total":{"amount":20,"unit":"亿"}}。其中 total 为输入中的合计金额（如“合计20亿元”），amount 为数字，unit 为简短单位（“亿元”写作“亿”）；输入中没有合计金额时 total 必须为 null。只返回 JSON，不要任何解释。`
     });
     
     const response = await fetch(provider.endpoint, {
@@ -591,7 +642,7 @@ async function callAI(provider, model, apiKey, prompt, ruleContent, startDate) {
     const content = data?.choices?.[0]?.message?.content || '';
     const normalized = extractAndParseAIJson(content);
     const resultList = buildResultList(normalized.periodList, normalized.priceList, startDate);
-    return formatResultSummary(resultList);
+    return formatResultSummary(resultList, normalized.total);
 }
 
 // 计算按钮点击事件
