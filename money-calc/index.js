@@ -593,6 +593,7 @@ function formatResultSummary(resultList, total) {
         lines.push('');
         if (totalLine) {
             lines.push(totalLine);
+            lines.push('\n')
         }
         if (suffix.trim()) {
             lines.push(suffix);
