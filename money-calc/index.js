@@ -17,6 +17,8 @@ const clearBtn = document.getElementById('clearBtn');
 const settingsBtn = document.getElementById('settingsBtn');
 const copyBtn = document.getElementById('copyBtn');
 const statusDiv = document.getElementById('status');
+const outputMeta = document.getElementById('outputMeta');
+const copyLabel = copyBtn.querySelector('.copy-label');
 
 // 输出设置对话框相关元素
 const settingsDialog = document.getElementById('settingsDialog');
@@ -271,7 +273,7 @@ function applyProvider() {
     const provider = getCurrentProvider();
 
     // API Key（各供应商分别保存在 localStorage）
-    apiKeyLabel.textContent = `${provider.keyLabel}:`;
+    apiKeyLabel.textContent = provider.keyLabel;
     apiKeyInput.placeholder = provider.keyPlaceholder;
     apiKeyInput.value = localStorage.getItem(provider.keyStorageKey) || '';
 
@@ -384,9 +386,51 @@ function clearStatus() {
     statusDiv.innerHTML = '';
 }
 
-// 更新复制按钮状态
+// 更新复制按钮状态 + 输出栏脚状态
 function updateCopyBtn() {
-    copyBtn.disabled = outputText.value.trim() === '';
+    const hasOutput = outputText.value.trim() !== '';
+    copyBtn.disabled = !hasOutput;
+    updateOutputMeta();
+}
+
+// 输出栏脚：待计算 / 计算中… / N 行 · 已生成
+function updateOutputMeta(state) {
+    if (!outputMeta) {
+        return;
+    }
+
+    if (state === 'busy') {
+        outputMeta.dataset.state = 'busy';
+        outputMeta.textContent = '计算中…';
+        return;
+    }
+
+    outputMeta.dataset.state = 'idle';
+    const text = outputText.value.trim();
+    if (!text) {
+        outputMeta.textContent = '待计算';
+        return;
+    }
+
+    const lines = text.split('\n').filter(line => line.trim() !== '').length;
+    outputMeta.textContent = `${lines} 行 · 已生成`;
+}
+
+// 复制成功：按钮短暂变绿（1.4s 后撤回）
+let copyFlashTimer = null;
+
+function flashCopyDone() {
+    if (!copyLabel) {
+        return;
+    }
+
+    clearTimeout(copyFlashTimer);
+    copyBtn.classList.add('is-copied');
+    copyLabel.textContent = '✓ 已复制';
+    copyFlashTimer = setTimeout(() => {
+        copyBtn.classList.remove('is-copied');
+        copyLabel.textContent = '一键复制';
+    }, 1400);
 }
 
 // 获取当前选择的规则内容
@@ -854,6 +898,7 @@ calculateBtn.addEventListener('click', async () => {
     clearStatus();
     showStatus('正在计算中，请稍候...');
     outputText.value = '';
+    updateOutputMeta('busy');
 
     try {
         // 获取选择的规则内容
@@ -879,6 +924,7 @@ calculateBtn.addEventListener('click', async () => {
         console.error('Error:', error);
         showStatus(`错误: ${error.message}`, true);
         outputText.value = '';
+        updateCopyBtn();
     } finally {
         // 重新启用按钮
         calculateBtn.disabled = false;
@@ -973,6 +1019,7 @@ cancelBtn.addEventListener('click', () => {
 copyBtn.addEventListener('click', async () => {
     try {
         await navigator.clipboard.writeText(outputText.value);
+        flashCopyDone();
         showStatus('✓ 已复制到剪贴板');
         setTimeout(() => {
             clearStatus();
