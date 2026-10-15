@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeepSeek Calculator</title>
+    <title>AI Calculator</title>
     <style>
         * {
             margin: 0;
@@ -249,17 +249,30 @@
 <body>
     <div class="container">
         <div class="header-row">
-            <h1>DeepSeek AI Calculator
+            <h1>AI Calculator
             </h1>
             <h1>
-                （姜行专用 4.2.1）
+                （姜行专用 4.3.0）
             </h1>    
             <button id="setSuffixBtn" class="primary">设置尾部追加词</button>
         </div>
         
         <div class="config-section">
-            <label for="apiKey">DeepSeek API Key:</label>
+            <label for="providerSelect">AI 供应商:</label>
+            <select id="providerSelect">
+                <option value="">加载中...</option>
+            </select>
+        </div>
+        
+        <div class="config-section">
+            <label for="apiKey" id="apiKeyLabel">DeepSeek API Key:</label>
             <input type="password" id="apiKey" placeholder="请输入你的 DeepSeek API Key">
+        </div>
+        
+        <div class="config-section">
+            <label for="modelInput">模型:</label>
+            <input type="text" id="modelInput" list="modelOptions" placeholder="模型名称">
+            <datalist id="modelOptions"></datalist>
         </div>
         
         <div class="config-section">

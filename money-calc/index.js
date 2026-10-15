@@ -3,6 +3,10 @@ import rulesData from './rules.js';
 
 // 获取DOM元素
 const apiKeyInput = document.getElementById('apiKey');
+const apiKeyLabel = document.getElementById('apiKeyLabel');
+const providerSelect = document.getElementById('providerSelect');
+const modelInput = document.getElementById('modelInput');
+const modelOptions = document.getElementById('modelOptions');
 const ruleSelect = document.getElementById('ruleSelect');
 const startDateInput = document.getElementById('startDate');
 const inputText = document.getElementById('inputText');
@@ -21,6 +25,96 @@ const cancelBtn = document.getElementById('cancelBtn');
 
 // 存储规则列表
 let rules = rulesData.rules;
+
+// ===== 供应商配置 =====
+// 新增供应商时只需在下面数组里加一项（接口需兼容 OpenAI 的 /chat/completions 协议）
+const PROVIDERS = [
+    {
+        id: 'deepseek',
+        name: 'DeepSeek',
+        endpoint: 'https://api.deepseek.com/v1/chat/completions',
+        models: ['deepseek-v4-flash', 'deepseek-chat', 'deepseek-reasoner'],
+        keyLabel: 'DeepSeek API Key',
+        keyPlaceholder: '请输入你的 DeepSeek API Key',
+        keyStorageKey: 'deepseek_api_key' // 沿用旧键名，兼容已保存的 Key
+    },
+    {
+        id: 'qwen',
+        name: '通义千问 (Qwen)',
+        endpoint: 'https://maas.qianwenaiapi.com/compatible-mode/v1/chat/completions',
+        models: ['qwen3.8-flash', 'qwen3.8-max', 'qwen-plus', 'qwen-max'],
+        keyLabel: '通义千问 API Key',
+        keyPlaceholder: '请输入你的通义千问 API Key',
+        keyStorageKey: 'qwen_api_key'
+    }
+];
+
+function getProviderById(id) {
+    return PROVIDERS.find(provider => provider.id === id) || PROVIDERS[0];
+}
+
+function getCurrentProvider() {
+    return getProviderById(providerSelect.value);
+}
+
+function getModelStorageKey(providerId) {
+    return `model_${providerId}`;
+}
+
+// 加载供应商下拉框，并恢复上次选择的供应商
+function loadProviders() {
+    try {
+        providerSelect.innerHTML = '';
+        PROVIDERS.forEach(provider => {
+            const option = document.createElement('option');
+            option.value = provider.id;
+            option.textContent = provider.name;
+            providerSelect.appendChild(option);
+        });
+
+        const savedProviderId = localStorage.getItem('selected_provider_id');
+        providerSelect.value = PROVIDERS.some(provider => provider.id === savedProviderId)
+            ? savedProviderId
+            : PROVIDERS[0].id;
+
+        applyProvider();
+    } catch (error) {
+        console.error('加载供应商失败:', error);
+        providerSelect.innerHTML = '<option value="">加载供应商失败</option>';
+    }
+}
+
+// 切换供应商后刷新 API Key、模型候选与提示文案
+function applyProvider() {
+    const provider = getCurrentProvider();
+
+    // API Key（各供应商分别保存在 localStorage）
+    apiKeyLabel.textContent = `${provider.keyLabel}:`;
+    apiKeyInput.placeholder = provider.keyPlaceholder;
+    apiKeyInput.value = localStorage.getItem(provider.keyStorageKey) || '';
+
+    // 模型候选列表
+    modelOptions.innerHTML = '';
+    provider.models.forEach(model => {
+        const option = document.createElement('option');
+        option.value = model;
+        modelOptions.appendChild(option);
+    });
+
+    // 模型：优先用该供应商上次保存的，否则用默认模型
+    modelInput.value = localStorage.getItem(getModelStorageKey(provider.id)) || provider.models[0] || '';
+}
+
+// 切换供应商
+providerSelect.addEventListener('change', () => {
+    localStorage.setItem('selected_provider_id', providerSelect.value);
+    applyProvider();
+});
+
+// 保存模型到localStorage
+modelInput.addEventListener('change', () => {
+    localStorage.setItem(getModelStorageKey(getCurrentProvider().id), modelInput.value.trim());
+});
 
 // 加载规则列表
 function loadRules() {
@@ -64,13 +158,11 @@ function getTodayDate() {
 
 // 从localStorage加载API密钥和加载规则
 window.addEventListener('DOMContentLoaded', () => {
-    const savedApiKey = localStorage.getItem('deepseek_api_key');
-    if (savedApiKey) {
-        apiKeyInput.value = savedApiKey;
-    }
-    
     // 设置起始日期默认值为今天
     startDateInput.value = getTodayDate();
+    
+    // 加载供应商列表（会同时恢复该供应商的 API Key 与模型）
+    loadProviders();
     
     // 加载规则列表
     loadRules();
@@ -79,9 +171,9 @@ window.addEventListener('DOMContentLoaded', () => {
     updateCopyBtn();
 });
 
-// 保存API密钥到localStorage
+// 保存API密钥到localStorage（按供应商分开保存）
 apiKeyInput.addEventListener('change', () => {
-    localStorage.setItem('deepseek_api_key', apiKeyInput.value);
+    localStorage.setItem(getCurrentProvider().keyStorageKey, apiKeyInput.value);
 });
 
 // 显示状态消息
@@ -325,8 +417,8 @@ function formatResultSummary(resultList) {
     return lines.join('\n');
 }
 
-// 调用 DeepSeek API
-async function callDeepSeekAPI(prompt, apiKey, ruleContent, startDate) {
+// 调用供应商 API（统一的 OpenAI 兼容 /chat/completions 协议）
+async function callAI(provider, model, apiKey, prompt, ruleContent, startDate) {
     // 构建消息数组
     const messages = [];
     
@@ -344,14 +436,14 @@ async function callDeepSeekAPI(prompt, apiKey, ruleContent, startDate) {
         content: `${prompt}\n\n请严格只返回 JSON，结构必须为：{"periodList":[{"startDate":"YYYY-MM-DD","endDate":"YYYY-MM-DD"}],"priceList":[{"month":1,"price":1.23}]}`
     });
     
-    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+    const response = await fetch(provider.endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: 'deepseek-v4-flash',
+            model: model,
             messages: messages,
             stream: false
         })
@@ -371,12 +463,19 @@ async function callDeepSeekAPI(prompt, apiKey, ruleContent, startDate) {
 
 // 计算按钮点击事件
 calculateBtn.addEventListener('click', async () => {
+    const provider = getCurrentProvider();
+    const model = modelInput.value.trim();
     const apiKey = apiKeyInput.value.trim();
     const input = inputText.value.trim();
 
     // 验证输入
     if (!apiKey) {
-        showStatus('请输入 DeepSeek API Key', true);
+        showStatus(`请输入 ${provider.keyLabel}`, true);
+        return;
+    }
+
+    if (!model) {
+        showStatus('请输入模型名称', true);
         return;
     }
 
@@ -399,7 +498,7 @@ calculateBtn.addEventListener('click', async () => {
         const startDate = startDateInput.value;
         
         // 调用 API
-        const result = await callDeepSeekAPI(input, apiKey, ruleContent, startDate);
+        const result = await callAI(provider, model, apiKey, input, ruleContent, startDate);
         
         // 显示结果
         outputText.value = result;
