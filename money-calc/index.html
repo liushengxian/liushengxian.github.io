@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Calculator</title>
     <!-- 发布新版本时，请同步更新：①下方版本号 ②本文件所有资源引用的 ?v= ③index.js 中 rules.js 的 import 的 ?v= -->
-    <link rel="stylesheet" href="./pico.purple.min.css?v=4.6.1">
+    <link rel="stylesheet" href="./pico.purple.min.css?v=4.7.0">
     <style>
         /* ============================================================
            Design tokens（取自 DESIGN.md，冲突处以正文组件规范为准）
@@ -324,7 +324,7 @@
         }
 
         /* 标题行内的设置按钮 */
-        #setSuffixBtn {
+        #settingsBtn {
             padding: 6px 14px;
             border: 1px solid var(--c-border);
             border-radius: var(--r-chip);
@@ -335,7 +335,7 @@
             box-shadow: var(--shadow-1);
         }
 
-        #setSuffixBtn:hover { background: var(--c-surface-2); }
+        #settingsBtn:hover { background: var(--c-surface-2); }
 
         /* ---------- 动作区 ---------- */
         .actions {
@@ -367,8 +367,8 @@
 
         /* ---------- 对话框（Level 2） ---------- */
         dialog {
-            width: min(560px, 92vw);
-            max-width: 560px;
+            width: min(680px, 94vw);
+            max-width: 680px;
             height: fit-content;      /* 覆盖 Pico 的 min-height:100% */
             min-height: auto;
             min-width: auto;          /* 覆盖 Pico 的 min-width:100%（否则左右贴边） */
@@ -472,6 +472,85 @@
             background-image: linear-gradient(135deg, var(--c-primary-hover) 0%, #6D28D9 100%);
         }
 
+        /* ---------- 输出设置对话框：表单栅格与预览 ---------- */
+        dialog input[type="text"],
+        dialog input[type="number"] {
+            width: 100%;
+            height: 40px;
+            margin: 0;
+            padding: 0 var(--sp-sm);
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-control);
+            background: var(--c-surface);
+            color: var(--c-text);
+            font-family: var(--font-ui);
+            font-size: 14px;
+        }
+
+        dialog input[type="number"] { font-variant-numeric: tabular-nums; }
+
+        dialog input:focus {
+            border-color: var(--c-primary);
+            box-shadow: 0 0 0 3px var(--c-ring);
+            outline: none;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--sp-sm) var(--sp-md);
+        }
+
+        .settings-grid > .span-2 { grid-column: 1 / -1; }
+
+        .settings-blanks {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: var(--sp-xs) var(--sp-md);
+            margin: 0;
+            padding: var(--sp-xs) var(--sp-sm) var(--sp-sm);
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-control);
+        }
+
+        .settings-blanks legend {
+            padding: 0 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .settings-blanks label { margin-bottom: 0; }
+
+        /* 提高优先级，压过 dialog input[type="number"] { width: 100% } */
+        dialog .settings-blanks input { width: 64px; }
+
+        .settings-label {
+            display: block;
+            margin-bottom: var(--sp-xs);
+            font-size: 13px;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        #settingsPreview {
+            margin: 0;
+            padding: var(--sp-sm);
+            min-height: 96px;
+            max-height: 200px;
+            overflow: auto;
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-control);
+            background: #FCFDFF;
+            color: var(--c-text);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 18px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
         /* focus 可见性（键盘用户） */
         button:focus-visible,
         input:focus-visible,
@@ -508,6 +587,8 @@
 
             dialog article { padding: var(--sp-md); }
 
+            .settings-grid { grid-template-columns: 1fr; }
+
             dialog footer { flex-direction: column; }
 
             dialog footer button { width: 100%; min-height: 44px; }
@@ -518,8 +599,8 @@
     <div class="container">
         <header class="app-header">
             <h1>AI Calculator</h1>
-            <span class="version-chip">姜行专用 4.6.1</span>
-            <button id="setSuffixBtn">设置尾部追加词</button>
+            <span class="version-chip">姜行专用 4.7.0</span>
+            <button id="settingsBtn">输出设置</button>
         </header>
 
         <section class="card">
@@ -577,17 +658,51 @@
         <div id="status" role="status" aria-live="polite"></div>
     </div>
 
-    <!-- 尾部追加词设置对话框 -->
-    <dialog id="suffixDialog">
+    <!-- 输出设置对话框 -->
+    <dialog id="settingsDialog">
         <article>
             <header>
-                <h3>设置尾部追加词</h3>
+                <h3>输出设置</h3>
             </header>
             <form method="dialog">
-                <label for="suffixText">
-                    请输入要追加到结果末尾的内容：
-                    <textarea id="suffixText" rows="4" placeholder="在这里输入内容..."></textarea>
-                </label>
+                <div class="settings-grid">
+                    <label class="span-2" for="headerInput">
+                        标题（留空则不显示）
+                        <input type="text" id="headerInput" spellcheck="false">
+                    </label>
+
+                    <label for="dateFormatInput">
+                        日期格式（占位符 YYYY / MM / DD）
+                        <input type="text" id="dateFormatInput" spellcheck="false" placeholder="YYYY年MM月DD日">
+                    </label>
+
+                    <label for="totalFormatInput">
+                        合计文案（占位符 {金额} / {单位}）
+                        <input type="text" id="totalFormatInput" spellcheck="false" placeholder="合计{金额}{单位}">
+                    </label>
+
+                    <fieldset class="settings-blanks span-2">
+                        <legend>空行数（0–3）</legend>
+                        <label for="blankAfterHeader">标题与明细之间</label>
+                        <input type="number" id="blankAfterHeader" min="0" max="3" step="1" inputmode="numeric">
+                        <label for="blankBetweenRows">明细行之间</label>
+                        <input type="number" id="blankBetweenRows" min="0" max="3" step="1" inputmode="numeric">
+                        <label for="blankBeforeTail">合计/结束语之前</label>
+                        <input type="number" id="blankBeforeTail" min="0" max="3" step="1" inputmode="numeric">
+                        <label for="blankAfterTotal">合计与结束语之间</label>
+                        <input type="number" id="blankAfterTotal" min="0" max="3" step="1" inputmode="numeric">
+                    </fieldset>
+
+                    <label class="span-2" for="suffixText">
+                        尾部追加词（留空则不追加）
+                        <textarea id="suffixText" rows="3" placeholder="在这里输入内容..."></textarea>
+                    </label>
+
+                    <div class="span-2">
+                        <div class="settings-label">预览（未计算时用示例数据）</div>
+                        <pre id="settingsPreview"></pre>
+                    </div>
+                </div>
                 <footer>
                     <button type="button" id="cancelBtn">取消</button>
                     <button type="submit" id="saveBtn">保存</button>
@@ -596,6 +711,6 @@
         </article>
     </dialog>
 
-    <script type="module" src="index.js?v=4.6.1"></script>
+    <script type="module" src="index.js?v=4.7.0"></script>
 </body>
 </html>

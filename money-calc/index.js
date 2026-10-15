@@ -1,6 +1,6 @@
 // 导入规则配置
 // 发布版本号更新时，这里的 ?v= 需与 index.html 中的版本号同步更新（见 index.html 顶部注释）
-import rulesData from './rules.js?v=4.6.1';
+import rulesData from './rules.js?v=4.7.0';
 
 // 获取DOM元素
 const apiKeyInput = document.getElementById('apiKey');
@@ -14,18 +14,29 @@ const inputText = document.getElementById('inputText');
 const outputText = document.getElementById('outputText');
 const calculateBtn = document.getElementById('calculateBtn');
 const clearBtn = document.getElementById('clearBtn');
-const setSuffixBtn = document.getElementById('setSuffixBtn');
+const settingsBtn = document.getElementById('settingsBtn');
 const copyBtn = document.getElementById('copyBtn');
 const statusDiv = document.getElementById('status');
 
-// Dialog 相关元素
-const suffixDialog = document.getElementById('suffixDialog');
+// 输出设置对话框相关元素
+const settingsDialog = document.getElementById('settingsDialog');
+const headerInput = document.getElementById('headerInput');
+const dateFormatInput = document.getElementById('dateFormatInput');
+const totalFormatInput = document.getElementById('totalFormatInput');
+const blankAfterHeaderInput = document.getElementById('blankAfterHeader');
+const blankBetweenRowsInput = document.getElementById('blankBetweenRows');
+const blankBeforeTailInput = document.getElementById('blankBeforeTail');
+const blankAfterTotalInput = document.getElementById('blankAfterTotal');
 const suffixText = document.getElementById('suffixText');
+const settingsPreview = document.getElementById('settingsPreview');
 const saveBtn = document.getElementById('saveBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 
 // 存储规则列表
 let rules = rulesData.rules;
+
+// 最近一次计算结果的 View Model（用于设置变更后重渲染 / 对话框预览）
+let lastView = null;
 
 // ===== 供应商配置 =====
 // 新增供应商时只需在下面数组里加一项（接口需兼容 OpenAI 的 /chat/completions 协议）
@@ -522,15 +533,94 @@ function buildResultList(periodList, priceList, startDate) {
     return resultList;
 }
 
-function formatDateToChinese(dateStr) {
+// ===== 输出设置（“输出设置”对话框可改，保存在 localStorage） =====
+const DEFAULT_SUFFIX = '如有价格要求，欢迎随时沟通。\n另祝各位交易顺利，万事无忧！';
+
+const DEFAULT_SETTINGS = {
+    header: '北京银行上海分行今日同业人民币资金价格详情',
+    dateFormat: 'YYYY年MM月DD日',
+    totalFormat: '合计{金额}{单位}',
+    blankLines: {
+        afterHeader: 1,   // 标题与第一条明细之间
+        betweenRows: 1,   // 明细行之间
+        beforeTail: 1,    // 合计（或明细）与尾部内容之间
+        afterTotal: 1     // 合计与尾部内容之间
+    }
+};
+
+const MAX_BLANK_LINES = 3;
+
+function clampBlankLines(value) {
+    const num = parseInt(value, 10);
+    if (!Number.isFinite(num)) {
+        return 0;
+    }
+    return Math.min(Math.max(num, 0), MAX_BLANK_LINES);
+}
+
+// 读取输出设置（缺省或损坏时回退默认值）
+function loadSettings() {
+    const blankLines = { ...DEFAULT_SETTINGS.blankLines };
+    try {
+        const parsed = JSON.parse(localStorage.getItem('result_blank_lines') || 'null');
+        if (parsed && typeof parsed === 'object') {
+            Object.keys(blankLines).forEach(key => {
+                if (parsed[key] !== undefined) {
+                    blankLines[key] = clampBlankLines(parsed[key]);
+                }
+            });
+        }
+    } catch (error) {
+        console.warn('读取空行设置失败，使用默认值:', error);
+    }
+
+    const readText = (key, fallback) => {
+        const value = localStorage.getItem(key);
+        return value === null ? fallback : value;
+    };
+
+    return {
+        header: readText('result_header', DEFAULT_SETTINGS.header),
+        dateFormat: readText('result_date_format', DEFAULT_SETTINGS.dateFormat) || DEFAULT_SETTINGS.dateFormat,
+        totalFormat: readText('result_total_format', DEFAULT_SETTINGS.totalFormat),
+        blankLines: blankLines,
+        suffix: localStorage.getItem('result_suffix') || ''
+    };
+}
+
+function saveSettings(settings) {
+    localStorage.setItem('result_header', settings.header);
+    localStorage.setItem('result_date_format', settings.dateFormat);
+    localStorage.setItem('result_total_format', settings.totalFormat);
+    localStorage.setItem('result_blank_lines', JSON.stringify(settings.blankLines));
+    localStorage.setItem('result_suffix', settings.suffix.trim());
+}
+
+// 日期格式化：占位符 YYYY / MM / DD / M / D（MM、DD 补零，M、D 不补零）
+function formatDateByPattern(dateStr, pattern) {
     const date = parseDateString(dateStr);
     if (!date) {
         return dateStr;
     }
     const year = date.getUTCFullYear();
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    return `${year}年${month}月${day}日`;
+    const month = date.getUTCMonth() + 1;
+    const day = date.getUTCDate();
+
+    return String(pattern || DEFAULT_SETTINGS.dateFormat).replace(/YYYY|MM|DD|M|D/g, (token) => {
+        if (token === 'YYYY') {
+            return String(year);
+        }
+        if (token === 'MM') {
+            return String(month).padStart(2, '0');
+        }
+        if (token === 'DD') {
+            return String(day).padStart(2, '0');
+        }
+        if (token === 'M') {
+            return String(month);
+        }
+        return String(day);
+    });
 }
 
 function formatPrice(price) {
@@ -540,14 +630,8 @@ function formatPrice(price) {
     return price.toFixed(2);
 }
 
-function formatTotalLine(total) {
-    if (!total || !Number.isFinite(total.amount)) {
-        return '';
-    }
-    return `合计${total.amount}${total.unit}`;
-}
-
-function formatResultSummary(resultList, total) {
+// 计算层 → View Model：只产出渲染所需的数据，不含任何排版结果
+function buildResultView(resultList, total) {
     const groupedMap = new Map();
 
     resultList.forEach(item => {
@@ -571,37 +655,80 @@ function formatResultSummary(resultList, total) {
         });
     });
 
-    const groups = Array.from(groupedMap.values()).sort((a, b) => a.distanceMonth - b.distanceMonth);
+    const rows = Array.from(groupedMap.values())
+        .sort((a, b) => a.distanceMonth - b.distanceMonth)
+        .map(group => ({
+            monthText: String(group.distanceMonth).padStart(2, '0'),
+            priceText: `${formatPrice(group.price)}%`,
+            periods: group.periods
+        }));
 
-    const lines = ['北京银行上海分行今日同业人民币资金价格详情'];
+    return {
+        rows: rows,
+        total: total && Number.isFinite(total.amount) ? { amount: total.amount, unit: total.unit } : null
+    };
+}
 
-    groups.forEach(group => {
-        const monthText = String(group.distanceMonth).padStart(2, '0');
-        const periodText = group.periods
-            .map(period => `${formatDateToChinese(period.startDate)}—${formatDateToChinese(period.endDate)}`)
+// View Model → 输出文本：排版只发生在这里，可变部分全部来自设置
+function renderResultView(view, settings) {
+    const blankLines = settings.blankLines;
+    const lines = [];
+
+    const pushBlank = (count) => {
+        for (let i = 0; i < count; i++) {
+            lines.push(''); // 空行 = 空字符串元素（join('\n') 下恰好一行，不要写成 '\n'）
+        }
+    };
+
+    if (settings.header.trim()) {
+        lines.push(settings.header.trim());
+    }
+
+    view.rows.forEach((row, index) => {
+        if (lines.length > 0) {
+            pushBlank(index === 0 ? blankLines.afterHeader : blankLines.betweenRows);
+        }
+
+        const periodText = row.periods
+            .map(period => `${formatDateByPattern(period.startDate, settings.dateFormat)}—${formatDateByPattern(period.endDate, settings.dateFormat)}`)
             .join(' ');
 
-        lines.push('');
-        lines.push(`${monthText}M ${formatPrice(group.price)}%    到期日：${periodText}`);
+        lines.push(`${row.monthText}M ${row.priceText}    到期日：${periodText}`);
     });
 
-    // 追加合计金额与尾部内容（合计与结束语之间空一行）
-    const totalLine = formatTotalLine(total);
-    const suffix = localStorage.getItem('result_suffix') || '';
+    const totalLine = view.total && settings.totalFormat.trim()
+        ? settings.totalFormat.trim()
+            .replace(/\{金额\}/g, String(view.total.amount))
+            .replace(/\{单位\}/g, view.total.unit)
+        : '';
+    const suffix = settings.suffix.trim();
 
-    if (totalLine || suffix.trim()) {
-        lines.push('');
+    if (totalLine || suffix) {
+        if (lines.length > 0) {
+            pushBlank(blankLines.beforeTail);
+        }
         if (totalLine) {
             lines.push(totalLine);
-            lines.push(''); // 空行：join('\n') 下空字符串 = 恰好一行空行，不要写 '\n'
+            if (suffix) {
+                pushBlank(blankLines.afterTotal);
+            }
         }
-        if (suffix.trim()) {
+        if (suffix) {
             lines.push(suffix);
         }
     }
 
     return lines.join('\n');
 }
+
+// 预览用示例数据（尚未计算过时使用）
+const SAMPLE_VIEW = {
+    rows: [
+        { monthText: '05M', priceText: '1.43%', periods: [{ startDate: '2027-02-16', endDate: '2027-02-17' }, { startDate: '2027-03-01', endDate: '2027-03-05' }] },
+        { monthText: '07M', priceText: '1.44%', periods: [{ startDate: '2027-05-06', endDate: '2027-05-12' }] }
+    ],
+    total: { amount: 20, unit: '亿' }
+};
 
 // 调用供应商 API（统一的 OpenAI 兼容 /chat/completions 协议）
 async function callAI(provider, model, apiKey, prompt, ruleContent, startDate) {
@@ -644,7 +771,8 @@ async function callAI(provider, model, apiKey, prompt, ruleContent, startDate) {
     const content = data?.choices?.[0]?.message?.content || '';
     const normalized = extractAndParseAIJson(content);
     const resultList = buildResultList(normalized.periodList, normalized.priceList, startDate);
-    return formatResultSummary(resultList, normalized.total);
+    lastView = buildResultView(resultList, normalized.total);
+    return renderResultView(lastView, loadSettings());
 }
 
 // 计算按钮点击事件
@@ -721,24 +849,65 @@ inputText.addEventListener('keydown', (e) => {
     }
 });
 
-// 设置尾部追加词按钮点击事件
-setSuffixBtn.addEventListener('click', () => {
-    // 加载当前保存的内容，如果没有则使用默认内容
-    const defaultSuffix = '如有价格要求，欢迎随时沟通。\n另祝各位交易顺利，万事无忧！';
-    const currentSuffix = localStorage.getItem('result_suffix');
-    suffixText.value = currentSuffix !== null ? currentSuffix : defaultSuffix;
-    
-    // 显示对话框
-    suffixDialog.showModal();
+// 读取对话框中的设置（空字段回退默认值，空行数收敛到 0-3）
+function readSettingsFromDialog() {
+    return {
+        header: headerInput.value.trim(),
+        dateFormat: dateFormatInput.value.trim() || DEFAULT_SETTINGS.dateFormat,
+        totalFormat: totalFormatInput.value.trim(),
+        blankLines: {
+            afterHeader: clampBlankLines(blankAfterHeaderInput.value),
+            betweenRows: clampBlankLines(blankBetweenRowsInput.value),
+            beforeTail: clampBlankLines(blankBeforeTailInput.value),
+            afterTotal: clampBlankLines(blankAfterTotalInput.value)
+        },
+        suffix: suffixText.value.trim()
+    };
+}
+
+// 用当前设置即时渲染预览（未计算过时用示例数据）
+function updateSettingsPreview() {
+    settingsPreview.textContent = renderResultView(lastView || SAMPLE_VIEW, readSettingsFromDialog());
+}
+
+// 打开设置对话框：填入当前设置
+settingsBtn.addEventListener('click', () => {
+    const settings = loadSettings();
+    headerInput.value = settings.header;
+    dateFormatInput.value = settings.dateFormat;
+    totalFormatInput.value = settings.totalFormat;
+    blankAfterHeaderInput.value = settings.blankLines.afterHeader;
+    blankBetweenRowsInput.value = settings.blankLines.betweenRows;
+    blankBeforeTailInput.value = settings.blankLines.beforeTail;
+    blankAfterTotalInput.value = settings.blankLines.afterTotal;
+
+    const savedSuffix = localStorage.getItem('result_suffix');
+    suffixText.value = savedSuffix !== null ? savedSuffix : DEFAULT_SUFFIX;
+
+    updateSettingsPreview();
+    settingsDialog.showModal();
 });
+
+// 任意设置项变化即时刷新预览
+[
+    headerInput, dateFormatInput, totalFormatInput,
+    blankAfterHeaderInput, blankBetweenRowsInput, blankBeforeTailInput, blankAfterTotalInput,
+    suffixText
+].forEach(element => element.addEventListener('input', updateSettingsPreview));
 
 // 保存按钮点击事件
 saveBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const suffix = suffixText.value.trim();
-    localStorage.setItem('result_suffix', suffix);
-    suffixDialog.close();
-    showStatus('尾部追加词已保存');
+    saveSettings(readSettingsFromDialog());
+    settingsDialog.close();
+
+    // 已有结果时，按新设置重新渲染
+    if (lastView) {
+        outputText.value = renderResultView(lastView, loadSettings());
+        updateCopyBtn();
+    }
+
+    showStatus('输出设置已保存');
     setTimeout(() => {
         clearStatus();
     }, 2000);
@@ -746,7 +915,7 @@ saveBtn.addEventListener('click', (e) => {
 
 // 取消按钮点击事件
 cancelBtn.addEventListener('click', () => {
-    suffixDialog.close();
+    settingsDialog.close();
 });
 
 // 复制按钮点击事件
