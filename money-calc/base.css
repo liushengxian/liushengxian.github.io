@@ -1,0 +1,82 @@
+/* ============================================================
+   base.css —— 浏览器默认样式的归一化层
+   去掉 Pico 后由它接手；只做"让原生控件听我们的话"，不含任何组件外观
+   （组件外观全部留在 index.html 的 <style> 里，token 单一来源）
+   ============================================================ */
+
+/* ---------- 1. 表单控件的字体/颜色继承 ----------
+   浏览器默认不会把字体继承进 input / select / textarea / button */
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+}
+
+/* ---------- 2. 去掉系统外观，让自绘边框/圆角/高度生效 ---------- */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+select,
+textarea {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+button {
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+/* number 输入框不显示系统步进器（当前观感即如此） */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* ---------- 3. 占位符 / 禁用 / 自动填充 ---------- */
+::placeholder {
+    color: var(--c-text-3);
+    opacity: 1;   /* Firefox 默认会再淡一层 */
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: var(--c-text);
+    -webkit-box-shadow: 0 0 0 1000px var(--c-surface) inset;
+}
+
+/* ---------- 4. 结构元素的默认值（替代 Pico 的排版重置） ---------- */
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+
+label { display: block; }
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;   /* 否则 UA 的 min-content 会把栅格子项撑破 */
+}
+
+legend { margin: 0; padding: 0; }
+
+pre { margin: 0; }
+
+dialog { color: var(--c-text); font-family: var(--font-ui); }

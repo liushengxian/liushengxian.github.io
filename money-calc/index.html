@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Calculator</title>
     <!-- 发布新版本时，请同步更新：①下方版本号 ②本文件所有资源引用的 ?v= ③index.js 中 rules.js 的 import 的 ?v= -->
-    <link rel="stylesheet" href="./pico.purple.min.css?v=4.7.1">
+    <link rel="stylesheet" href="./base.css?v=4.8.0">
     <style>
         /* ============================================================
            Design tokens（取自 DESIGN.md，冲突处以正文组件规范为准）
@@ -34,8 +34,7 @@
             --c-disabled-text: #64748B;
 
             /* 圆角 / 间距 / 阴影 */
-            /* 间距一律用 px：Pico 会在 576/768/1024/1280 抬高根字号，
-               用 rem 会让同一个 token 随屏幕漂移 ±25%（而字号是固定 px，两边打架） */
+            /* 间距一律用 px 定义，不随根字号变化：同一套 token 在任何屏幕上都算出同样的留白 */
             --r-card: 16px;
             --r-pane: 10px;
             --r-control: 6px;
@@ -53,27 +52,6 @@
             /* 字体（不引 CDN：字体栈前置 Inter / JetBrains Mono，本机已装则生效） */
             --font-ui: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
             --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-
-            /* 同步 Pico 主题变量，让 select / date / dialog 等原生控件跟随新色板 */
-            --pico-font-size: 100%;   /* 冻结根字号：Pico 默认按断点放大 rem，导致间距漂移 */
-            --pico-primary: #4F46E5;
-            --pico-primary-background: #4F46E5;
-            --pico-primary-hover-background: #4338CA;
-            --pico-primary-border: #4F46E5;
-            --pico-primary-inverse: #FFFFFF;
-            --pico-secondary-background: #64748B;
-            --pico-border-radius: 6px;
-            --pico-font-family: var(--font-ui);
-            --pico-background-color: #F8FAFC;
-            --pico-color: #0F172A;
-            --pico-muted-color: #64748B;
-            --pico-muted-border-color: #E2E8F0;
-            --pico-form-element-background-color: #FFFFFF;
-            --pico-form-element-border-color: #E2E8F0;
-            --pico-form-element-color: #0F172A;
-            --pico-form-element-active-border-color: #4F46E5;
-            --pico-form-element-focus-color: rgba(99, 102, 241, 0.15);
-            --pico-form-element-placeholder-color: #94A3B8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -94,8 +72,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 注意：不要用 .container —— 该 class 与 Pico 冲突（Pico 会在 <576px 追加
-           1rem 左右内边距、576–767px 又归零，造成手机 28px → 平板 13px 的跳变） */
+        /* 命名避开第三方框架的通用 class（历史上的 .container 与 Pico 撞过名） */
         .app-shell {
             max-width: 1200px;
             margin: 0 auto;
@@ -187,6 +164,33 @@
         .field select {
             padding-block: 0;
             padding-inline-start: var(--sp-sm);
+        }
+
+        /* select 自绘箭头 + date 自绘图标（原先由 Pico 的 --pico-icon-* 提供） */
+        .field select:not([multiple]) {
+            padding-right: 40px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-position: calc(100% - 12px) 50%;
+            background-size: 16px 16px;
+            background-repeat: no-repeat;
+        }
+
+        .field input[type="date"] {
+            padding-right: 28px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+            background-position: calc(100% - 12px) 50%;
+            background-size: 16px 16px;
+            background-repeat: no-repeat;
+        }
+
+        /* 隐藏原生日历指示器：保留占位与点击，视觉由上面自绘的图标承担 */
+        .field input[type="date"]::-webkit-calendar-picker-indicator {
+            width: 16px;
+            height: 16px;
+            margin-right: -16px;
+            margin-left: 12px;
+            opacity: 0;
+            cursor: pointer;
         }
 
         /* 密钥与模型标识用等宽字体（DESIGN.md: Monospace Fields） */
@@ -375,12 +379,9 @@
         dialog {
             width: min(680px, 94vw);
             max-width: 680px;
-            height: fit-content;      /* 覆盖 Pico 的 min-height:100% */
-            min-height: auto;
-            min-width: auto;          /* 覆盖 Pico 的 min-width:100%（否则左右贴边） */
             max-height: calc(100vh - 2rem);
             overflow: auto;
-            margin: auto;             /* 恢复原生居中 */
+            margin: auto;             /* 水平/垂直居中 */
             padding: 0;
             border: 1px solid var(--c-border);
             border-radius: var(--r-card);
@@ -452,11 +453,7 @@
             margin-top: var(--sp-md);
         }
 
-        /* 必须带上 [type=...]：Pico 的 [type=submit] / [type=button]（0,1,0）
-           会压过 "dialog footer button"（0,0,3），导致字号/内边距/宽度全不生效 */
-        dialog footer button,
-        dialog footer [type="submit"],
-        dialog footer [type="button"] {
+        dialog footer button {
             width: auto;
             min-width: 96px;
             padding: 10px 20px;
@@ -610,9 +607,7 @@
 
             dialog footer { flex-direction: column; }
 
-            dialog footer button,
-            dialog footer [type="submit"],
-            dialog footer [type="button"] {
+            dialog footer button {
                 width: 100%;
                 min-height: 44px;
             }
@@ -623,7 +618,7 @@
     <div class="app-shell">
         <header class="app-header">
             <h1>AI Calculator</h1>
-            <span class="version-chip">姜行专用 4.7.1</span>
+            <span class="version-chip">姜行专用 4.8.0</span>
             <button id="settingsBtn">输出设置</button>
         </header>
 
@@ -735,6 +730,6 @@
         </article>
     </dialog>
 
-    <script type="module" src="index.js?v=4.7.1"></script>
+    <script type="module" src="index.js?v=4.8.0"></script>
 </body>
 </html>
