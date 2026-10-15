@@ -1,13 +1,13 @@
 // 导入规则配置
 // 发布版本号更新时，这里的 ?v= 需与 index.html 中的版本号同步更新（见 index.html 顶部注释）
-import rulesData from './rules.js?v=4.7.0';
+import rulesData from './rules.js?v=4.7.1';
 
 // 获取DOM元素
 const apiKeyInput = document.getElementById('apiKey');
 const apiKeyLabel = document.getElementById('apiKeyLabel');
 const providerSelect = document.getElementById('providerSelect');
+const modelSelect = document.getElementById('modelSelect');
 const modelInput = document.getElementById('modelInput');
-const modelOptions = document.getElementById('modelOptions');
 const ruleSelect = document.getElementById('ruleSelect');
 const startDateInput = document.getElementById('startDate');
 const inputText = document.getElementById('inputText');
@@ -166,17 +166,53 @@ async function requestProviderModels(provider, apiKey) {
     return models;
 }
 
-// 渲染模型候选（datalist）：value 为模型 id，展示名与 id 不同时用 label 显示
-function renderModelOptions(models) {
-    modelOptions.innerHTML = '';
-    models.forEach(model => {
+// 自定义模型的选项值（选中后显示手输输入框）
+const CUSTOM_MODEL_VALUE = '__custom__';
+
+// 渲染模型下拉框：保留当前选中的模型（不在候选里时补一项），末项为“自定义…”
+function renderModelOptions(models, selectedId) {
+    const items = models.slice();
+    const target = selectedId || (items[0] && items[0].id) || '';
+
+    // 已保存的模型不在候选里（如规则/接口更新过）时补一项，避免被丢掉
+    if (target && !items.some(model => model.id === target)) {
+        items.unshift({ id: target, name: target });
+    }
+
+    modelSelect.innerHTML = '';
+    items.forEach(model => {
         const option = document.createElement('option');
         option.value = model.id;
-        if (model.name && model.name !== model.id) {
-            option.label = model.name;
-        }
-        modelOptions.appendChild(option);
+        option.textContent = model.name || model.id;
+        modelSelect.appendChild(option);
     });
+
+    const customOption = document.createElement('option');
+    customOption.value = CUSTOM_MODEL_VALUE;
+    customOption.textContent = '自定义…';
+    modelSelect.appendChild(customOption);
+
+    modelSelect.value = target || CUSTOM_MODEL_VALUE;
+    syncModelInputVisibility();
+}
+
+// 自定义模式下显示手输框，否则隐藏
+function syncModelInputVisibility() {
+    const isCustom = modelSelect.value === CUSTOM_MODEL_VALUE;
+    modelInput.hidden = !isCustom;
+    if (!isCustom) {
+        modelInput.value = '';
+    }
+}
+
+// 当前选中的模型名（自定义时取手输框）
+function getSelectedModel() {
+    return modelSelect.value === CUSTOM_MODEL_VALUE ? modelInput.value.trim() : modelSelect.value;
+}
+
+// 保存模型到 localStorage
+function persistSelectedModel() {
+    localStorage.setItem(getModelStorageKey(getCurrentProvider().id), getSelectedModel());
 }
 
 // 拉取并刷新模型候选：无 Key 或请求失败时静默保留内置候选，不打断主流程
@@ -184,7 +220,7 @@ async function refreshModelOptions(provider, { force = false } = {}) {
     if (!force) {
         const cached = readModelsCache(provider);
         if (cached) {
-            renderModelOptions(cached);
+            renderModelOptions(cached, getSelectedModel());
             return;
         }
     }
@@ -201,7 +237,7 @@ async function refreshModelOptions(provider, { force = false } = {}) {
             return;
         }
         writeModelsCache(provider, models);
-        renderModelOptions(models);
+        renderModelOptions(models, getSelectedModel());
     } catch (error) {
         console.warn(`${provider.name} 模型列表获取失败，继续使用内置候选:`, error);
     }
@@ -243,7 +279,8 @@ function applyProvider() {
     renderModelOptions(getBuiltinModels(provider));
 
     // 模型：优先用该供应商上次保存的，否则用默认模型
-    modelInput.value = localStorage.getItem(getModelStorageKey(provider.id)) || provider.models[0] || '';
+    const savedModel = localStorage.getItem(getModelStorageKey(provider.id)) || provider.models[0] || '';
+    renderModelOptions(getBuiltinModels(provider), savedModel);
 
     refreshModelOptions(provider);
 }
@@ -254,9 +291,23 @@ providerSelect.addEventListener('change', () => {
     applyProvider();
 });
 
-// 保存模型到localStorage
+// 下拉选择模型：自定义时显示手输框，否则保存选择
+modelSelect.addEventListener('change', () => {
+    if (modelSelect.value === CUSTOM_MODEL_VALUE) {
+        modelInput.hidden = false;
+        modelInput.focus();
+        return;
+    }
+
+    syncModelInputVisibility();
+    persistSelectedModel();
+});
+
+// 手输自定义模型后保存
 modelInput.addEventListener('change', () => {
-    localStorage.setItem(getModelStorageKey(getCurrentProvider().id), modelInput.value.trim());
+    if (modelSelect.value === CUSTOM_MODEL_VALUE) {
+        persistSelectedModel();
+    }
 });
 
 // 加载规则列表
@@ -778,7 +829,7 @@ async function callAI(provider, model, apiKey, prompt, ruleContent, startDate) {
 // 计算按钮点击事件
 calculateBtn.addEventListener('click', async () => {
     const provider = getCurrentProvider();
-    const model = modelInput.value.trim();
+    const model = getSelectedModel();
     const apiKey = apiKeyInput.value.trim();
     const input = inputText.value.trim();
 

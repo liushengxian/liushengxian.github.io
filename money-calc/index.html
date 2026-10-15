@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Calculator</title>
     <!-- 发布新版本时，请同步更新：①下方版本号 ②本文件所有资源引用的 ?v= ③index.js 中 rules.js 的 import 的 ?v= -->
-    <link rel="stylesheet" href="./pico.purple.min.css?v=4.7.0">
+    <link rel="stylesheet" href="./pico.purple.min.css?v=4.7.1">
     <style>
         /* ============================================================
            Design tokens（取自 DESIGN.md，冲突处以正文组件规范为准）
@@ -34,17 +34,20 @@
             --c-disabled-text: #64748B;
 
             /* 圆角 / 间距 / 阴影 */
-            --r-card: 20px;
-            --r-pane: 12px;
-            --r-control: 8px;
+            /* 间距一律用 px：Pico 会在 576/768/1024/1280 抬高根字号，
+               用 rem 会让同一个 token 随屏幕漂移 ±25%（而字号是固定 px，两边打架） */
+            --r-card: 16px;
+            --r-pane: 10px;
+            --r-control: 6px;
             --r-chip: 9999px;
-            --sp-xs: 0.375rem;
-            --sp-sm: 0.75rem;
-            --sp-md: 1.25rem;
-            --sp-lg: 1.75rem;
-            --sp-xl: 2.5rem;
-            --shadow-1: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(99, 102, 241, 0.03);
-            --shadow-2: 0 0 0 1px rgba(99, 102, 241, 0.12), 0 12px 28px rgba(15, 23, 42, 0.08);
+            --sp-xs: 6px;
+            --sp-sm: 12px;
+            --sp-md: 16px;
+            --sp-lg: 24px;
+            --sp-xl: 32px;
+            --shadow-1: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);      /* 静止：卡片 */
+            --shadow-2: 0 0 0 1px rgba(99, 102, 241, 0.12), 0 8px 24px -6px rgba(15, 23, 42, 0.12); /* 悬浮 / 浮层 */
+            --shadow-3: 0 24px 60px -12px rgba(15, 23, 42, 0.35);                               /* 模态对话框 */
             --shadow-primary: 0 6px 20px rgba(124, 58, 237, 0.28);
 
             /* 字体（不引 CDN：字体栈前置 Inter / JetBrains Mono，本机已装则生效） */
@@ -52,13 +55,14 @@
             --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
             /* 同步 Pico 主题变量，让 select / date / dialog 等原生控件跟随新色板 */
+            --pico-font-size: 100%;   /* 冻结根字号：Pico 默认按断点放大 rem，导致间距漂移 */
             --pico-primary: #4F46E5;
             --pico-primary-background: #4F46E5;
             --pico-primary-hover-background: #4338CA;
             --pico-primary-border: #4F46E5;
             --pico-primary-inverse: #FFFFFF;
             --pico-secondary-background: #64748B;
-            --pico-border-radius: 0.5rem;
+            --pico-border-radius: 6px;
             --pico-font-family: var(--font-ui);
             --pico-background-color: #F8FAFC;
             --pico-color: #0F172A;
@@ -77,7 +81,7 @@
         /* ---------- 画布（Level 0） ---------- */
         body {
             min-height: 100vh;
-            padding: var(--sp-md);
+            padding: 16px; /* 画布边距固定：16 / 20 / 24 三档，见文件末尾断点 */
             background-color: var(--c-bg);
             background-image:
                 radial-gradient(1100px 520px at 50% -8%, rgba(238, 242, 255, 0.9), transparent 68%),
@@ -90,8 +94,10 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 1240px;
+        /* 注意：不要用 .container —— 该 class 与 Pico 冲突（Pico 会在 <576px 追加
+           1rem 左右内边距、576–767px 又归零，造成手机 28px → 平板 13px 的跳变） */
+        .app-shell {
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -160,7 +166,7 @@
             font-size: 13px;
             font-weight: 500;
             line-height: 16px;
-            color: #334155;
+            color: var(--c-text-2);   /* 文本色只留 3 档：正文/标签/占位 */
         }
 
         .field input,
@@ -247,7 +253,7 @@
             font-size: 13px;
             line-height: 20px;
             font-variant-numeric: tabular-nums;
-            background: #FCFDFF;
+            background: var(--c-bg);
         }
 
         .pane textarea:focus {
@@ -295,7 +301,7 @@
             border: 1px solid var(--c-border);
             border-radius: var(--r-control);
             background: var(--c-surface-2);
-            color: #334155;
+            color: var(--c-text);
             font-size: 15px;
             font-weight: 500;
         }
@@ -329,7 +335,7 @@
             border: 1px solid var(--c-border);
             border-radius: var(--r-chip);
             background: var(--c-surface);
-            color: #334155;
+            color: var(--c-text);
             font-size: 13px;
             font-weight: 500;
             box-shadow: var(--shadow-1);
@@ -379,7 +385,7 @@
             border: 1px solid var(--c-border);
             border-radius: var(--r-card);
             background: var(--c-surface);
-            box-shadow: var(--shadow-2);
+            box-shadow: var(--shadow-3);
         }
 
         dialog::backdrop { background: rgba(15, 23, 42, 0.45); }
@@ -414,7 +420,7 @@
             margin-bottom: var(--sp-xs);
             font-size: 13px;
             font-weight: 500;
-            color: #334155;
+            color: var(--c-text-2);
         }
 
         dialog textarea {
@@ -440,13 +446,19 @@
         dialog footer {
             display: flex;
             flex-direction: row;
+            align-items: center;
             justify-content: flex-end;
             gap: var(--sp-sm);
             margin-top: var(--sp-md);
         }
 
-        dialog footer button {
+        /* 必须带上 [type=...]：Pico 的 [type=submit] / [type=button]（0,1,0）
+           会压过 "dialog footer button"（0,0,3），导致字号/内边距/宽度全不生效 */
+        dialog footer button,
+        dialog footer [type="submit"],
+        dialog footer [type="button"] {
             width: auto;
+            min-width: 96px;
             padding: 10px 20px;
             border-radius: var(--r-control);
             font-size: 14px;
@@ -456,13 +468,14 @@
         #cancelBtn {
             border: 1px solid var(--c-border);
             background: var(--c-surface-2);
-            color: #334155;
+            color: var(--c-text);
         }
 
         #cancelBtn:hover { background: var(--c-border); }
 
         #saveBtn {
-            border: none;
+            /* 1px 透明边框：与左侧"取消"（带 1px 边框）等高，避免 43 / 41 的两像素错位 */
+            border: 1px solid transparent;
             background-image: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-2) 100%);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 14px rgba(124, 58, 237, 0.24);
             color: #FFFFFF;
@@ -518,7 +531,7 @@
             padding: 0 6px;
             font-size: 13px;
             font-weight: 500;
-            color: #334155;
+            color: var(--c-text-2);
         }
 
         .settings-blanks label { margin-bottom: 0; }
@@ -531,7 +544,7 @@
             margin-bottom: var(--sp-xs);
             font-size: 13px;
             font-weight: 500;
-            color: #334155;
+            color: var(--c-text-2);
         }
 
         #settingsPreview {
@@ -542,7 +555,7 @@
             overflow: auto;
             border: 1px solid var(--c-border);
             border-radius: var(--r-control);
-            background: #FCFDFF;
+            background: var(--c-bg);
             color: var(--c-text);
             font-family: var(--font-mono);
             font-size: 12px;
@@ -561,16 +574,22 @@
         }
 
         /* ---------- 响应式 ---------- */
+        @media (min-width: 768px) {
+            body { padding: 20px; }
+        }
+
+        @media (min-width: 1024px) {
+            body { padding: 24px; }
+        }
+
         @media (max-width: 1024px) {
             .workbench { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            body { padding: var(--sp-sm); }
+            .app-shell { gap: var(--sp-md); }
 
-            .container { gap: var(--sp-md); }
-
-            .card { padding: var(--sp-md); border-radius: 16px; }
+            .card { padding: var(--sp-md); }
 
             .app-header { flex-direction: column; gap: var(--sp-sm); }
 
@@ -591,15 +610,20 @@
 
             dialog footer { flex-direction: column; }
 
-            dialog footer button { width: 100%; min-height: 44px; }
+            dialog footer button,
+            dialog footer [type="submit"],
+            dialog footer [type="button"] {
+                width: 100%;
+                min-height: 44px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="app-shell">
         <header class="app-header">
             <h1>AI Calculator</h1>
-            <span class="version-chip">姜行专用 4.7.0</span>
+            <span class="version-chip">姜行专用 4.7.1</span>
             <button id="settingsBtn">输出设置</button>
         </header>
 
@@ -612,9 +636,9 @@
                     </select>
                 </div>
                 <div class="field">
-                    <label for="modelInput">模型:</label>
-                    <input type="text" id="modelInput" list="modelOptions" placeholder="模型名称">
-                    <datalist id="modelOptions"></datalist>
+                    <label for="modelSelect">模型:</label>
+                    <select id="modelSelect"></select>
+                    <input type="text" id="modelInput" placeholder="自定义模型名称" spellcheck="false" hidden>
                 </div>
                 <div class="field field-key">
                     <label for="apiKey" id="apiKeyLabel">DeepSeek API Key:</label>
@@ -711,6 +735,6 @@
         </article>
     </dialog>
 
-    <script type="module" src="index.js?v=4.7.0"></script>
+    <script type="module" src="index.js?v=4.7.1"></script>
 </body>
 </html>
