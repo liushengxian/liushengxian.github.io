@@ -4,7 +4,7 @@ import rulesData from '@app/rules';
 import {
     apiKeyInput, providerSelect, modelSelect, modelInput, ruleSelect, startDateInput,
     inputText, outputText, calculateBtn, clearBtn, settingsBtn, copyBtn,
-    keyToggle, keyRow, ruleField, settingsDialog,
+    keyToggle, keyRow, ruleField, settingsDialog, modelRefreshBtn,
     headerInput, dateFormatInput, totalFormatInput,
     blankAfterHeaderInput, blankBetweenRowsInput, blankBeforeTailInput, blankAfterTotalInput,
     suffixText, saveBtn, cancelBtn
@@ -116,6 +116,49 @@ apiKeyInput.addEventListener('change', () => {
     localStorage.setItem(provider.keyStorageKey, apiKeyInput.value);
     updateKeyState();
     refreshModelOptions(provider, { force: true });
+});
+
+// 参数条上的刷新按钮：强制绕过 24h 缓存，重新拉取当前供应商的模型列表
+// （无 Key / 请求失败时给明确反馈；自动触发的那条路径仍然是静默的）
+let modelRefreshTimer = null;
+
+modelRefreshBtn.addEventListener('click', async () => {
+    const provider = getCurrentProvider();
+
+    if (!(localStorage.getItem(provider.keyStorageKey) || '').trim()) {
+        showStatus(`请先配置 ${provider.keyLabel}`, true);
+        setKeyRowOpen(true);
+        return;
+    }
+
+    clearTimeout(modelRefreshTimer);
+    modelRefreshBtn.disabled = true;
+    modelRefreshBtn.setAttribute('aria-busy', 'true');
+    modelRefreshBtn.classList.remove('is-done');
+    modelRefreshBtn.classList.add('is-loading');
+    showStatus('正在刷新模型列表...');
+
+    const result = await refreshModelOptions(provider, { force: true });
+
+    modelRefreshBtn.disabled = false;
+    modelRefreshBtn.removeAttribute('aria-busy');
+    modelRefreshBtn.classList.remove('is-loading');
+
+    if (result.ok) {
+        modelRefreshBtn.classList.add('is-done');
+        showStatus(`✓ 模型列表已更新（${result.models.length} 个）`);
+    } else if (result.reason === 'stale') {
+        // 请求期间切走了供应商：候选已由新供应商的流程接管，这里不打扰
+        clearStatus();
+        return;
+    } else {
+        showStatus(`刷新失败: ${result.error?.message || '未知错误'}`, true);
+    }
+
+    modelRefreshTimer = setTimeout(() => {
+        modelRefreshBtn.classList.remove('is-done');
+        clearStatus();
+    }, 2000);
 });
 
 // 参数条上的 Key 状态按钮：点开/收起 Key 行

@@ -6,18 +6,18 @@
     <title>AI Calculator</title>
     <!-- 发版：node release.mjs <版本号> "提交说明"（自动统一改本文件的 ?v=、下面的 importmap 与页面版本号，并提交推送）
          模块间依赖一律写 @app/xxx 裸名，实际 URL 与版本号只在本文件的 importmap 里出现 -->
-    <link rel="stylesheet" href="./base.css?v=4.9.2-c16864a3">
-    <link rel="stylesheet" href="./app.css?v=4.9.2-c16864a3">
+    <link rel="stylesheet" href="./base.css?v=4.9.3-c79da4cb">
+    <link rel="stylesheet" href="./app.css?v=4.9.3-c79da4cb">
     <script type="importmap">
     {
         "imports": {
-            "@app/dom": "./dom.js?v=4.9.2-c16864a3",
-            "@app/ui": "./ui.js?v=4.9.2-c16864a3",
-            "@app/providers": "./providers.js?v=4.9.2-c16864a3",
-            "@app/calc": "./calc.js?v=4.9.2-c16864a3",
-            "@app/settings": "./settings.js?v=4.9.2-c16864a3",
-            "@app/render": "./render.js?v=4.9.2-c16864a3",
-            "@app/rules": "./rules.js?v=4.9.2-c16864a3"
+            "@app/dom": "./dom.js?v=4.9.3-c79da4cb",
+            "@app/ui": "./ui.js?v=4.9.3-c79da4cb",
+            "@app/providers": "./providers.js?v=4.9.3-c79da4cb",
+            "@app/calc": "./calc.js?v=4.9.3-c79da4cb",
+            "@app/settings": "./settings.js?v=4.9.3-c79da4cb",
+            "@app/render": "./render.js?v=4.9.3-c79da4cb",
+            "@app/rules": "./rules.js?v=4.9.3-c79da4cb"
         }
     }
     </script>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="header-actions">
-                <span class="version-chip">姜行专用 4.9.2（模块化）</span>
+                <span class="version-chip">姜行专用 4.9.3（模块化）</span>
                 <button id="settingsBtn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line><circle cx="9" cy="8" r="2"></circle><circle cx="15" cy="16" r="2"></circle></svg>
                     输出设置
@@ -55,7 +55,12 @@
             </div>
             <div class="field param param-model">
                 <label for="modelSelect">模型</label>
-                <select id="modelSelect"></select>
+                <div class="model-row">
+                    <select id="modelSelect"></select>
+                    <button type="button" id="modelRefreshBtn" class="icon-btn" aria-label="刷新模型列表" title="重新拉取当前供应商的可用模型（绕过 24 小时缓存）">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path></svg>
+                    </button>
+                </div>
                 <input type="text" id="modelInput" placeholder="自定义模型名称" spellcheck="false" hidden>
             </div>
             <div class="field param param-rule" id="ruleField" hidden>
@@ -202,6 +207,6 @@
         <button type="submit" form="settingsForm" class="dialog-close" aria-label="关闭">×</button>
     </dialog>
 
-    <script type="module" src="index.js?v=4.9.2-c16864a3"></script>
+    <script type="module" src="index.js?v=4.9.3-c79da4cb"></script>
 </body>
 </html>

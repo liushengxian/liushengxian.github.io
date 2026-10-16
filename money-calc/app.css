@@ -340,6 +340,52 @@ body::before {
 
 .field input::placeholder { color: var(--c-text-3); }
 
+/* ---------- 模型行：select + 手动刷新（强制绕过 24h 缓存重新拉取当前供应商的模型） ---------- */
+.model-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.model-row > select {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 132px;
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-control);
+    background: var(--c-surface);
+    color: var(--c-text-2);
+}
+
+.icon-btn svg { width: 16px; height: 16px; }
+
+.icon-btn:hover:not(:disabled) {
+    border-color: #CBD5E1;
+    background: var(--c-surface-2);
+    color: var(--c-text);
+}
+
+.icon-btn:disabled { cursor: not-allowed; opacity: 0.7; }
+
+/* 刷新中：图标转圈（复用状态条的 status-spin）；成功后短暂变绿，1.2s 后由 JS 撤回 */
+#modelRefreshBtn.is-loading svg { animation: status-spin .7s linear infinite; }
+
+#modelRefreshBtn.is-done {
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--c-success-text);
+}
+
 /* ---------- 工作区（双栏计算区） ---------- */
 .workbench {
     position: relative;

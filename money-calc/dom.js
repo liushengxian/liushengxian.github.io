@@ -21,6 +21,7 @@ export const keyToggle = document.getElementById('keyToggle');
 export const keyRow = document.getElementById('keyRow');
 export const keyState = document.getElementById('keyState');
 export const ruleField = document.getElementById('ruleField');
+export const modelRefreshBtn = document.getElementById('modelRefreshBtn');
 
 // 输出设置对话框相关元素
 export const settingsDialog = document.getElementById('settingsDialog');

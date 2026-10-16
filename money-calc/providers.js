@@ -182,30 +182,34 @@ export function persistSelectedModel() {
 }
 
 // 拉取并刷新模型候选：无 Key 或请求失败时静默保留内置候选，不打断主流程
+// 返回 { ok: true, models } 或 { ok: false, reason: 'no-key' | 'stale' | 'error', error }
+// （自动触发的路径忽略返回值；参数条上的刷新按钮用它给用户反馈）
 export async function refreshModelOptions(provider, { force = false } = {}) {
     if (!force) {
         const cached = readModelsCache(provider);
         if (cached) {
             renderModelOptions(cached, getSelectedModel());
-            return;
+            return { ok: true, models: cached, fromCache: true };
         }
     }
 
     const apiKey = localStorage.getItem(provider.keyStorageKey) || '';
     if (!apiKey) {
-        return;
+        return { ok: false, reason: 'no-key' };
     }
 
     try {
         const models = await requestProviderModels(provider, apiKey);
         // 请求期间可能已切换到其他供应商
         if (getCurrentProvider().id !== provider.id) {
-            return;
+            return { ok: false, reason: 'stale' };
         }
         writeModelsCache(provider, models);
         renderModelOptions(models, getSelectedModel());
+        return { ok: true, models };
     } catch (error) {
         console.warn(`${provider.name} 模型列表获取失败，继续使用内置候选:`, error);
+        return { ok: false, reason: 'error', error };
     }
 }
 
