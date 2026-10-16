@@ -2,8 +2,8 @@
 import {
     headerInput, dateFormatInput, totalFormatInput, blankAfterHeaderInput,
     blankBetweenRowsInput, blankBeforeTailInput, blankAfterTotalInput, suffixText
-} from './dom.js?v=4.9.1';
-import { parseDateString } from './calc.js?v=4.9.1';
+} from '@app/dom';
+import { parseDateString } from '@app/calc';
 
 // ===== 输出设置（“输出设置”对话框可改，保存在 localStorage） =====
 export const DEFAULT_SUFFIX = '如有价格要求，欢迎随时沟通。\n另祝各位交易顺利，万事无忧！';

@@ -2,7 +2,7 @@
 import {
     statusDiv, outputMeta, outputText, copyBtn, copyLabel,
     keyRow, keyToggle, apiKeyInput
-} from './dom.js?v=4.9.1';
+} from '@app/dom';
 
 // 显示状态消息
 export function showStatus(message, isError = false) {

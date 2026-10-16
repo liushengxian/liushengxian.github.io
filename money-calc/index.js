@@ -1,6 +1,6 @@
 // 入口：规则加载、事件装配、计算流程编排
-// 发布版本号更新时，本文件与各模块之间 import 的 ?v= 需与 index.html 中的版本号同步更新（见 index.html 顶部注释）
-import rulesData from './rules.js?v=4.9.1';
+// 模块间依赖统写 @app/xxx 裸名；实际 URL 与版本号集中在 index.html 的 importmap，发版由 release.mjs 统一维护
+import rulesData from '@app/rules';
 import {
     apiKeyInput, providerSelect, modelSelect, modelInput, ruleSelect, startDateInput,
     inputText, outputText, calculateBtn, clearBtn, settingsBtn, copyBtn,
@@ -8,19 +8,19 @@ import {
     headerInput, dateFormatInput, totalFormatInput,
     blankAfterHeaderInput, blankBetweenRowsInput, blankBeforeTailInput, blankAfterTotalInput,
     suffixText, saveBtn, cancelBtn
-} from './dom.js?v=4.9.1';
+} from '@app/dom';
 import {
     showStatus, clearStatus, updateCopyBtn, updateOutputMeta, flashCopyDone, setKeyRowOpen
-} from './ui.js?v=4.9.1';
+} from '@app/ui';
 import {
     CUSTOM_MODEL_VALUE, getCurrentProvider, getSelectedModel, persistSelectedModel,
     syncModelInputVisibility, loadProviders, applyProvider, updateKeyState, refreshModelOptions
-} from './providers.js?v=4.9.1';
-import { extractAndParseAIJson, buildResultList, getTodayDate } from './calc.js?v=4.9.1';
-import { DEFAULT_SUFFIX, loadSettings, saveSettings, readSettingsFromDialog } from './settings.js?v=4.9.1';
+} from '@app/providers';
+import { extractAndParseAIJson, buildResultList, getTodayDate } from '@app/calc';
+import { DEFAULT_SUFFIX, loadSettings, saveSettings, readSettingsFromDialog } from '@app/settings';
 import {
     buildResultView, renderResultView, setCurrentView, rerenderOutput, updateSettingsPreview
-} from './render.js?v=4.9.1';
+} from '@app/render';
 
 // ===== 规则 =====
 // 存储规则列表

@@ -1,5 +1,5 @@
-/* money-calc 样式（4.9.1 从 index.html 的内联 <style> 原样抽出，未改动任何规则）
-   发布新版本时，请同步更新 index.html 中本文件引用的 ?v= 查询参数 */
+/* money-calc 样式：从 index.html 的内联 <style> 原样抽出，未改动任何规则
+   引用处的 ?v= 由 release.mjs 统一维护（见 index.html 顶部发版说明） */
 
 /* ============================================================
    Design tokens（取自 DESIGN.md，冲突处以正文组件规范为准）

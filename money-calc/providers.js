@@ -2,7 +2,7 @@
 import {
     providerSelect, modelSelect, modelInput, apiKeyInput, apiKeyLabel,
     keyToggle, keyState
-} from './dom.js?v=4.9.1';
+} from '@app/dom';
 
 // ===== 供应商配置 =====
 // 新增供应商时只需在下面数组里加一项（接口需兼容 OpenAI 的 /chat/completions 协议）

@@ -1,7 +1,7 @@
 // 渲染层：计算结果 → View Model → 输出文本（排版只发生在这里），并缓存最近一次结果供设置变更后重渲染
-import { outputText, settingsPreview, previewTag } from './dom.js?v=4.9.1';
-import { loadSettings, readSettingsFromDialog, formatDateByPattern, formatPrice } from './settings.js?v=4.9.1';
-import { updateCopyBtn } from './ui.js?v=4.9.1';
+import { outputText, settingsPreview, previewTag } from '@app/dom';
+import { loadSettings, readSettingsFromDialog, formatDateByPattern, formatPrice } from '@app/settings';
+import { updateCopyBtn } from '@app/ui';
 
 // 最近一次计算结果的 View Model（用于设置变更后重渲染 / 对话框预览）
 let currentView = null;
