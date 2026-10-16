@@ -1,6 +1,6 @@
 // 导入规则配置
 // 发布版本号更新时，这里的 ?v= 需与 index.html 中的版本号同步更新（见 index.html 顶部注释）
-import rulesData from './rules.js?v=4.8.0';
+import rulesData from './rules.js?v=4.9.0';
 
 // 获取DOM元素
 const apiKeyInput = document.getElementById('apiKey');
@@ -19,6 +19,10 @@ const copyBtn = document.getElementById('copyBtn');
 const statusDiv = document.getElementById('status');
 const outputMeta = document.getElementById('outputMeta');
 const copyLabel = copyBtn.querySelector('.copy-label');
+const keyToggle = document.getElementById('keyToggle');
+const keyRow = document.getElementById('keyRow');
+const keyState = document.getElementById('keyState');
+const ruleField = document.getElementById('ruleField');
 
 // 输出设置对话框相关元素
 const settingsDialog = document.getElementById('settingsDialog');
@@ -277,6 +281,7 @@ function applyProvider() {
     apiKeyLabel.textContent = provider.keyLabel;
     apiKeyInput.placeholder = provider.keyPlaceholder;
     apiKeyInput.value = localStorage.getItem(provider.keyStorageKey) || '';
+    updateKeyState();
 
     // 模型候选列表：先用内置候选兜底，再异步换成接口返回的真实列表
     renderModelOptions(getBuiltinModels(provider));
@@ -333,6 +338,11 @@ function loadRules() {
         if (savedRuleId) {
             ruleSelect.value = savedRuleId;
         }
+
+        // 只有一个规则时不显示选择器（否则是个死字段）
+        if (ruleField) {
+            ruleField.hidden = rules.length < 2;
+        }
     } catch (error) {
         console.error('加载规则失败:', error);
         ruleSelect.innerHTML = '<option value="">加载规则失败</option>';
@@ -372,6 +382,7 @@ window.addEventListener('DOMContentLoaded', () => {
 apiKeyInput.addEventListener('change', () => {
     const provider = getCurrentProvider();
     localStorage.setItem(provider.keyStorageKey, apiKeyInput.value);
+    updateKeyState();
     refreshModelOptions(provider, { force: true });
 });
 
@@ -392,6 +403,37 @@ function updateCopyBtn() {
     const hasOutput = outputText.value.trim() !== '';
     copyBtn.disabled = !hasOutput;
     updateOutputMeta();
+}
+
+// ===== API Key 行（低频操作，默认收起） =====
+function setKeyRowOpen(open) {
+    if (!keyRow || !keyToggle) {
+        return;
+    }
+
+    keyRow.hidden = !open;
+    keyToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+    if (open) {
+        apiKeyInput.focus();
+    }
+}
+
+// 参数条上的 Key 状态：不展开也能看出配没配
+function updateKeyState() {
+    if (!keyToggle || !keyState) {
+        return;
+    }
+
+    const provider = getCurrentProvider();
+    const hasKey = (localStorage.getItem(provider.keyStorageKey) || '').trim() !== '';
+    keyToggle.dataset.state = hasKey ? 'saved' : 'missing';
+    keyState.textContent = hasKey ? 'Key 已保存' : '未配置 Key';
+}
+
+if (keyToggle) {
+    keyToggle.addEventListener('click', () => setKeyRowOpen(keyRow.hidden));
+    updateKeyState();
 }
 
 // 输出栏脚：待计算 / 计算中… / N 行 · 已生成
@@ -882,6 +924,7 @@ calculateBtn.addEventListener('click', async () => {
     // 验证输入
     if (!apiKey) {
         showStatus(`请输入 ${provider.keyLabel}`, true);
+        setKeyRowOpen(true);   // 直接展开 Key 行，省得用户找不到填 Key 的地方
         return;
     }
 
@@ -927,6 +970,11 @@ calculateBtn.addEventListener('click', async () => {
         showStatus(`错误: ${error.message}`, true);
         outputText.value = '';
         updateCopyBtn();
+
+        // Key 相关错误（401 / 无效 / 过期）：自动展开 Key 行并聚焦，减少"卡在找不到原因"
+        if (/401|unauthorized|api[\s_-]?key|无效|过期/i.test(error.message || '')) {
+            setKeyRowOpen(true);
+        }
     } finally {
         // 重新启用按钮
         calculateBtn.disabled = false;

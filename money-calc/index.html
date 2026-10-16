@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Calculator</title>
     <!-- 发布新版本时，请同步更新：①下方版本号 ②本文件所有资源引用的 ?v= ③index.js 中 rules.js 的 import 的 ?v= -->
-    <link rel="stylesheet" href="./base.css?v=4.8.0">
+    <link rel="stylesheet" href="./base.css?v=4.9.0">
     <style>
         /* ============================================================
            Design tokens（取自 DESIGN.md，冲突处以正文组件规范为准）
@@ -99,13 +99,92 @@
             gap: var(--sp-lg);
         }
 
-        /* ---------- 卡片（Level 1） ---------- */
-        .card {
+        /* ---------- 参数条（工作区正上方）----------
+           排序按使用频率：起始日（每次都动）→ 供应商/模型（常切）→ 规则（偶用）→ Key（一次性）
+           控制高度比主表单紧一档（40px），整条只占一行，切模型是一次点击 */
+        .params {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            gap: var(--sp-sm) var(--sp-md);
+            padding: var(--sp-md);
             background: var(--c-surface);
             border: 1px solid #E6EAF2;
-            border-radius: var(--r-card);
+            border-radius: var(--r-pane);
             box-shadow: var(--shadow-1);
-            padding: var(--sp-lg);
+        }
+
+        .params .field { flex: 0 1 auto; }
+
+        .params .field input,
+        .params .field select { height: 40px; }
+
+        .params .field input[type="date"] { width: 176px; }
+
+        .params .field select { min-width: 132px; }
+
+        .param-key { margin-left: auto; }
+
+        /* Key 状态按钮：一眼看出有没有配 Key，点开才展开输入框 */
+        .key-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 40px;
+            padding: 0 12px;
+            border: 1px solid var(--c-border);
+            border-radius: var(--r-control);
+            background: var(--c-surface);
+            color: var(--c-text-2);
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .key-toggle:hover {
+            border-color: #CBD5E1;
+            background: var(--c-surface-2);
+            color: var(--c-text);
+        }
+
+        .key-dot {
+            width: 6px;
+            height: 6px;
+            flex: none;
+            border-radius: 50%;
+            background: var(--c-text-3);
+        }
+
+        .key-toggle[data-state="saved"] .key-dot { background: var(--c-success); }
+
+        .key-toggle[data-state="missing"] {
+            border-color: rgba(245, 158, 11, 0.45);
+            color: #B45309;
+        }
+
+        .key-toggle[data-state="missing"] .key-dot { background: #F59E0B; }
+
+        /* API Key 行（默认收起） */
+        .key-row {
+            display: flex;
+            align-items: flex-end;
+            gap: var(--sp-md);
+            padding: var(--sp-md);
+            background: var(--c-surface);
+            border: 1px solid #E6EAF2;
+            border-radius: var(--r-pane);
+            box-shadow: var(--shadow-1);
+        }
+
+        .key-row[hidden] { display: none; }
+
+        .key-field { flex: 1 1 320px; }
+
+        .key-note {
+            padding-bottom: 13px;
+            color: var(--c-text-3);
+            font-size: 12px;
+            white-space: nowrap;
         }
 
         /* ---------- 标题行（左品牌 / 右操作，底部一条分隔线） ---------- */
@@ -181,47 +260,13 @@
             background: var(--c-success);
         }
 
-        /* ---------- 卡片内的分组（接口 / 计算参数） ---------- */
-        .card-section + .card-section {
-            margin-top: var(--sp-lg);
-            padding-top: var(--sp-lg);
-            border-top: 1px solid var(--c-surface-2);
-        }
-
-        .section-head {
-            display: flex;
-            align-items: baseline;
-            gap: var(--sp-sm);
-            margin-bottom: var(--sp-md);
-        }
-
-        .section-title {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            color: var(--c-text-2);
-        }
-
-        .section-hint {
-            font-size: 12px;
-            color: var(--c-text-3);
-        }
-
-        /* ---------- 表单（配置卡片） ---------- */
-        .field-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: var(--sp-md);
-        }
-
+        /* ---------- 表单（参数条 / Key 行） ---------- */
         .field {
             display: flex;
             flex-direction: column;
             gap: var(--sp-xs);
             min-width: 0;
         }
-
-        .field-key { grid-column: 1 / -1; }
 
         .field label,
         .pane-head label {
@@ -996,7 +1041,27 @@
         @media (max-width: 768px) {
             .app-shell { gap: var(--sp-md); }
 
-            .card { padding: var(--sp-md); }
+            /* 参数条：窄屏两列网格，Key 状态按钮单独占一行 */
+            .params {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: end;
+            }
+
+            .params .field,
+            .params .field input[type="date"],
+            .params .field input,
+            .params .field select { width: 100%; min-width: 0; }
+
+            .param-model { grid-column: 1 / -1; }   /* 模型 id 较长，窄屏占满一行 */
+
+            .param-key { grid-column: 1 / -1; margin-left: 0; }
+
+            .key-toggle { width: 100%; justify-content: center; }
+
+            .key-row { flex-direction: column; align-items: stretch; }
+
+            .key-note { padding-bottom: 0; }
 
             .app-header { padding-bottom: var(--sp-sm); }
 
@@ -1005,10 +1070,6 @@
             .app-header h1 { font-size: 18px; line-height: 24px; }
 
             .brand-sub { display: none; }
-
-            .section-head { flex-wrap: wrap; }
-
-            .field-grid { grid-template-columns: 1fr; gap: var(--sp-md); }
 
             .pane textarea { min-height: 220px; }
 
@@ -1055,7 +1116,7 @@
                 </div>
             </div>
             <div class="header-actions">
-                <span class="version-chip">姜行专用 4.8.0</span>
+                <span class="version-chip">姜行专用 4.9.0</span>
                 <button id="settingsBtn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line><circle cx="9" cy="8" r="2"></circle><circle cx="15" cy="16" r="2"></circle></svg>
                     输出设置
@@ -1063,49 +1124,45 @@
             </div>
         </header>
 
-        <section class="card">
-            <div class="card-section">
-                <div class="section-head">
-                    <h2 class="section-title">接口</h2>
-                    <span class="section-hint">Key 只保存在本机浏览器</span>
-                </div>
-                <div class="field-grid">
-                    <div class="field">
-                        <label for="providerSelect">AI 供应商</label>
-                        <select id="providerSelect">
-                            <option value="">加载中...</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label for="modelSelect">模型</label>
-                        <select id="modelSelect"></select>
-                        <input type="text" id="modelInput" placeholder="自定义模型名称" spellcheck="false" hidden>
-                    </div>
-                    <div class="field field-key">
-                        <label for="apiKey" id="apiKeyLabel">DeepSeek API Key</label>
-                        <input type="password" id="apiKey" placeholder="请输入你的 DeepSeek API Key" autocomplete="off" spellcheck="false">
-                    </div>
-                </div>
+        <!-- 参数条：按使用频率排（起始日每次动 → 供应商/模型常切 → 规则偶用 → Key 一次性） -->
+        <section class="params" aria-label="计算参数">
+            <div class="field param param-date">
+                <label for="startDate">起始日</label>
+                <input type="date" id="startDate">
             </div>
-
-            <div class="card-section">
-                <div class="section-head">
-                    <h2 class="section-title">计算参数</h2>
-                </div>
-                <div class="field-grid">
-                    <div class="field">
-                        <label for="ruleSelect">选择规则</label>
-                        <select id="ruleSelect">
-                            <option value="">加载中...</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label for="startDate">起始日</label>
-                        <input type="date" id="startDate">
-                    </div>
-                </div>
+            <div class="field param">
+                <label for="providerSelect">供应商</label>
+                <select id="providerSelect">
+                    <option value="">加载中...</option>
+                </select>
+            </div>
+            <div class="field param param-model">
+                <label for="modelSelect">模型</label>
+                <select id="modelSelect"></select>
+                <input type="text" id="modelInput" placeholder="自定义模型名称" spellcheck="false" hidden>
+            </div>
+            <div class="field param param-rule" id="ruleField" hidden>
+                <label for="ruleSelect">规则</label>
+                <select id="ruleSelect">
+                    <option value="">加载中...</option>
+                </select>
+            </div>
+            <div class="param-key">
+                <button type="button" id="keyToggle" class="key-toggle" data-state="missing" aria-expanded="false" aria-controls="keyRow">
+                    <span class="key-dot" aria-hidden="true"></span>
+                    <span id="keyState">未配置 Key</span>
+                </button>
             </div>
         </section>
+
+        <!-- API Key：低频，点状态按钮才展开 -->
+        <div class="key-row" id="keyRow" hidden>
+            <div class="field key-field">
+                <label for="apiKey" id="apiKeyLabel">DeepSeek API Key</label>
+                <input type="password" id="apiKey" placeholder="请输入你的 DeepSeek API Key" autocomplete="off" spellcheck="false">
+            </div>
+            <p class="key-note">只保存在本机浏览器，不会上传</p>
+        </div>
 
         <section class="workbench">
             <div class="pane pane-input">
@@ -1228,6 +1285,6 @@
         <button type="submit" form="settingsForm" class="dialog-close" aria-label="关闭">×</button>
     </dialog>
 
-    <script type="module" src="index.js?v=4.8.0"></script>
+    <script type="module" src="index.js?v=4.9.0"></script>
 </body>
 </html>

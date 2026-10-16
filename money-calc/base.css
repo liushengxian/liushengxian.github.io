@@ -85,6 +85,9 @@ input:-webkit-autofill {
 }
 
 /* ---------- 4. 结构元素的默认值（替代 Pico 的排版重置） ---------- */
+/* hidden 属性必须真的隐藏：作者样式里的 display:flex/grid 会压过 UA 的 [hidden] */
+[hidden] { display: none !important; }
+
 h1, h2, h3, h4, h5, h6 { margin: 0; }
 
 label { display: block; }
