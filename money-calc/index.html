@@ -49,7 +49,10 @@
             --shadow-3: 0 24px 60px -12px rgba(15, 23, 42, 0.35);                               /* 模态对话框 */
             --shadow-primary: 0 6px 20px rgba(124, 58, 237, 0.28);
 
-            /* 字体（不引 CDN：字体栈前置 Inter / JetBrains Mono，本机已装则生效） */
+            /* 动效：全站统一一条缓动曲线 */
+            --t: 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+            /* 字体：Latin 由 base.css 自托管（@font-face），中文走系统字体 */
             --font-ui: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
             --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
         }
@@ -240,7 +243,8 @@
             color: var(--c-text);
             font-size: 14px;
             font-family: var(--font-ui);
-            transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
+            font-variant-numeric: tabular-nums;
+            transition: background-color var(--t), border-color var(--t), box-shadow var(--t);
         }
 
         .field input:hover,
@@ -282,7 +286,8 @@
 
         /* 密钥与模型标识用等宽字体（DESIGN.md: Monospace Fields） */
         #apiKey,
-        #modelInput { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0; }
+        #modelInput,
+        #modelSelect { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0; }
 
         .field input:focus,
         .field select:focus,
@@ -496,7 +501,7 @@
         }
 
         /* ---------- 按钮 ---------- */
-        button { font-family: var(--font-ui); cursor: pointer; transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease, border-color .18s ease, color .18s ease; }
+        button { font-family: var(--font-ui); cursor: pointer; transition: background-color var(--t), box-shadow var(--t), transform var(--t), border-color var(--t), color var(--t); }
 
         /* 主操作（Level 3：渐变 + 环境光晕） */
         #calculateBtn {
@@ -731,8 +736,8 @@
 
         /* ---------- 对话框（Level 2） ---------- */
         dialog {
-            width: min(680px, 94vw);
-            max-width: 680px;
+            width: min(720px, 94vw);
+            max-width: 720px;
             max-height: calc(100vh - 2rem);
             overflow: auto;
             margin: auto;             /* 水平/垂直居中 */
@@ -767,6 +772,37 @@
             font-weight: 600;
             line-height: 26px;
             letter-spacing: -0.015em;
+            color: var(--c-text);
+        }
+
+        /* 标题下的一行说明 + 右上角关闭 */
+        .dialog-sub {
+            margin-top: 2px;
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--c-text-3);
+        }
+
+        .dialog-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border: 1px solid transparent;
+            border-radius: var(--r-control);
+            background: transparent;
+            color: var(--c-text-3);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .dialog-close:hover {
+            border-color: var(--c-border);
+            background: var(--c-surface-2);
             color: var(--c-text);
         }
 
@@ -869,7 +905,7 @@
 
         .settings-blanks {
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: 1fr auto 1fr auto;   /* 2×2：两对「标签 + 数字框」一行 */
             align-items: center;
             gap: var(--sp-xs) var(--sp-md);
             margin: 0;
@@ -879,6 +915,7 @@
         }
 
         .settings-blanks legend {
+            grid-column: 1 / -1;
             padding: 0 6px;
             font-size: 13px;
             font-weight: 500;
@@ -890,12 +927,28 @@
         /* 提高优先级，压过 dialog input[type="number"] { width: 100% } */
         dialog .settings-blanks input { width: 64px; }
 
-        .settings-label {
-            display: block;
+        /* ---------- 预览区：标题行 + 角标 + 点阵底纹 ---------- */
+        .preview-head {
+            display: flex;
+            align-items: baseline;
+            gap: var(--sp-sm);
             margin-bottom: var(--sp-xs);
+        }
+
+        .preview-title {
             font-size: 13px;
             font-weight: 500;
             color: var(--c-text-2);
+        }
+
+        .preview-tag {
+            padding: 1px 8px;
+            border-radius: var(--r-chip);
+            background: var(--c-surface-2);
+            color: var(--c-text-2);
+            font-size: 11px;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
         }
 
         #settingsPreview {
@@ -906,7 +959,10 @@
             overflow: auto;
             border: 1px solid var(--c-border);
             border-radius: var(--r-control);
-            background: var(--c-bg);
+            background-color: var(--c-bg);
+            /* 极浅点阵：一眼区分"这是预览，不是输入框" */
+            background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+            background-size: 16px 16px;
             color: var(--c-text);
             font-family: var(--font-mono);
             font-size: 12px;
@@ -967,6 +1023,11 @@
             #clearBtn { width: 100%; min-height: 48px; }
 
             .kbd-hint { display: none; }   /* 触屏没有 ⌘/Ctrl，不显示快捷键提示 */
+
+            /* iOS Safari 聚焦字号 <16px 的输入框会放大整页，移动端统一 16px */
+            :is(.field input, .field select, .pane textarea, dialog input, dialog textarea, #apiKey, #modelInput, #modelSelect) {
+                font-size: 16px;
+            }
 
             .pane-empty-hint { display: none; }
 
@@ -1113,12 +1174,13 @@
         <article>
             <header>
                 <h3>输出设置</h3>
+                <p class="dialog-sub">只影响输出文本的排版，不改动计算结果</p>
             </header>
-            <form method="dialog">
+            <form method="dialog" id="settingsForm">
                 <div class="settings-grid">
                     <label class="span-2" for="headerInput">
                         标题（留空则不显示）
-                        <input type="text" id="headerInput" spellcheck="false">
+                        <input type="text" id="headerInput" spellcheck="false" autofocus>
                     </label>
 
                     <label for="dateFormatInput">
@@ -1149,7 +1211,10 @@
                     </label>
 
                     <div class="span-2">
-                        <div class="settings-label">预览（未计算时用示例数据）</div>
+                        <div class="preview-head">
+                            <span class="preview-title">预览</span>
+                            <span class="preview-tag" id="previewTag" data-state="sample">示例数据</span>
+                        </div>
                         <pre id="settingsPreview"></pre>
                     </div>
                 </div>
@@ -1159,6 +1224,8 @@
                 </footer>
             </form>
         </article>
+        <!-- 关闭放在最后：绝对定位仍显示在右上角，但 Tab 顺序排在字段与按钮之后 -->
+        <button type="submit" form="settingsForm" class="dialog-close" aria-label="关闭">×</button>
     </dialog>
 
     <script type="module" src="index.js?v=4.8.0"></script>

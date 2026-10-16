@@ -31,6 +31,7 @@ const blankBeforeTailInput = document.getElementById('blankBeforeTail');
 const blankAfterTotalInput = document.getElementById('blankAfterTotal');
 const suffixText = document.getElementById('suffixText');
 const settingsPreview = document.getElementById('settingsPreview');
+const previewTag = document.getElementById('previewTag');
 const saveBtn = document.getElementById('saveBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 
@@ -817,10 +818,11 @@ function renderResultView(view, settings) {
 }
 
 // 预览用示例数据（尚未计算过时使用）
+// 注意：monthText 只写月份数字，渲染时统一补 “M”（否则预览会出现 “05MM”）
 const SAMPLE_VIEW = {
     rows: [
-        { monthText: '05M', priceText: '1.43%', periods: [{ startDate: '2027-02-16', endDate: '2027-02-17' }, { startDate: '2027-03-01', endDate: '2027-03-05' }] },
-        { monthText: '07M', priceText: '1.44%', periods: [{ startDate: '2027-05-06', endDate: '2027-05-12' }] }
+        { monthText: '05', priceText: '1.43%', periods: [{ startDate: '2027-02-16', endDate: '2027-02-17' }, { startDate: '2027-03-01', endDate: '2027-03-05' }] },
+        { monthText: '07', priceText: '1.44%', periods: [{ startDate: '2027-05-06', endDate: '2027-05-12' }] }
     ],
     total: { amount: 20, unit: '亿' }
 };
@@ -965,6 +967,12 @@ function readSettingsFromDialog() {
 // 用当前设置即时渲染预览（未计算过时用示例数据）
 function updateSettingsPreview() {
     settingsPreview.textContent = renderResultView(lastView || SAMPLE_VIEW, readSettingsFromDialog());
+
+    if (previewTag) {
+        const isSample = !lastView;
+        previewTag.textContent = isSample ? '示例数据' : '实际结果';
+        previewTag.dataset.state = isSample ? 'sample' : 'actual';
+    }
 }
 
 // 打开设置对话框：填入当前设置
